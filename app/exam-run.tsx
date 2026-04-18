@@ -3,9 +3,9 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { X, Clock, Star, Flag } from 'lucide-react-native';
 import { useEffect, useState } from 'react';
-import { COLORS } from '../constants/colors';
-import { useExam } from '../hooks/useExam';
-import { OptionButton } from '../ui/OptionButton';
+import { COLORS } from '@/constants/colors';
+import { useExam } from '@/hooks/useExam';
+import { OptionButton } from '@/ui/OptionButton';
 
 export default function ExamRunScreen() {
     const router = useRouter();

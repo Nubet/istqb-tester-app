@@ -1,4 +1,4 @@
-import type { QuestionId, AnswerId, Category } from '../../types';
+import type { QuestionId, AnswerId, Category } from '@/types';
 
 export class Question {
     constructor(

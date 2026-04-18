@@ -1,6 +1,6 @@
-import type { IUserProgressRepository } from '../../../repositories/contracts/IUserProgressRepository';
-import type { IQuestionRepository } from '../../../repositories/contracts/IQuestionRepository';
-import { UserProgress } from '../../entities/UserProgress';
+import type { IUserProgressRepository } from '@/repositories/contracts';
+import type { IQuestionRepository } from '@/repositories/contracts';
+import { UserProgress } from '@/services/entities';
 
 export interface ProgressSummary {
     progress: UserProgress;

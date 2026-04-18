@@ -1,6 +1,6 @@
-import type { IExamSessionRepository } from '../contracts/IExamSessionRepository';
-import { ExamSession } from '../../services/entities/ExamSession';
-import type { KeyValueStorage } from '../../infra/storage/types';
+import type { IExamSessionRepository } from '@/repositories/contracts';
+import { ExamSession } from '@/services/entities';
+import type { KeyValueStorage } from '@/infra/storage/types';
 import { ExamSessionMapper } from '../mappers/ExamSessionMapper';
 
 const CURRENT_SESSION_KEY = '@istqb_current_exam_session';

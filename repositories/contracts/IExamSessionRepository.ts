@@ -1,4 +1,4 @@
-import type { ExamSession } from '../../services/entities/ExamSession';
+import type { ExamSession } from '@/services/entities';
 
 export interface IExamSessionRepository {
     getCurrent(): Promise<ExamSession | null>;

@@ -1,8 +1,8 @@
 import { useState, useCallback, useEffect, useRef } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'expo-router';
-import { examService, bookmarkService } from '../services';
-import type { AnswerId } from '../types';
+import { examService, bookmarkService } from '@/services';
+import type { AnswerId } from '@/types';
 
 export function useExam() {
     const router = useRouter();

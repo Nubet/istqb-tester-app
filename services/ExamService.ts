@@ -1,6 +1,6 @@
-import type { AnswerId, ExamResult, Question, QuestionId } from '../types';
-import type { ExamSession } from './entities/ExamSession';
-import { questionRepository, examSessionRepository, userProgressRepository } from '../repositories';
+import type { AnswerId, ExamResult, Question, QuestionId } from '@/types';
+import type { ExamSession } from '@/services/entities';
+import { questionRepository, examSessionRepository, userProgressRepository } from '@/repositories';
 import { StartExamUseCase } from './usecases/exam/StartExam';
 import { AnswerQuestionUseCase } from './usecases/exam/AnswerQuestion';
 import { CompleteExamUseCase } from './usecases/exam/CompleteExam';

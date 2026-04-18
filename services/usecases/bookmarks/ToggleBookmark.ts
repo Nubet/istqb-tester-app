@@ -1,5 +1,5 @@
-import type { IUserProgressRepository } from '../../../repositories/contracts/IUserProgressRepository';
-import type { QuestionId } from '../../../types';
+import type { IUserProgressRepository } from '@/repositories/contracts';
+import type { QuestionId } from '@/types';
 
 export class ToggleBookmarkUseCase {
     constructor(private userProgressRepository: IUserProgressRepository) {}

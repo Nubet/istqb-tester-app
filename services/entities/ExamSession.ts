@@ -1,5 +1,5 @@
-import type { QuestionId, UserAnswer } from '../../types';
-import { DEFAULT_EXAM_CONFIG } from '../../types';
+import type { QuestionId, UserAnswer } from '@/types';
+import { DEFAULT_EXAM_CONFIG } from '@/types';
 
 export class ExamSession {
     constructor(

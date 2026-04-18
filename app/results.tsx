@@ -1,8 +1,8 @@
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
-import { COLORS } from '../constants/colors';
-import { useExamResult } from '../hooks/useExamResult';
+import { COLORS } from '@/constants/colors';
+import { useExamResult } from '@/hooks/useExamResult';
 
 export default function ResultsScreen() {
     const router = useRouter();

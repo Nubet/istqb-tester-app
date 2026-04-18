@@ -2,7 +2,7 @@ import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-nati
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { ArrowLeft, Globe, BookOpen, Bell } from 'lucide-react-native';
-import { COLORS } from '../../constants/colors';
+import { COLORS } from '@/constants/colors';
 
 export default function ProfileScreen() {
     const router = useRouter();

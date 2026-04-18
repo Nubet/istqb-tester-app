@@ -1,4 +1,4 @@
-import type { Question, QuestionId, Category } from '../../types';
+import type { Question, QuestionId, Category } from '@/types';
 
 export interface IQuestionRepository {
     getAll(): Promise<Question[]>;

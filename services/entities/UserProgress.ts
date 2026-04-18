@@ -1,4 +1,4 @@
-import type { QuestionId, Category, CategoryProgress, BookmarkedQuestion } from '../../types';
+import type { QuestionId, Category, CategoryProgress, BookmarkedQuestion } from '@/types';
 
 export class UserProgress {
     constructor(

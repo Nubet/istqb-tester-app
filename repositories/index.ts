@@ -1,4 +1,4 @@
-import { storage } from '../infra/storage';
+import { storage } from '@/infra/storage';
 import { QuestionRepository } from './implementations/QuestionRepository';
 import { ExamSessionRepository } from './implementations/ExamSessionRepository';
 import { UserProgressRepository } from './implementations/UserProgressRepository';

@@ -2,9 +2,9 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { ArrowLeft, RotateCcw } from 'lucide-react-native';
-import { COLORS } from '../../constants/colors';
-import { useLearningSession } from '../../hooks/useLearningSession';
-import { OptionButton } from '../../ui/OptionButton';
+import { COLORS } from '@/constants/colors';
+import { useLearningSession } from '@/hooks/useLearningSession';
+import { OptionButton } from '@/ui/OptionButton';
 
 export default function LearnScreen() {
     const router = useRouter();

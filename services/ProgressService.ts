@@ -1,4 +1,4 @@
-import { questionRepository, userProgressRepository } from '../repositories';
+import { questionRepository, userProgressRepository } from '@/repositories';
 import { GetUserProgressUseCase } from './usecases/progress/GetUserProgress';
 
 const getUserProgressUseCase = new GetUserProgressUseCase(userProgressRepository, questionRepository);

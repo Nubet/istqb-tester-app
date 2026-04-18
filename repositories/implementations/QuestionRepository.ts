@@ -1,6 +1,6 @@
-import type { IQuestionRepository } from '../contracts/IQuestionRepository';
-import type { Question, QuestionId, Category } from '../../types';
-import { mockQuestions } from '../../data/mockData';
+import type { IQuestionRepository } from '@/repositories/contracts';
+import type { Question, QuestionId, Category } from '@/types';
+import { mockQuestions } from '@/data/mockData';
 
 export class QuestionRepository implements IQuestionRepository {
     private questions: Question[] = mockQuestions;

@@ -1,6 +1,6 @@
-import type { IUserProgressRepository } from '../contracts/IUserProgressRepository';
-import { UserProgress } from '../../services/entities/UserProgress';
-import type { KeyValueStorage } from '../../infra/storage/types';
+import type { IUserProgressRepository } from '@/repositories/contracts';
+import { UserProgress } from '@/services/entities';
+import type { KeyValueStorage } from '@/infra/storage/types';
 import { UserProgressMapper } from '../mappers/UserProgressMapper';
 
 const STORAGE_KEY = '@istqb_user_progress';

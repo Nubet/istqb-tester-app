@@ -1,8 +1,8 @@
-import type { IQuestionRepository } from '../../../repositories/contracts/IQuestionRepository';
-import type { IExamSessionRepository } from '../../../repositories/contracts/IExamSessionRepository';
-import type { IUserProgressRepository } from '../../../repositories/contracts/IUserProgressRepository';
-import type { QuestionId, AnswerId, UserAnswer } from '../../../types';
-import { ExamSession } from '../../entities/ExamSession';
+import type { IQuestionRepository } from '@/repositories/contracts';
+import type { IExamSessionRepository } from '@/repositories/contracts';
+import type { IUserProgressRepository } from '@/repositories/contracts';
+import type { QuestionId, AnswerId, UserAnswer } from '@/types';
+import { ExamSession } from '@/services/entities';
 
 export class AnswerQuestionUseCase {
     constructor(

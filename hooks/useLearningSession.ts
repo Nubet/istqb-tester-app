@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react';
 import { useQuery, useMutation } from '@tanstack/react-query';
-import { learningService } from '../services';
-import type { Question, AnswerId, LearningSession } from '../types';
+import { learningService } from '@/services';
+import type { Question, AnswerId, LearningSession } from '@/types';
 
 export function useLearningSession() {
     const [selectedSection, setSelectedSection] = useState<string | null>(null);

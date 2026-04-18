@@ -2,8 +2,8 @@ import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-nati
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { ArrowLeft } from 'lucide-react-native';
-import { COLORS } from '../constants/colors';
-import { glossaryTerms } from '../data/mockData';
+import { COLORS } from '@/constants/colors';
+import { glossaryTerms } from '@/data/mockData';
 
 export default function GlossaryScreen() {
     const router = useRouter();

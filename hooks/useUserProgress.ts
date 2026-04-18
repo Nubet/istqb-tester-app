@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { progressService } from '../services';
+import { progressService } from '@/services';
 
 export function useUserProgress() {
     const { data, isLoading } = useQuery({

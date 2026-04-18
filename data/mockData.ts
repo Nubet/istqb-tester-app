@@ -1,4 +1,4 @@
-import type { Question, GlossaryTerm } from '../types';
+import type { Question, GlossaryTerm } from '@/types';
 
 export const mockQuestions: Question[] = [
     {

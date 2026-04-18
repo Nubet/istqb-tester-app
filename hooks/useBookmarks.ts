@@ -1,7 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { progressService, bookmarkService } from '../services';
-import { UserProgress } from '../services/entities/UserProgress';
-import type { BookmarkedQuestion } from '../types';
+import { progressService, bookmarkService } from '@/services';
+import { UserProgress } from '@/services/entities';
+import type { BookmarkedQuestion } from '@/types';
 
 function reconstructUserProgress(raw: unknown): UserProgress {
     if (raw instanceof UserProgress) {

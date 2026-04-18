@@ -1,6 +1,6 @@
-import type { IExamSessionRepository } from '../../../repositories/contracts/IExamSessionRepository';
-import type { IUserProgressRepository } from '../../../repositories/contracts/IUserProgressRepository';
-import type { ExamResult } from '../../../types';
+import type { IExamSessionRepository } from '@/repositories/contracts';
+import type { IUserProgressRepository } from '@/repositories/contracts';
+import type { ExamResult } from '@/types';
 
 export class CompleteExamUseCase {
     constructor(

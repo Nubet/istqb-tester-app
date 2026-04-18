@@ -1,5 +1,5 @@
-import type { LearningSession, Question } from '../types';
-import { questionRepository } from '../repositories';
+import type { LearningSession, Question } from '@/types';
+import { questionRepository } from '@/repositories';
 import { StartLearningSessionUseCase } from './usecases/learning/StartLearningSession';
 
 const startLearningSessionUseCase = new StartLearningSessionUseCase(questionRepository);

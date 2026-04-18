@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { useRouter } from 'expo-router';
 import { ArrowLeft } from 'lucide-react-native';
-import { COLORS } from '../constants/colors';
+import { COLORS } from '@/constants/colors';
 
 export default function NotFoundScreen() {
     const router = useRouter();

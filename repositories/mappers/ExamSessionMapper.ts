@@ -1,5 +1,5 @@
-import { ExamSession } from '../../services/entities/ExamSession';
-import type { UserAnswer } from '../../types';
+import { ExamSession } from '@/services/entities';
+import type { UserAnswer } from '@/types';
 
 interface ExamSessionRaw {
     id: string;

@@ -1,5 +1,5 @@
-import type { QuestionId } from '../types';
-import { userProgressRepository } from '../repositories';
+import type { QuestionId } from '@/types';
+import { userProgressRepository } from '@/repositories';
 import { ToggleBookmarkUseCase } from './usecases/bookmarks/ToggleBookmark';
 
 const toggleBookmarkUseCase = new ToggleBookmarkUseCase(userProgressRepository);

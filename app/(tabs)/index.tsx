@@ -2,9 +2,9 @@ import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-nati
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { Leaf, BookOpen, Star, Settings, LeafyGreen } from 'lucide-react-native';
-import { ProgressRing } from '../../ui/ProgressRing';
-import { COLORS } from '../../constants/colors';
-import { useUserProgress } from '../../hooks/useUserProgress';
+import { ProgressRing } from '@/ui/ProgressRing';
+import { COLORS } from '@/constants/colors';
+import { useUserProgress } from '@/hooks/useUserProgress';
 
 export default function HomeScreen() {
     const router = useRouter();

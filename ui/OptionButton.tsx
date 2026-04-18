@@ -1,6 +1,6 @@
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
-import { COLORS } from '../constants/colors';
-import type { AnswerId } from '../types';
+import { COLORS } from '@/constants/colors';
+import type { AnswerId } from '@/types';
 
 interface OptionButtonProps {
     option: AnswerId;

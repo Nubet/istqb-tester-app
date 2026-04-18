@@ -1,7 +1,7 @@
-import { ExamSession } from '../../entities/ExamSession';
-import type { IQuestionRepository } from '../../../repositories/contracts/IQuestionRepository';
-import type { IExamSessionRepository } from '../../../repositories/contracts/IExamSessionRepository';
-import { DEFAULT_EXAM_CONFIG } from '../../../types';
+import { ExamSession } from '@/services/entities';
+import type { IQuestionRepository } from '@/repositories/contracts';
+import type { IExamSessionRepository } from '@/repositories/contracts';
+import { DEFAULT_EXAM_CONFIG } from '@/types';
 
 export class StartExamUseCase {
     constructor(
