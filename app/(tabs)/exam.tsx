@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { Clock, BookOpen, Target, ArrowRight } from 'lucide-react-native';
+import { ScreenHeader } from '@/ui/ScreenHeader';
 import { COLORS } from '@/constants/colors';
 
 export default function ExamScreen() {
@@ -27,9 +27,7 @@ export default function ExamScreen() {
 
     return (
         <View style={styles.container}>
-            <SafeAreaView style={styles.header} edges={['top']}>
-                <Text style={styles.headerTitle}>Egzamin próbny</Text>
-            </SafeAreaView>
+            <ScreenHeader title="Egzamin próbny" containerStyle={styles.header} />
 
             <View style={styles.content}>
                 <View style={styles.card}>
@@ -77,17 +75,8 @@ const styles = StyleSheet.create({
         backgroundColor: COLORS.background,
     },
     header: {
-        backgroundColor: COLORS.primary,
         paddingHorizontal: 24,
         paddingBottom: 20,
-        borderBottomLeftRadius: 24,
-        borderBottomRightRadius: 24,
-    },
-    headerTitle: {
-        fontSize: 18,
-        fontWeight: '700',
-        color: COLORS.card,
-        textAlign: 'center',
     },
     content: {
         flex: 1,

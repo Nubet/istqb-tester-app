@@ -1,8 +1,8 @@
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Leaf, BookOpen, Star, Settings, LeafyGreen } from 'lucide-react-native';
 import { ProgressRing } from '@/ui/ProgressRing';
+import { ScreenHeader } from '@/ui/ScreenHeader';
 import { COLORS } from '@/constants/colors';
 import { useUserProgress } from '@/hooks/useUserProgress';
 
@@ -18,12 +18,12 @@ export default function HomeScreen() {
 
     return (
         <View style={styles.container}>
-            <SafeAreaView style={styles.header} edges={['top']}>
+            <ScreenHeader bottomRadius={false} containerStyle={styles.header}>
                 <View style={styles.headerContent}>
                     <Text style={styles.title}>Testy ISTQB</Text>
                     <Text style={styles.subtitle}>Przygotuj się i zdaj za pierwszym razem.</Text>
                 </View>
-            </SafeAreaView>
+            </ScreenHeader>
 
             <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
                 <View style={styles.card}>

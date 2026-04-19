@@ -4,6 +4,7 @@ import { useRouter } from 'expo-router';
 import { useEffect, useState, useCallback } from 'react';
 import { ArrowLeft, Star, Lightbulb, CheckSquare, XSquare } from 'lucide-react-native';
 import { COLORS } from '@/constants/colors';
+import { ScreenHeader } from '@/ui/ScreenHeader';
 import { useHorizontalSwipe } from '@/hooks/useHorizontalSwipe';
 import { useBookmarks } from '@/hooks/useBookmarks';
 import type { AnswerId } from '@/types';
@@ -84,13 +85,7 @@ export default function BookmarksScreen() {
     if (isEmpty || questions.length === 0) {
         return (
             <View style={styles.container}>
-                <SafeAreaView style={styles.header} edges={['top']}>
-                    <TouchableOpacity onPress={() => router.back()} style={styles.iconBtn}>
-                        <ArrowLeft size={20} color={COLORS.card} />
-                    </TouchableOpacity>
-                    <Text style={styles.headerTitle}>Oznaczone</Text>
-                    <View style={styles.placeholder} />
-                </SafeAreaView>
+                <ScreenHeader title="Oznaczone" />
 
                 <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
                     <View style={styles.empty}>
@@ -106,13 +101,7 @@ export default function BookmarksScreen() {
     if (isLoadingQuestions || !currentQuestion) {
         return (
             <View style={styles.container}>
-                <SafeAreaView style={styles.header} edges={['top']}>
-                    <TouchableOpacity onPress={() => router.back()} style={styles.iconBtn}>
-                        <ArrowLeft size={20} color={COLORS.card} />
-                    </TouchableOpacity>
-                    <Text style={styles.headerTitle}>Oznaczone</Text>
-                    <View style={styles.placeholder} />
-                </SafeAreaView>
+                <ScreenHeader title="Oznaczone" />
                 <View style={styles.center}>
                     <Text style={styles.loading}>Ładowanie pytań...</Text>
                 </View>
@@ -122,26 +111,21 @@ export default function BookmarksScreen() {
 
     return (
         <View style={styles.container}>
-            <SafeAreaView style={styles.header} edges={['top']}>
-                <View style={styles.headerTopRow}>
-                    <TouchableOpacity onPress={() => router.back()} style={styles.iconBtn}>
-                        <ArrowLeft size={22} color={COLORS.card} />
+            <ScreenHeader
+                title={`Pytanie ${currentIndex + 1} z ${totalQuestions}`}
+                rightActions={
+                    <TouchableOpacity
+                        style={styles.iconBtn}
+                        onPress={handleToggleBookmark}
+                    >
+                        <Star
+                            size={19}
+                            color={currentQuestionBookmarked ? COLORS.warning : COLORS.card}
+                            fill={currentQuestionBookmarked ? COLORS.warning : 'transparent'}
+                        />
                     </TouchableOpacity>
-                    <Text style={styles.headerTitle}>Pytanie {currentIndex + 1} z {totalQuestions}</Text>
-                    <View style={styles.headerActions}>
-                        <TouchableOpacity
-                            style={styles.iconBtn}
-                            onPress={handleToggleBookmark}
-                        >
-                            <Star
-                                size={19}
-                                color={currentQuestionBookmarked ? COLORS.warning : COLORS.card}
-                                fill={currentQuestionBookmarked ? COLORS.warning : 'transparent'}
-                            />
-                        </TouchableOpacity>
-                    </View>
-                </View>
-            </SafeAreaView>
+                }
+            />
 
             <Animated.View 
                 style={[
@@ -249,25 +233,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: COLORS.background,
-    },
-    header: {
-        backgroundColor: COLORS.primary,
-        paddingHorizontal: 10,
-        paddingBottom: 12,
-        borderBottomLeftRadius: 24,
-        borderBottomRightRadius: 24,
-    },
-    headerTopRow: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        paddingHorizontal: 6,
-        paddingBottom: 8,
-        paddingTop: 8,
-    },
-    headerActions: {
-        flexDirection: 'row',
-        gap: 8,
     },
     iconBtn: {
         width: 38,

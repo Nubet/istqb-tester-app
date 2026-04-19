@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
-import { ArrowLeft, Globe, BookOpen, Bell } from 'lucide-react-native';
+import { Globe, BookOpen, Bell } from 'lucide-react-native';
+import { ScreenHeader } from '@/ui/ScreenHeader';
 import { COLORS } from '@/constants/colors';
 
 export default function ProfileScreen() {
@@ -27,13 +27,7 @@ export default function ProfileScreen() {
 
     return (
         <View style={styles.container}>
-            <SafeAreaView style={styles.header} edges={['top']}>
-                <TouchableOpacity onPress={() => router.back()} style={styles.iconBtn}>
-                    <ArrowLeft size={20} color={COLORS.card} />
-                </TouchableOpacity>
-                <Text style={styles.headerTitle}>Ustawienia</Text>
-                <View style={styles.placeholder} />
-            </SafeAreaView>
+            <ScreenHeader title="Ustawienia" />
 
             <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
                 <View style={styles.list}>
@@ -64,32 +58,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: COLORS.background,
-    },
-    header: {
-        backgroundColor: COLORS.primary,
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        paddingHorizontal: 16,
-        paddingBottom: 20,
-        borderBottomLeftRadius: 24,
-        borderBottomRightRadius: 24,
-    },
-    iconBtn: {
-        width: 40,
-        height: 40,
-        borderRadius: 20,
-        backgroundColor: 'rgba(255,255,255,0.2)',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    headerTitle: {
-        fontSize: 18,
-        fontWeight: '700',
-        color: COLORS.card,
-    },
-    placeholder: {
-        width: 40,
     },
     content: {
         flex: 1,

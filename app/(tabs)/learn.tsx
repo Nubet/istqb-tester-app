@@ -4,6 +4,7 @@ import { useRouter } from 'expo-router';
 import { useEffect, useState, useCallback } from 'react';
 import { ArrowLeft, Star, Funnel, ChevronLeft, ChevronRight, Lightbulb, CheckSquare, XSquare } from 'lucide-react-native';
 import { COLORS } from '@/constants/colors';
+import { ScreenHeader } from '@/ui/ScreenHeader';
 import { useLearningSession } from '@/hooks/useLearningSession';
 import { useHorizontalSwipe } from '@/hooks/useHorizontalSwipe';
 import { useBookmarks } from '@/hooks/useBookmarks';
@@ -111,13 +112,7 @@ export default function LearnScreen() {
     if (isSectionSelection) {
         return (
             <View style={styles.container}>
-                <SafeAreaView style={styles.header} edges={['top']}>
-                    <TouchableOpacity onPress={() => router.back()} style={styles.iconBtn}>
-                        <ArrowLeft size={20} color={COLORS.card} />
-                    </TouchableOpacity>
-                    <Text style={styles.headerTitle}>Tryb nauki</Text>
-                    <View style={styles.placeholder} />
-                </SafeAreaView>
+                <ScreenHeader title="Tryb nauki" />
 
                 <View style={styles.content}>
                     <Text style={styles.sectionIntro}>Wybierz sekcję, z której chcesz ćwiczyć pytania.</Text>
@@ -150,13 +145,7 @@ export default function LearnScreen() {
     if (!currentQuestion) {
         return (
             <View style={styles.container}>
-                <SafeAreaView style={styles.header} edges={['top']}>
-                    <TouchableOpacity onPress={() => router.back()} style={styles.iconBtn}>
-                        <ArrowLeft size={20} color={COLORS.card} />
-                    </TouchableOpacity>
-                    <Text style={styles.headerTitle}>Tryb nauki</Text>
-                    <View style={styles.placeholder} />
-                </SafeAreaView>
+                <ScreenHeader title="Tryb nauki" />
                 <View style={styles.center}>
                     <Text style={styles.loading}>Ładowanie pytań...</Text>
                 </View>
@@ -166,13 +155,10 @@ export default function LearnScreen() {
 
     return (
         <View style={styles.container}>
-            <SafeAreaView style={styles.header} edges={['top']}>
-                <View style={styles.headerTopRow}>
-                    <TouchableOpacity onPress={() => router.back()} style={styles.iconBtn}>
-                        <ArrowLeft size={22} color={COLORS.card} />
-                    </TouchableOpacity>
-                    <Text style={styles.headerTitle}>Pytanie {currentIndex + 1} z {totalQuestions}</Text>
-                    <View style={styles.headerActions}>
+            <ScreenHeader
+                title={`Pytanie ${currentIndex + 1} z ${totalQuestions}`}
+                rightActions={
+                    <>
                         <TouchableOpacity style={styles.iconBtn} onPress={() => setIsFilterOpen((prev) => !prev)}>
                             <Funnel size={19} color={COLORS.card} />
                         </TouchableOpacity>
@@ -186,9 +172,9 @@ export default function LearnScreen() {
                                 fill={currentQuestionBookmarked ? COLORS.warning : 'transparent'}
                             />
                         </TouchableOpacity>
-                    </View>
-                </View>
-
+                    </>
+                }
+            >
                 {isFilterOpen && (
                     <View style={styles.filterPanel}>
                         <Text style={styles.filterTitle}>Filtruj pytania</Text>
@@ -251,8 +237,7 @@ export default function LearnScreen() {
                         <ChevronRight size={20} color={!canGoToNext ? COLORS.textMuted : COLORS.card} />
                     </TouchableOpacity>
                 </View>
-
-            </SafeAreaView>
+            </ScreenHeader>
 
             <Animated.View 
                 style={[
@@ -360,22 +345,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: COLORS.background,
-    },
-    header: {
-        backgroundColor: COLORS.primary,
-        paddingHorizontal: 10,
-        paddingBottom: 12,
-    },
-    headerTopRow: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        paddingHorizontal: 6,
-        paddingBottom: 8,
-    },
-    headerActions: {
-        flexDirection: 'row',
-        gap: 8,
     },
     filterPanel: {
         backgroundColor: COLORS.card,
