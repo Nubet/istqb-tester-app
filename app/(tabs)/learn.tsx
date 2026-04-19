@@ -1,10 +1,11 @@
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { ArrowLeft, Star, Funnel, ChevronLeft, ChevronRight, Lightbulb, CheckSquare, XSquare } from 'lucide-react-native';
 import { COLORS } from '@/constants/colors';
 import { useLearningSession } from '@/hooks/useLearningSession';
+import { useHorizontalSwipe } from '@/hooks/useHorizontalSwipe';
 import { useBookmarks } from '@/hooks/useBookmarks';
 
 type QuestionFilter = 'all' | 'unanswered' | 'wrong' | 'correct';
@@ -55,15 +56,20 @@ export default function LearnScreen() {
     const currentQuestionBookmarked = currentQuestion ? isBookmarked(currentQuestion.id) : false;
     const answerStatusText = isCorrect ? 'Odpowiedź poprawna' : 'Odpowiedź błędna';
 
-    const goToPreviousVisibleQuestion = () => {
+    const goToPreviousVisibleQuestion = useCallback(() => {
         if (!canGoToPrevious) return;
         goToQuestion(filteredQuestionIndexes[currentFilteredPosition - 1]);
-    };
+    }, [canGoToPrevious, currentFilteredPosition, filteredQuestionIndexes, goToQuestion]);
 
-    const goToNextVisibleQuestion = () => {
+    const goToNextVisibleQuestion = useCallback(() => {
         if (!canGoToNext) return;
         goToQuestion(filteredQuestionIndexes[currentFilteredPosition + 1]);
-    };
+    }, [canGoToNext, currentFilteredPosition, filteredQuestionIndexes, goToQuestion]);
+
+    const swipeHandlers = useHorizontalSwipe({
+        onSwipeLeft: goToNextVisibleQuestion,
+        onSwipeRight: goToPreviousVisibleQuestion,
+    });
 
     const selectFilter = (filter: QuestionFilter) => {
         setQuestionFilter(filter);
@@ -247,7 +253,7 @@ export default function LearnScreen() {
 
             </SafeAreaView>
 
-            <View style={[styles.content, { marginTop: hasAnswered ? -8 : 0 }]}>
+            <View style={[styles.content, { marginTop: hasAnswered ? -8 : 0 }]} {...swipeHandlers}>
                 {showAnswerBanner && (
                     <View style={[styles.answerBannerOverlay, isCorrect ? styles.answerBannerCorrect : styles.answerBannerWrong]}>
                         {isCorrect ? (
