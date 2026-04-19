@@ -33,6 +33,14 @@ export class QuestionRepository implements IQuestionRepository {
         return mapRowToQuestion(row);
     }
 
+    async getByIds(ids: QuestionId[]): Promise<Question[]> {
+        if (ids.length === 0) return [];
+        const db = await getDb();
+        const placeholders = ids.map(() => '?').join(',');
+        const rows = await db.getAllAsync<any>(`SELECT * FROM questions WHERE id IN (${placeholders})`, ids);
+        return rows.map(mapRowToQuestion);
+    }
+
     async getByCategory(category: Category): Promise<Question[]> {
         const db = await getDb();
         const rows = await db.getAllAsync<any>('SELECT * FROM questions WHERE category = ?', [category]);

@@ -37,7 +37,7 @@ export class UserProgressMapper {
             bookmarkedQuestionIds: progress.bookmarkedQuestionIds,
             completedQuestionIds: progress.completedQuestionIds,
             categoryStats: Array.from(progress.categoryStats.entries()),
-            bookmarks: [], // Bookmarks are tracked via bookmarkedQuestionIds
+            bookmarks: progress.getAllBookmarks().map((b) => [b.questionId, b]),
         };
     }
 }

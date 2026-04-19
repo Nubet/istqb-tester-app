@@ -14,7 +14,6 @@ export class LearningService {
     }
 
     async getSessionQuestions(questionIds: string[]): Promise<Question[]> {
-        const allQuestions = await Promise.all(questionIds.map((id) => questionRepository.getById(id)));
-        return allQuestions.filter((q): q is Question => q !== null);
+        return questionRepository.getByIds(questionIds);
     }
 }

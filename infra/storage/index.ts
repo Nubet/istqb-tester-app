@@ -1,3 +1,3 @@
-import { AsyncStorageAdapter } from './asyncStorageAdapter';
+import { SqliteKeyValueAdapter } from './sqliteKeyValueAdapter';
 
-export const storage = new AsyncStorageAdapter();
+export const storage = new SqliteKeyValueAdapter();

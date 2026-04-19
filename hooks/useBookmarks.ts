@@ -1,7 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { progressService, bookmarkService } from '@/services';
+import { progressService, bookmarkService, learningService } from '@/services';
 import { UserProgress } from '@/services/entities';
-import type { BookmarkedQuestion } from '@/types';
+import type { BookmarkedQuestion, Question } from '@/types';
 
 function reconstructUserProgress(raw: unknown): UserProgress {
     if (raw instanceof UserProgress) {
@@ -48,6 +48,14 @@ export function useBookmarks() {
     });
 
     const progress = reconstructUserProgress(rawProgress);
+    const bookmarks: BookmarkedQuestion[] = progress.getAllBookmarks();
+    const bookmarkIds = bookmarks.map(b => b.questionId);
+
+    const { data: questions = [], isLoading: isLoadingQuestions } = useQuery({
+        queryKey: ['bookmarkedQuestions', bookmarkIds],
+        queryFn: () => learningService.getSessionQuestions(bookmarkIds),
+        enabled: bookmarkIds.length > 0,
+    });
 
     const toggleBookmark = useMutation({
         mutationFn: ({ questionId, source }: { questionId: string; source: 'exam' | 'learning' }) =>
@@ -57,10 +65,10 @@ export function useBookmarks() {
         },
     });
 
-    const bookmarks: BookmarkedQuestion[] = progress.getAllBookmarks();
-
     return {
         bookmarks,
+        questions,
+        isLoadingQuestions,
         isEmpty: bookmarks.length === 0,
         toggleBookmark: toggleBookmark.mutate,
         isBookmarked: (questionId: string) => progress.isBookmarked(questionId),
