@@ -1,10 +1,13 @@
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
-import { ArrowLeft, RotateCcw } from 'lucide-react-native';
+import { useEffect, useState } from 'react';
+import { ArrowLeft, Star, Funnel, ChevronLeft, ChevronRight, Lightbulb } from 'lucide-react-native';
 import { COLORS } from '@/constants/colors';
 import { useLearningSession } from '@/hooks/useLearningSession';
-import { OptionButton } from '@/ui/OptionButton';
+import { useBookmarks } from '@/hooks/useBookmarks';
+
+type QuestionFilter = 'all' | 'unanswered' | 'wrong' | 'correct';
 
 export default function LearnScreen() {
     const router = useRouter();
@@ -12,19 +15,73 @@ export default function LearnScreen() {
         sections,
         selectedSection,
         isSectionSelection,
+        questionIds,
+        answersByQuestionId,
         currentQuestion,
         currentIndex,
         totalQuestions,
-        selectedAnswer,
         hasAnswered,
         isCorrect,
         startSection,
-        backToSections,
         answerQuestion,
-        nextQuestion,
+        goToQuestion,
         isLoadingSections,
         isStartingSection,
     } = useLearningSession();
+    const { toggleBookmark, isBookmarked } = useBookmarks();
+
+    const [showExplanation, setShowExplanation] = useState(false);
+    const [isFilterOpen, setIsFilterOpen] = useState(false);
+    const [questionFilter, setQuestionFilter] = useState<QuestionFilter>('all');
+
+    const filteredQuestionIndexes = questionIds
+        .map((questionId, index) => ({ questionId, index }))
+        .filter(({ questionId }) => {
+            const answerState = answersByQuestionId[questionId];
+
+            if (questionFilter === 'all') return true;
+            if (questionFilter === 'unanswered') return !answerState;
+            if (questionFilter === 'wrong') return !!answerState && !answerState.isCorrect;
+            return !!answerState && answerState.isCorrect;
+        })
+        .map(({ index }) => index);
+
+    const currentFilteredPosition = filteredQuestionIndexes.indexOf(currentIndex);
+    const canGoToPrevious = currentFilteredPosition > 0;
+    const canGoToNext = currentFilteredPosition >= 0 && currentFilteredPosition < filteredQuestionIndexes.length - 1;
+    const currentQuestionBookmarked = currentQuestion ? isBookmarked(currentQuestion.id) : false;
+
+    const goToPreviousVisibleQuestion = () => {
+        if (!canGoToPrevious) return;
+        goToQuestion(filteredQuestionIndexes[currentFilteredPosition - 1]);
+    };
+
+    const goToNextVisibleQuestion = () => {
+        if (!canGoToNext) return;
+        goToQuestion(filteredQuestionIndexes[currentFilteredPosition + 1]);
+    };
+
+    const selectFilter = (filter: QuestionFilter) => {
+        setQuestionFilter(filter);
+        setIsFilterOpen(false);
+    };
+
+    const getFilterLabel = (filter: QuestionFilter) => {
+        if (filter === 'all') return 'Wszystkie';
+        if (filter === 'unanswered') return 'Bez odpowiedzi';
+        if (filter === 'wrong') return 'Bledne odpowiedzi';
+        return 'Poprawne odpowiedzi';
+    };
+
+    useEffect(() => {
+        setShowExplanation(false);
+    }, [currentIndex, selectedSection]);
+
+    useEffect(() => {
+        if (!filteredQuestionIndexes.includes(currentIndex) && filteredQuestionIndexes.length > 0) {
+            goToQuestion(filteredQuestionIndexes[0]);
+        }
+    }, [currentIndex, filteredQuestionIndexes, goToQuestion]);
 
     if (isSectionSelection) {
         return (
@@ -85,53 +142,113 @@ export default function LearnScreen() {
     return (
         <View style={styles.container}>
             <SafeAreaView style={styles.header} edges={['top']}>
-                <TouchableOpacity onPress={() => router.back()} style={styles.iconBtn}>
-                    <ArrowLeft size={20} color={COLORS.card} />
-                </TouchableOpacity>
-                <Text style={styles.headerTitle}>{selectedSection || 'Tryb nauki'}</Text>
-                <TouchableOpacity onPress={backToSections} style={styles.iconBtn}>
-                    <RotateCcw size={20} color={COLORS.card} />
-                </TouchableOpacity>
+                <View style={styles.headerTopRow}>
+                    <TouchableOpacity onPress={() => router.back()} style={styles.iconBtn}>
+                        <ArrowLeft size={22} color={COLORS.card} />
+                    </TouchableOpacity>
+                    <Text style={styles.headerTitle}>Pytanie {currentIndex + 1} z {totalQuestions}</Text>
+                    <View style={styles.headerActions}>
+                        <TouchableOpacity style={styles.iconBtn} onPress={() => setIsFilterOpen((prev) => !prev)}>
+                            <Funnel size={19} color={COLORS.card} />
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={styles.iconBtn}
+                            onPress={() => currentQuestion && toggleBookmark({ questionId: currentQuestion.id, source: 'learning' })}
+                        >
+                            <Star
+                                size={19}
+                                color={currentQuestionBookmarked ? COLORS.warning : COLORS.card}
+                                fill={currentQuestionBookmarked ? COLORS.warning : 'transparent'}
+                            />
+                        </TouchableOpacity>
+                    </View>
+                </View>
+
+                {isFilterOpen && (
+                    <View style={styles.filterPanel}>
+                        <Text style={styles.filterTitle}>Filtruj pytania</Text>
+                        {(['all', 'unanswered', 'wrong', 'correct'] as QuestionFilter[]).map((filterOption) => {
+                            const active = questionFilter === filterOption;
+                            return (
+                                <TouchableOpacity
+                                    key={filterOption}
+                                    style={[styles.filterOption, active && styles.filterOptionActive]}
+                                    onPress={() => selectFilter(filterOption)}
+                                >
+                                    <Text style={[styles.filterOptionText, active && styles.filterOptionTextActive]}>
+                                        {getFilterLabel(filterOption)}
+                                    </Text>
+                                </TouchableOpacity>
+                            );
+                        })}
+                    </View>
+                )}
+
+                <View style={styles.quickNavRow}>
+                    <TouchableOpacity
+                        onPress={goToPreviousVisibleQuestion}
+                        style={[styles.quickArrowBtn, !canGoToPrevious && styles.quickArrowBtnDisabled]}
+                        disabled={!canGoToPrevious}
+                    >
+                        <ChevronLeft size={20} color={!canGoToPrevious ? COLORS.textMuted : COLORS.card} />
+                    </TouchableOpacity>
+
+                    <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.quickStepsContainer}>
+                        {filteredQuestionIndexes.map((index) => {
+                            const isActive = index === currentIndex;
+                            return (
+                                <TouchableOpacity
+                                    key={`step-${index}`}
+                                    style={[styles.quickStep, isActive && styles.quickStepActive]}
+                                    onPress={() => goToQuestion(index)}
+                                >
+                                    <Text style={[styles.quickStepText, isActive && styles.quickStepTextActive]}>{index + 1}</Text>
+                                </TouchableOpacity>
+                            );
+                        })}
+                    </ScrollView>
+
+                    <TouchableOpacity
+                        onPress={goToNextVisibleQuestion}
+                        style={[styles.quickArrowBtn, !canGoToNext && styles.quickArrowBtnDisabled]}
+                        disabled={!canGoToNext}
+                    >
+                        <ChevronRight size={20} color={!canGoToNext ? COLORS.textMuted : COLORS.card} />
+                    </TouchableOpacity>
+                </View>
             </SafeAreaView>
 
             <View style={styles.content}>
-                <Text style={styles.questionMeta}>Mikro-sesja {currentIndex + 1}/{totalQuestions}</Text>
-
                 <View style={styles.questionCard}>
                     <Text style={styles.questionText}>{currentQuestion.text}</Text>
                 </View>
 
-                <View style={styles.options}>
-                    {(['A', 'B', 'C', 'D'] as const).map((option) => (
-                        <OptionButton
-                            key={option}
-                            option={option}
-                            text={currentQuestion.options[option]}
-                            selected={selectedAnswer === option}
-                            correct={hasAnswered && option === currentQuestion.correctAnswer}
-                            wrong={hasAnswered && selectedAnswer === option && option !== currentQuestion.correctAnswer}
-                            disabled={hasAnswered}
-                            onPress={() => answerQuestion(option)}
-                        />
-                    ))}
-                </View>
+                <TouchableOpacity style={styles.explainBtn} onPress={() => setShowExplanation((prev) => !prev)}>
+                    <Lightbulb size={18} color={COLORS.primary} />
+                    <Text style={styles.explainBtnText}>{showExplanation ? 'Ukryj wyjaśnienie pytania' : 'Pokaż wyjaśnienie pytania'}</Text>
+                </TouchableOpacity>
+
+                {showExplanation && (
+                    <View style={styles.feedback}>
+                        <Text style={styles.feedbackText}>{currentQuestion.explanation}</Text>
+                    </View>
+                )}
 
                 {hasAnswered && (
-                    <View style={[styles.feedback, { borderTopColor: isCorrect ? COLORS.success : COLORS.danger }]}>
-                        <Text style={[styles.feedbackTitle, { color: isCorrect ? COLORS.success : COLORS.danger }]}>
-                            {isCorrect ? 'Poprawna odpowiedź!' : 'Niepoprawna odpowiedź'}
+                    <View style={[styles.answerState, { borderColor: isCorrect ? COLORS.success : COLORS.danger }]}> 
+                        <Text style={[styles.answerStateText, { color: isCorrect ? COLORS.success : COLORS.danger }]}>
+                            {isCorrect ? 'Poprawna odpowiedź' : 'Niepoprawna odpowiedź'}
                         </Text>
-                        <Text style={styles.feedbackText}>{currentQuestion.explanation}</Text>
                     </View>
                 )}
             </View>
 
             <View style={styles.controls}>
-                <TouchableOpacity style={styles.ghostBtn} onPress={nextQuestion}>
-                    <Text style={styles.ghostText}>Pomiń</Text>
+                <TouchableOpacity style={styles.ctaBtn} onPress={() => answerQuestion('A')} disabled={hasAnswered}>
+                    <Text style={styles.ctaText}>Tak</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.ctaBtn} onPress={nextQuestion}>
-                    <Text style={styles.ctaText}>Dalej</Text>
+                <TouchableOpacity style={styles.ctaBtn} onPress={() => answerQuestion('B')} disabled={hasAnswered}>
+                    <Text style={styles.ctaText}>Nie</Text>
                 </TouchableOpacity>
             </View>
         </View>
@@ -145,33 +262,106 @@ const styles = StyleSheet.create({
     },
     header: {
         backgroundColor: COLORS.primary,
+        paddingHorizontal: 10,
+        paddingBottom: 12,
+    },
+    headerTopRow: {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        paddingHorizontal: 16,
-        paddingBottom: 20,
-        borderBottomLeftRadius: 24,
-        borderBottomRightRadius: 24,
+        paddingHorizontal: 6,
+        paddingBottom: 8,
+    },
+    headerActions: {
+        flexDirection: 'row',
+        gap: 8,
+    },
+    filterPanel: {
+        backgroundColor: COLORS.card,
+        borderRadius: 14,
+        padding: 12,
+        marginBottom: 8,
+    },
+    filterTitle: {
+        fontSize: 13,
+        fontWeight: '700',
+        color: COLORS.textMuted,
+        marginBottom: 8,
+    },
+    filterOption: {
+        paddingVertical: 10,
+        paddingHorizontal: 10,
+        borderRadius: 10,
+    },
+    filterOptionActive: {
+        backgroundColor: COLORS.primarySoft,
+    },
+    filterOptionText: {
+        fontSize: 14,
+        fontWeight: '600',
+        color: COLORS.textMain,
+    },
+    filterOptionTextActive: {
+        color: COLORS.primary,
     },
     iconBtn: {
-        width: 40,
-        height: 40,
-        borderRadius: 20,
+        width: 38,
+        height: 38,
+        borderRadius: 19,
         backgroundColor: 'rgba(255,255,255,0.2)',
         alignItems: 'center',
         justifyContent: 'center',
     },
     headerTitle: {
-        fontSize: 18,
+        fontSize: 16,
         fontWeight: '700',
         color: COLORS.card,
+    },
+    quickNavRow: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 8,
+    },
+    quickArrowBtn: {
+        width: 36,
+        height: 36,
+        borderRadius: 10,
+        backgroundColor: 'rgba(255,255,255,0.2)',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    quickArrowBtnDisabled: {
+        backgroundColor: 'rgba(255,255,255,0.1)',
+    },
+    quickStepsContainer: {
+        gap: 8,
+        paddingRight: 6,
+    },
+    quickStep: {
+        minWidth: 44,
+        height: 36,
+        borderRadius: 8,
+        backgroundColor: 'rgba(255,255,255,0.2)',
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingHorizontal: 10,
+    },
+    quickStepActive: {
+        backgroundColor: COLORS.card,
+    },
+    quickStepText: {
+        color: COLORS.card,
+        fontWeight: '700',
+    },
+    quickStepTextActive: {
+        color: COLORS.primary,
     },
     placeholder: {
         width: 40,
     },
     content: {
         flex: 1,
-        padding: 24,
+        padding: 16,
     },
     center: {
         flex: 1,
@@ -219,11 +409,14 @@ const styles = StyleSheet.create({
         fontWeight: '600',
         color: COLORS.textMuted,
     },
+    options: {
+        gap: 12,
+    },
     questionCard: {
         backgroundColor: COLORS.card,
-        borderRadius: 24,
-        padding: 24,
-        marginBottom: 16,
+        borderRadius: 20,
+        padding: 20,
+        marginBottom: 12,
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 4 },
         shadowOpacity: 0.03,
@@ -231,31 +424,37 @@ const styles = StyleSheet.create({
         elevation: 2,
     },
     questionText: {
-        fontSize: 19,
-        lineHeight: 26,
-        fontWeight: '700',
+        fontSize: 18,
+        lineHeight: 25,
+        fontWeight: '600',
         color: COLORS.textMain,
-        textAlign: 'center',
     },
-    options: {
-        gap: 12,
+    explainBtn: {
+        borderWidth: 1.5,
+        borderColor: COLORS.primary,
+        borderRadius: 999,
+        paddingVertical: 12,
+        paddingHorizontal: 16,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: 8,
+    },
+    explainBtnText: {
+        color: COLORS.primary,
+        fontWeight: '700',
+        fontSize: 15,
     },
     feedback: {
         backgroundColor: COLORS.card,
-        borderRadius: 24,
-        padding: 20,
-        marginTop: 16,
-        borderTopWidth: 6,
+        borderRadius: 16,
+        padding: 16,
+        marginTop: 10,
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 4 },
         shadowOpacity: 0.03,
         shadowRadius: 12,
         elevation: 2,
-    },
-    feedbackTitle: {
-        fontSize: 16,
-        fontWeight: '800',
-        marginBottom: 6,
     },
     feedbackText: {
         fontSize: 14,
@@ -263,29 +462,27 @@ const styles = StyleSheet.create({
         fontWeight: '600',
         color: COLORS.textMuted,
     },
-    controls: {
-        flexDirection: 'row',
-        gap: 16,
-        padding: 24,
-    },
-    ghostBtn: {
-        flex: 1,
-        borderWidth: 2,
-        borderColor: COLORS.border,
-        borderRadius: 100,
-        padding: 16,
-        alignItems: 'center',
+    answerState: {
+        marginTop: 10,
+        borderWidth: 1.5,
+        borderRadius: 12,
+        paddingVertical: 10,
+        paddingHorizontal: 12,
         backgroundColor: COLORS.card,
     },
-    ghostText: {
-        fontSize: 16,
+    answerStateText: {
+        fontSize: 14,
         fontWeight: '700',
-        color: COLORS.textMain,
+        textAlign: 'center',
+    },
+    controls: {
+        gap: 12,
+        paddingHorizontal: 16,
+        paddingBottom: 16,
     },
     ctaBtn: {
-        flex: 1,
         backgroundColor: COLORS.primary,
-        borderRadius: 100,
+        borderRadius: 16,
         padding: 16,
         alignItems: 'center',
     },
