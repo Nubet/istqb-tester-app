@@ -1,5 +1,6 @@
 import * as SQLite from 'expo-sqlite';
 import seedData from '@/data/questions.normalized.json';
+import glossaryData from '@/glosariusz.json';
 
 let dbInstance: SQLite.SQLiteDatabase | null = null;
 
@@ -31,6 +32,13 @@ async function setupDatabase(db: SQLite.SQLiteDatabase) {
             key TEXT PRIMARY KEY,
             value TEXT NOT NULL
         );
+
+        CREATE TABLE IF NOT EXISTS glossary (
+            id TEXT PRIMARY KEY,
+            term TEXT NOT NULL,
+            definition TEXT NOT NULL
+        );
+        CREATE INDEX IF NOT EXISTS idx_glossary_term ON glossary(term);
     `);
 
     const result = await db.getFirstAsync<{ count: number }>('SELECT COUNT(*) as count FROM questions');
@@ -63,7 +71,34 @@ async function setupDatabase(db: SQLite.SQLiteDatabase) {
                     });
                 }
             });
-            console.log('Database seeded successfully.');
+            console.log('Questions seeded successfully.');
+        } finally {
+            await statement.finalizeAsync();
+        }
+    }
+
+    const glossaryResult = await db.getFirstAsync<{ count: number }>('SELECT COUNT(*) as count FROM glossary');
+    if (glossaryResult && glossaryResult.count === 0) {
+        console.log('Seeding database with glossary terms');
+        
+        const statement = await db.prepareAsync(`
+            INSERT INTO glossary (id, term, definition) VALUES ($id, $term, $definition)
+        `);
+        
+        try {
+            await db.withTransactionAsync(async () => {
+                for (const row of glossaryData.values) {
+                    // ["1", "Term", "Definition"] ...
+                    if (row.length >= 3) {
+                        await statement.executeAsync({
+                            $id: row[0],
+                            $term: row[1],
+                            $definition: row[2]
+                        });
+                    }
+                }
+            });
+            console.log('Glossary seeded successfully.');
         } finally {
             await statement.finalizeAsync();
         }
