@@ -8,12 +8,17 @@ type LearningAnswerState = {
     isCorrect: boolean;
 };
 
+function mapCorrectToBinaryAnswer(correctAnswer: AnswerId): AnswerId {
+    return correctAnswer === 'A' || correctAnswer === 'C' ? 'A' : 'B';
+}
+
 export function useLearningSession() {
     const [selectedSection, setSelectedSection] = useState<string | null>(null);
     const [session, setSession] = useState<LearningSession | null>(null);
     const [selectedAnswer, setSelectedAnswer] = useState<AnswerId | null>(null);
     const [hasAnswered, setHasAnswered] = useState(false);
     const [isCorrect, setIsCorrect] = useState(false);
+    const [answerFeedbackVersion, setAnswerFeedbackVersion] = useState(0);
     const [answersByQuestionId, setAnswersByQuestionId] = useState<Record<string, LearningAnswerState>>({});
 
     const { data: sections = [], isPending: isSectionsPending } = useQuery({
@@ -64,10 +69,11 @@ export function useLearningSession() {
     );
 
     const answerQuestion = useCallback((answer: AnswerId) => {
-        if (!currentQuestion || hasAnswered) return;
+        if (!currentQuestion) return;
 
         const questionId = currentQuestion.id;
-        const result = answer === currentQuestion.correctAnswer;
+        const expectedBinaryAnswer = mapCorrectToBinaryAnswer(currentQuestion.correctAnswer);
+        const result = answer === expectedBinaryAnswer;
 
         setAnswersByQuestionId((prev) => ({
             ...prev,
@@ -79,7 +85,8 @@ export function useLearningSession() {
         setSelectedAnswer(answer);
         setHasAnswered(true);
         setIsCorrect(result);
-    }, [currentQuestion, hasAnswered]);
+        setAnswerFeedbackVersion((prev) => prev + 1);
+    }, [currentQuestion]);
 
     const syncAnswerStateForIndex = useCallback((index: number, targetSession: LearningSession) => {
         const questionId = targetSession.questionIds[index];
@@ -145,6 +152,7 @@ export function useLearningSession() {
         selectedAnswer,
         hasAnswered,
         isCorrect,
+        answerFeedbackVersion,
         startSection,
         backToSections,
         answerQuestion,

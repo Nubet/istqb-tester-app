@@ -2,7 +2,7 @@ import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-nati
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
-import { ArrowLeft, Star, Funnel, ChevronLeft, ChevronRight, Lightbulb } from 'lucide-react-native';
+import { ArrowLeft, Star, Funnel, ChevronLeft, ChevronRight, Lightbulb, CheckSquare, XSquare } from 'lucide-react-native';
 import { COLORS } from '@/constants/colors';
 import { useLearningSession } from '@/hooks/useLearningSession';
 import { useBookmarks } from '@/hooks/useBookmarks';
@@ -20,8 +20,10 @@ export default function LearnScreen() {
         currentQuestion,
         currentIndex,
         totalQuestions,
+        selectedAnswer,
         hasAnswered,
         isCorrect,
+        answerFeedbackVersion,
         startSection,
         answerQuestion,
         goToQuestion,
@@ -31,6 +33,7 @@ export default function LearnScreen() {
     const { toggleBookmark, isBookmarked } = useBookmarks();
 
     const [showExplanation, setShowExplanation] = useState(false);
+    const [showAnswerBanner, setShowAnswerBanner] = useState(false);
     const [isFilterOpen, setIsFilterOpen] = useState(false);
     const [questionFilter, setQuestionFilter] = useState<QuestionFilter>('all');
 
@@ -50,6 +53,7 @@ export default function LearnScreen() {
     const canGoToPrevious = currentFilteredPosition > 0;
     const canGoToNext = currentFilteredPosition >= 0 && currentFilteredPosition < filteredQuestionIndexes.length - 1;
     const currentQuestionBookmarked = currentQuestion ? isBookmarked(currentQuestion.id) : false;
+    const answerStatusText = isCorrect ? 'Odpowiedź poprawna' : 'Odpowiedź błędna';
 
     const goToPreviousVisibleQuestion = () => {
         if (!canGoToPrevious) return;
@@ -76,6 +80,20 @@ export default function LearnScreen() {
     useEffect(() => {
         setShowExplanation(false);
     }, [currentIndex, selectedSection]);
+
+    useEffect(() => {
+        if (!hasAnswered) {
+            setShowAnswerBanner(false);
+            return;
+        }
+
+        setShowAnswerBanner(true);
+        const timeoutId = setTimeout(() => {
+            setShowAnswerBanner(false);
+        }, 2000);
+
+        return () => clearTimeout(timeoutId);
+    }, [answerFeedbackVersion, hasAnswered]);
 
     useEffect(() => {
         if (!filteredQuestionIndexes.includes(currentIndex) && filteredQuestionIndexes.length > 0) {
@@ -196,13 +214,23 @@ export default function LearnScreen() {
                     <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.quickStepsContainer}>
                         {filteredQuestionIndexes.map((index) => {
                             const isActive = index === currentIndex;
+                            const questionId = questionIds[index];
+                            const answerState = answersByQuestionId[questionId];
+                            const isAnswered = !!answerState;
+                            const isCorrectAnswer = !!answerState?.isCorrect;
                             return (
                                 <TouchableOpacity
                                     key={`step-${index}`}
-                                    style={[styles.quickStep, isActive && styles.quickStepActive]}
+                                    style={[
+                                        styles.quickStep,
+                                        !isAnswered && styles.quickStepUnanswered,
+                                        isAnswered && isCorrectAnswer && styles.quickStepCorrect,
+                                        isAnswered && !isCorrectAnswer && styles.quickStepWrong,
+                                        isActive && styles.quickStepActive,
+                                    ]}
                                     onPress={() => goToQuestion(index)}
                                 >
-                                    <Text style={[styles.quickStepText, isActive && styles.quickStepTextActive]}>{index + 1}</Text>
+                                    <Text style={styles.quickStepText}>{index + 1}</Text>
                                 </TouchableOpacity>
                             );
                         })}
@@ -216,9 +244,21 @@ export default function LearnScreen() {
                         <ChevronRight size={20} color={!canGoToNext ? COLORS.textMuted : COLORS.card} />
                     </TouchableOpacity>
                 </View>
+
             </SafeAreaView>
 
-            <View style={styles.content}>
+            <View style={[styles.content, { marginTop: hasAnswered ? -8 : 0 }]}>
+                {showAnswerBanner && (
+                    <View style={[styles.answerBannerOverlay, isCorrect ? styles.answerBannerCorrect : styles.answerBannerWrong]}>
+                        {isCorrect ? (
+                            <CheckSquare size={26} color={COLORS.card} />
+                        ) : (
+                            <XSquare size={26} color={COLORS.card} />
+                        )}
+                        <Text style={styles.answerBannerText}>{answerStatusText}</Text>
+                    </View>
+                )}
+
                 <View style={styles.questionCard}>
                     <Text style={styles.questionText}>{currentQuestion.text}</Text>
                 </View>
@@ -234,20 +274,25 @@ export default function LearnScreen() {
                     </View>
                 )}
 
-                {hasAnswered && (
-                    <View style={[styles.answerState, { borderColor: isCorrect ? COLORS.success : COLORS.danger }]}> 
-                        <Text style={[styles.answerStateText, { color: isCorrect ? COLORS.success : COLORS.danger }]}>
-                            {isCorrect ? 'Poprawna odpowiedź' : 'Niepoprawna odpowiedź'}
-                        </Text>
-                    </View>
-                )}
             </View>
 
             <View style={styles.controls}>
-                <TouchableOpacity style={styles.ctaBtn} onPress={() => answerQuestion('A')} disabled={hasAnswered}>
+                <TouchableOpacity
+                    style={[
+                        styles.ctaBtn,
+                        selectedAnswer === 'A' ? styles.ctaBtnActive : styles.ctaBtnInactive,
+                    ]}
+                    onPress={() => answerQuestion('A')}
+                >
                     <Text style={styles.ctaText}>Tak</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.ctaBtn} onPress={() => answerQuestion('B')} disabled={hasAnswered}>
+                <TouchableOpacity
+                    style={[
+                        styles.ctaBtn,
+                        selectedAnswer === 'B' ? styles.ctaBtnActive : styles.ctaBtnInactive,
+                    ]}
+                    onPress={() => answerQuestion('B')}
+                >
                     <Text style={styles.ctaText}>Nie</Text>
                 </TouchableOpacity>
             </View>
@@ -341,20 +386,27 @@ const styles = StyleSheet.create({
         minWidth: 44,
         height: 36,
         borderRadius: 8,
-        backgroundColor: 'rgba(255,255,255,0.2)',
+        borderWidth: 1,
+        borderColor: 'transparent',
         alignItems: 'center',
         justifyContent: 'center',
         paddingHorizontal: 10,
     },
+    quickStepUnanswered: {
+        backgroundColor: '#a8a8a8',
+    },
+    quickStepCorrect: {
+        backgroundColor: COLORS.success,
+    },
+    quickStepWrong: {
+        backgroundColor: COLORS.danger,
+    },
     quickStepActive: {
-        backgroundColor: COLORS.card,
+        borderColor: COLORS.frame,
     },
     quickStepText: {
         color: COLORS.card,
         fontWeight: '700',
-    },
-    quickStepTextActive: {
-        color: COLORS.primary,
     },
     placeholder: {
         width: 40,
@@ -362,6 +414,35 @@ const styles = StyleSheet.create({
     content: {
         flex: 1,
         padding: 16,
+    },
+    answerBannerOverlay: {
+        position: 'absolute',
+        top: 8,
+        left: 0,
+        right: 0,
+        paddingVertical: 14,
+        paddingHorizontal: 16,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: 10,
+        zIndex: 20,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.12,
+        shadowRadius: 10,
+        elevation: 5,
+    },
+    answerBannerCorrect: {
+        backgroundColor: COLORS.success,
+    },
+    answerBannerWrong: {
+        backgroundColor: COLORS.danger,
+    },
+    answerBannerText: {
+        color: COLORS.card,
+        fontSize: 20,
+        fontWeight: '700',
     },
     center: {
         flex: 1,
@@ -462,29 +543,21 @@ const styles = StyleSheet.create({
         fontWeight: '600',
         color: COLORS.textMuted,
     },
-    answerState: {
-        marginTop: 10,
-        borderWidth: 1.5,
-        borderRadius: 12,
-        paddingVertical: 10,
-        paddingHorizontal: 12,
-        backgroundColor: COLORS.card,
-    },
-    answerStateText: {
-        fontSize: 14,
-        fontWeight: '700',
-        textAlign: 'center',
-    },
     controls: {
         gap: 12,
         paddingHorizontal: 16,
         paddingBottom: 16,
     },
     ctaBtn: {
-        backgroundColor: COLORS.primary,
         borderRadius: 16,
         padding: 16,
         alignItems: 'center',
+    },
+    ctaBtnActive: {
+        backgroundColor: COLORS.primaryDark,
+    },
+    ctaBtnInactive: {
+        backgroundColor: COLORS.primary,
     },
     ctaText: {
         fontSize: 16,
