@@ -1,6 +1,6 @@
 import * as SQLite from 'expo-sqlite';
 import seedData from '@/data/questions.normalized.json';
-import glossaryData from '@/glosariusz.json';
+import glossaryData from '@/data/glosariusz.json';
 
 let dbInstance: SQLite.SQLiteDatabase | null = null;
 
