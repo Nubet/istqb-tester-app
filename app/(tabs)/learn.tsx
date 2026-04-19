@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Animated } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { useEffect, useState, useCallback } from 'react';
@@ -66,7 +66,7 @@ export default function LearnScreen() {
         goToQuestion(filteredQuestionIndexes[currentFilteredPosition + 1]);
     }, [canGoToNext, currentFilteredPosition, filteredQuestionIndexes, goToQuestion]);
 
-    const swipeHandlers = useHorizontalSwipe({
+    const { panHandlers, pan } = useHorizontalSwipe({
         onSwipeLeft: goToNextVisibleQuestion,
         onSwipeRight: goToPreviousVisibleQuestion,
     });
@@ -253,7 +253,21 @@ export default function LearnScreen() {
 
             </SafeAreaView>
 
-            <View style={[styles.content, { marginTop: hasAnswered ? -8 : 0 }]} {...swipeHandlers}>
+            <Animated.View 
+                style={[
+                    styles.content, 
+                    { 
+                        marginTop: hasAnswered ? -8 : 0, 
+                        transform: [{ translateX: pan }],
+                        opacity: pan.interpolate({
+                            inputRange: [-400, 0, 400],
+                            outputRange: [0, 1, 0],
+                            extrapolate: 'clamp',
+                        })
+                    }
+                ]} 
+                {...panHandlers}
+            >
                 {showAnswerBanner && (
                     <View style={[styles.answerBannerOverlay, isCorrect ? styles.answerBannerCorrect : styles.answerBannerWrong]}>
                         {isCorrect ? (
@@ -280,7 +294,7 @@ export default function LearnScreen() {
                     </View>
                 )}
 
-            </View>
+            </Animated.View>
 
             <View style={styles.controls}>
                 <TouchableOpacity
