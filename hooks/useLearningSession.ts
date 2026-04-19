@@ -8,10 +8,6 @@ type LearningAnswerState = {
     isCorrect: boolean;
 };
 
-function mapCorrectToBinaryAnswer(correctAnswer: AnswerId): AnswerId {
-    return correctAnswer === 'A' || correctAnswer === 'C' ? 'A' : 'B';
-}
-
 export function useLearningSession() {
     const [selectedSection, setSelectedSection] = useState<string | null>(null);
     const [session, setSession] = useState<LearningSession | null>(null);
@@ -72,8 +68,7 @@ export function useLearningSession() {
         if (!currentQuestion) return;
 
         const questionId = currentQuestion.id;
-        const expectedBinaryAnswer = mapCorrectToBinaryAnswer(currentQuestion.correctAnswer);
-        const result = answer === expectedBinaryAnswer;
+        const result = answer === currentQuestion.correctAnswer;
 
         setAnswersByQuestionId((prev) => ({
             ...prev,

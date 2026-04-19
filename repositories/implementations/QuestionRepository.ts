@@ -1,33 +1,59 @@
 import type { IQuestionRepository } from '@/repositories/contracts';
 import type { Question, QuestionId, Category } from '@/types';
-import { mockQuestions } from '@/data/mockData';
+import { getDb } from '@/infra/db/sqlite';
+
+function mapRowToQuestion(row: any): Question {
+    return {
+        id: row.id,
+        text: row.text,
+        options: {
+            A: row.optionA,
+            B: row.optionB,
+            C: row.optionC,
+            D: row.optionD,
+        },
+        correctAnswer: row.correctAnswer as 'A' | 'B' | 'C' | 'D',
+        explanation: row.explanation,
+        category: row.category,
+        difficulty: row.difficulty as 'easy' | 'medium' | 'hard',
+    };
+}
 
 export class QuestionRepository implements IQuestionRepository {
-    private questions: Question[] = mockQuestions;
-
     async getAll(): Promise<Question[]> {
-        return this.questions;
+        const db = await getDb();
+        const rows = await db.getAllAsync<any>('SELECT * FROM questions');
+        return rows.map(mapRowToQuestion);
     }
 
     async getById(id: QuestionId): Promise<Question | null> {
-        return this.questions.find(q => q.id === id) || null;
+        const db = await getDb();
+        const row = await db.getFirstAsync<any>('SELECT * FROM questions WHERE id = ?', [id]);
+        if (!row) return null;
+        return mapRowToQuestion(row);
     }
 
     async getByCategory(category: Category): Promise<Question[]> {
-        return this.questions.filter(q => q.category === category);
+        const db = await getDb();
+        const rows = await db.getAllAsync<any>('SELECT * FROM questions WHERE category = ?', [category]);
+        return rows.map(mapRowToQuestion);
     }
 
     async getRandom(count: number): Promise<Question[]> {
-        const shuffled = [...this.questions].sort(() => Math.random() - 0.5);
-        return shuffled.slice(0, count);
+        const db = await getDb();
+        const rows = await db.getAllAsync<any>('SELECT * FROM questions ORDER BY RANDOM() LIMIT ?', [count]);
+        return rows.map(mapRowToQuestion);
     }
 
     async getCategories(): Promise<Category[]> {
-        const categories = new Set(this.questions.map(q => q.category));
-        return Array.from(categories);
+        const db = await getDb();
+        const rows = await db.getAllAsync<{ category: string }>('SELECT DISTINCT category FROM questions ORDER BY category ASC');
+        return rows.map(r => r.category);
     }
 
     async getTotalCount(): Promise<number> {
-        return this.questions.length;
+        const db = await getDb();
+        const row = await db.getFirstAsync<{ count: number }>('SELECT COUNT(*) as count FROM questions');
+        return row?.count || 0;
     }
 }
