@@ -1,5 +1,5 @@
-import { UserProgress } from '../../services/entities/UserProgress';
-import type { CategoryProgress, BookmarkedQuestion } from '../../types';
+import { UserProgress } from '@/services/entities';
+import type { CategoryProgress, BookmarkedQuestion } from '@/types';
 
 interface UserProgressRaw {
     totalQuestionsAnswered: number;
