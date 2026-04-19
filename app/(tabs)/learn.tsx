@@ -7,6 +7,7 @@ import { COLORS } from '@/constants/colors';
 import { useLearningSession } from '@/hooks/useLearningSession';
 import { useHorizontalSwipe } from '@/hooks/useHorizontalSwipe';
 import { useBookmarks } from '@/hooks/useBookmarks';
+import type { AnswerId } from '@/types';
 
 type QuestionFilter = 'all' | 'unanswered' | 'wrong' | 'correct';
 
@@ -79,7 +80,7 @@ export default function LearnScreen() {
     const getFilterLabel = (filter: QuestionFilter) => {
         if (filter === 'all') return 'Wszystkie';
         if (filter === 'unanswered') return 'Bez odpowiedzi';
-        if (filter === 'wrong') return 'Bledne odpowiedzi';
+        if (filter === 'wrong') return 'Błędne odpowiedzi';
         return 'Poprawne odpowiedzi';
     };
 
@@ -279,42 +280,77 @@ export default function LearnScreen() {
                     </View>
                 )}
 
-                <View style={styles.questionCard}>
-                    <Text style={styles.questionText}>{currentQuestion.text}</Text>
-                </View>
-
-                <TouchableOpacity style={styles.explainBtn} onPress={() => setShowExplanation((prev) => !prev)}>
-                    <Lightbulb size={18} color={COLORS.primary} />
-                    <Text style={styles.explainBtnText}>{showExplanation ? 'Ukryj wyjaśnienie pytania' : 'Pokaż wyjaśnienie pytania'}</Text>
-                </TouchableOpacity>
-
-                {showExplanation && (
-                    <View style={styles.feedback}>
-                        <Text style={styles.feedbackText}>{currentQuestion.explanation}</Text>
+                <ScrollView 
+                    style={{ flex: 1 }} 
+                    showsVerticalScrollIndicator={false}
+                    contentContainerStyle={{ paddingBottom: 32, flexGrow: 1 }}
+                    keyboardShouldPersistTaps="handled"
+                >
+                    <View style={styles.questionCard}>
+                        <Text style={styles.questionText}>{currentQuestion.text}</Text>
                     </View>
-                )}
 
+                    <TouchableOpacity style={styles.explainBtn} onPress={() => setShowExplanation((prev) => !prev)}>
+                        <Lightbulb size={18} color={COLORS.primary} />
+                        <Text style={styles.explainBtnText}>{showExplanation ? 'Ukryj wyjaśnienie pytania' : 'Pokaż wyjaśnienie pytania'}</Text>
+                    </TouchableOpacity>
+
+                    {showExplanation && (
+                        <View style={styles.feedback}>
+                            <Text style={styles.feedbackText}>{currentQuestion.explanation}</Text>
+                        </View>
+                    )}
+                </ScrollView>
             </Animated.View>
 
             <View style={styles.controls}>
-                <TouchableOpacity
-                    style={[
-                        styles.ctaBtn,
-                        selectedAnswer === 'A' ? styles.ctaBtnActive : styles.ctaBtnInactive,
-                    ]}
-                    onPress={() => answerQuestion('A')}
-                >
-                    <Text style={styles.ctaText}>Tak</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    style={[
-                        styles.ctaBtn,
-                        selectedAnswer === 'B' ? styles.ctaBtnActive : styles.ctaBtnInactive,
-                    ]}
-                    onPress={() => answerQuestion('B')}
-                >
-                    <Text style={styles.ctaText}>Nie</Text>
-                </TouchableOpacity>
+                {(['A', 'B', 'C', 'D'] as AnswerId[]).map((optionId) => {
+                    const isSelected = selectedAnswer === optionId;
+                    const isCorrectOption = optionId === currentQuestion.correctAnswer;
+                    
+                    let containerStyle: any = styles.ctaBtnInactive;
+                    let textStyle: any = styles.ctaTextLeft;
+                    let letterContainerStyle: any = styles.optionLetterContainer;
+                    let letterTextStyle: any = styles.optionLetterText;
+
+                    if (hasAnswered) {
+                        if (isSelected && isCorrectOption) {
+                            containerStyle = styles.ctaBtnCorrect;
+                            textStyle = styles.ctaTextLeftActive;
+                            letterContainerStyle = styles.optionLetterContainerActive;
+                            letterTextStyle = styles.optionLetterTextActive;
+                        } else if (isSelected && !isCorrectOption) {
+                            containerStyle = styles.ctaBtnWrong;
+                            textStyle = styles.ctaTextLeftActive;
+                            letterContainerStyle = styles.optionLetterContainerActive;
+                            letterTextStyle = styles.optionLetterTextActive;
+                        } else if (isCorrectOption) {
+                            containerStyle = styles.ctaBtnCorrectOutline;
+                            textStyle = styles.ctaTextLeftOutline;
+                            letterContainerStyle = styles.optionLetterContainerOutline;
+                            letterTextStyle = styles.optionLetterTextOutline;
+                        } else {
+                            containerStyle = styles.ctaBtnDisabled;
+                        }
+                    } else if (isSelected) {
+                        containerStyle = styles.ctaBtnActive;
+                    }
+
+                    return (
+                        <TouchableOpacity
+                            key={optionId}
+                            style={[styles.ctaBtn, containerStyle]}
+                            onPress={() => answerQuestion(optionId)}
+                            disabled={hasAnswered}
+                            activeOpacity={0.7}
+                        >
+                            <View style={letterContainerStyle}>
+                                <Text style={letterTextStyle}>{optionId}</Text>
+                            </View>
+                            <Text style={textStyle}>{currentQuestion.options[optionId]}</Text>
+                        </TouchableOpacity>
+                    );
+                })}
             </View>
         </View>
     );
@@ -433,7 +469,9 @@ const styles = StyleSheet.create({
     },
     content: {
         flex: 1,
-        padding: 16,
+        minHeight: 0,
+        paddingHorizontal: 16,
+        paddingTop: 16,
     },
     answerBannerOverlay: {
         position: 'absolute',
@@ -564,20 +602,107 @@ const styles = StyleSheet.create({
         color: COLORS.textMuted,
     },
     controls: {
+        flexShrink: 0,
         gap: 12,
         paddingHorizontal: 16,
         paddingBottom: 16,
+        paddingTop: 8,
     },
     ctaBtn: {
         borderRadius: 16,
         padding: 16,
+        flexDirection: 'row',
         alignItems: 'center',
+        gap: 12,
     },
     ctaBtnActive: {
         backgroundColor: COLORS.primaryDark,
     },
     ctaBtnInactive: {
-        backgroundColor: COLORS.primary,
+        backgroundColor: COLORS.card,
+        borderWidth: 1,
+        borderColor: COLORS.border,
+    },
+    ctaBtnCorrect: {
+        backgroundColor: COLORS.success,
+        borderColor: COLORS.success,
+        borderWidth: 1,
+    },
+    ctaBtnWrong: {
+        backgroundColor: COLORS.danger,
+        borderColor: COLORS.danger,
+        borderWidth: 1,
+    },
+    ctaBtnCorrectOutline: {
+        backgroundColor: COLORS.successSoft,
+        borderColor: COLORS.success,
+        borderWidth: 1,
+    },
+    ctaBtnDisabled: {
+        backgroundColor: COLORS.card,
+        borderWidth: 1,
+        borderColor: COLORS.border,
+        opacity: 0.5,
+    },
+    optionLetterContainer: {
+        width: 32,
+        height: 32,
+        borderRadius: 16,
+        backgroundColor: 'rgba(0,0,0,0.05)',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    optionLetterContainerActive: {
+        width: 32,
+        height: 32,
+        borderRadius: 16,
+        backgroundColor: 'rgba(255,255,255,0.2)',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    optionLetterContainerOutline: {
+        width: 32,
+        height: 32,
+        borderRadius: 16,
+        backgroundColor: COLORS.success,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    optionLetterText: {
+        fontSize: 15,
+        fontWeight: '700',
+        color: COLORS.textMain,
+    },
+    optionLetterTextActive: {
+        fontSize: 15,
+        fontWeight: '700',
+        color: COLORS.card,
+    },
+    optionLetterTextOutline: {
+        fontSize: 15,
+        fontWeight: '700',
+        color: COLORS.card,
+    },
+    ctaTextLeft: {
+        flex: 1,
+        fontSize: 15,
+        lineHeight: 22,
+        fontWeight: '500',
+        color: COLORS.textMain,
+    },
+    ctaTextLeftActive: {
+        flex: 1,
+        fontSize: 15,
+        lineHeight: 22,
+        fontWeight: '600',
+        color: COLORS.card,
+    },
+    ctaTextLeftOutline: {
+        flex: 1,
+        fontSize: 15,
+        lineHeight: 22,
+        fontWeight: '600',
+        color: COLORS.textMain,
     },
     ctaText: {
         fontSize: 16,
