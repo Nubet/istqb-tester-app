@@ -8,6 +8,36 @@ import { useExam } from '@/hooks/useExam';
 import { useHorizontalSwipe } from '@/hooks/useHorizontalSwipe';
 import { useReadingPreferences } from '@/hooks/useReadingPreferences';
 import { OptionButton } from '@/ui/OptionButton';
+import type { AnswerId } from '@/types';
+
+type QuestionContentProfile = 'normal' | 'long' | 'extreme';
+
+const QUESTION_PROFILE_SCALES: Record<
+    QuestionContentProfile,
+    { textScale: number; spacingScale: number; answerTextScale: number; answerSpacingScale: number; headerScale: number }
+> = {
+    normal: {
+        textScale: 1,
+        spacingScale: 1,
+        answerTextScale: 1,
+        answerSpacingScale: 1,
+        headerScale: 1,
+    },
+    long: {
+        textScale: 0.92,
+        spacingScale: 0.9,
+        answerTextScale: 0.9,
+        answerSpacingScale: 0.88,
+        headerScale: 0.9,
+    },
+    extreme: {
+        textScale: 0.86,
+        spacingScale: 0.82,
+        answerTextScale: 0.86,
+        answerSpacingScale: 0.82,
+        headerScale: 0.82,
+    },
+};
 
 export default function ExamRunScreen() {
     const insets = useSafeAreaInsets();
@@ -46,55 +76,86 @@ export default function ExamRunScreen() {
     const [showExitConfirm, setShowExitConfirm] = useState(false);
     const [isFinishingExam, setIsFinishingExam] = useState(false);
 
-    const dynamicStyles = useMemo(() => ({
-        header: {
-            paddingTop: Math.max(insets.top + 8, 20),
-            paddingBottom: scaleValue(20, density.spacingScale, 14),
-        },
-        content: {
-            padding: scaleValue(24, density.spacingScale, 16),
-        },
-        quickNavRow: {
-            gap: scaleValue(8, density.spacingScale, 6),
-            marginTop: scaleValue(14, density.spacingScale, 10),
-        },
-        quickArrowBtn: {
-            width: scaleValue(36, density.spacingScale, 34),
-            height: scaleValue(36, density.spacingScale, 34),
-            borderRadius: scaleValue(10, density.spacingScale, 8),
-        },
-        quickStepsContainer: {
-            gap: scaleValue(8, density.spacingScale, 6),
-            paddingRight: 6,
-        },
-        quickStep: {
-            minWidth: scaleValue(44, density.spacingScale, 42),
-            height: scaleValue(36, density.spacingScale, 34),
-            borderRadius: scaleValue(8, density.spacingScale, 8),
-            paddingHorizontal: scaleValue(10, density.spacingScale, 8),
-        },
-        quickStepText: {
-            fontSize: scaleValue(13, density.textScale, 12),
-        },
-        questionMeta: {
-            fontSize: scaleValue(13, density.textScale, 12),
-            marginBottom: scaleValue(16, density.spacingScale, 10),
-        },
-        questionCard: {
-            padding: scaleValue(24, density.spacingScale, 16),
-            marginBottom: scaleValue(16, density.spacingScale, 10),
-        },
-        questionText: {
-            fontSize: scaleValue(19, density.textScale, 16),
-            lineHeight: scaleValue(26, density.textScale, 22),
-        },
-        options: {
-            gap: scaleValue(12, density.answerSpacingScale, 7),
-        },
-        contentBottomSpacer: {
-            paddingBottom: scaleValue(16, density.answerSpacingScale, 10) + insets.bottom,
-        },
-    }), [density.answerSpacingScale, density.spacingScale, density.textScale, insets.bottom, insets.top]);
+    const questionContentProfile = useMemo<QuestionContentProfile>(() => {
+        if (!currentQuestion) return 'normal';
+
+        const answerLengths = (['A', 'B', 'C', 'D'] as AnswerId[]).map(
+            (optionId) => currentQuestion.options[optionId]?.length ?? 0
+        );
+        const questionLength = currentQuestion.text.length;
+        const answersTotal = answerLengths.reduce((sum, length) => sum + length, 0);
+        const maxAnswerLength = Math.max(...answerLengths);
+        const totalLength = questionLength + answersTotal;
+
+        if (totalLength >= 1200 || questionLength >= 700 || maxAnswerLength >= 260) {
+            return 'extreme';
+        }
+
+        if (totalLength >= 780 || questionLength >= 280 || maxAnswerLength >= 180) {
+            return 'long';
+        }
+
+        return 'normal';
+    }, [currentQuestion]);
+
+    const dynamicStyles = useMemo(() => {
+        const profileScale = QUESTION_PROFILE_SCALES[questionContentProfile];
+        const textScale = density.textScale * profileScale.textScale;
+        const spacingScale = density.spacingScale * profileScale.spacingScale;
+        const answerTextScale = density.answerTextScale * profileScale.answerTextScale;
+        const answerSpacingScale = density.answerSpacingScale * profileScale.answerSpacingScale;
+        const headerScale = profileScale.headerScale;
+
+        return {
+            header: {
+                paddingTop: Math.max(insets.top + 8, 20),
+                paddingBottom: scaleValue(20, spacingScale, 14),
+            },
+            content: {
+                padding: scaleValue(24, spacingScale, 16),
+            },
+            quickNavRow: {
+                gap: scaleValue(8, spacingScale, 6),
+                marginTop: scaleValue(14, spacingScale, 10),
+            },
+            quickArrowBtn: {
+                width: scaleValue(36, spacingScale, 34),
+                height: scaleValue(36, spacingScale, 34),
+                borderRadius: scaleValue(10, spacingScale, 8),
+            },
+            quickStepsContainer: {
+                gap: scaleValue(8, spacingScale, 6),
+                paddingRight: 6,
+            },
+            quickStep: {
+                minWidth: scaleValue(44, spacingScale, 42),
+                height: scaleValue(36, spacingScale, 34),
+                borderRadius: scaleValue(8, spacingScale, 8),
+                paddingHorizontal: scaleValue(10, spacingScale, 8),
+            },
+            quickStepText: {
+                fontSize: scaleValue(13, textScale, 12),
+            },
+            questionMeta: {
+                fontSize: scaleValue(13, textScale, 12),
+                marginBottom: scaleValue(16, spacingScale, 10),
+            },
+            questionCard: {
+                padding: scaleValue(24, spacingScale, 16),
+                marginBottom: scaleValue(16, spacingScale, 10),
+            },
+            questionText: {
+                fontSize: scaleValue(19, textScale, 16),
+                lineHeight: scaleValue(26, textScale, 22),
+            },
+            options: {
+                gap: scaleValue(12, answerSpacingScale, 7),
+            },
+            contentBottomSpacer: {
+                paddingBottom: scaleValue(16, answerSpacingScale, 10) + insets.bottom,
+            },
+        };
+    }, [density.answerSpacingScale, density.spacingScale, density.textScale, insets.bottom, insets.top, questionContentProfile]);
 
     useEffect(() => {
         if (timeRemaining > 0) {
