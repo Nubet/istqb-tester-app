@@ -12,6 +12,22 @@ import type { AnswerId } from '@/types';
 
 type QuestionFilter = 'all' | 'unanswered' | 'wrong' | 'correct';
 
+function splitSectionLabel(section: string): { chapter: string; title: string } {
+    const match = section.match(/^Rozdzia(?:ł|l)\s*(\d+)\s*:\s*(.+)$/i);
+
+    if (!match) {
+        return {
+            chapter: 'Rozdział',
+            title: section,
+        };
+    }
+
+    return {
+        chapter: `Rozdział ${match[1]}`,
+        title: match[2].trim(),
+    };
+}
+
 export default function LearnScreen() {
     const {
         sections,
@@ -180,18 +196,22 @@ export default function LearnScreen() {
                         </View>
                     ) : (
                         <View style={styles.options}>
-                            {sections.map((section) => (
-                                <TouchableOpacity
-                                    key={section}
-                                    style={styles.sectionButton}
-                                    onPress={() => startSection(section)}
-                                    disabled={isStartingSection}
-                                    activeOpacity={0.8}
-                                >
-                                    <Text style={styles.sectionTitle}>{section}</Text>
-                                    <Text style={styles.sectionMeta}>Rozpocznij pytania z tej sekcji</Text>
-                                </TouchableOpacity>
-                            ))}
+                            {sections.map((section) => {
+                                const display = splitSectionLabel(section);
+
+                                return (
+                                    <TouchableOpacity
+                                        key={section}
+                                        style={styles.sectionButton}
+                                        onPress={() => startSection(section)}
+                                        disabled={isStartingSection}
+                                        activeOpacity={0.8}
+                                    >
+                                        <Text style={styles.sectionChapter}>{display.chapter}</Text>
+                                        <Text style={styles.sectionTitle}>{display.title}</Text>
+                                    </TouchableOpacity>
+                                );
+                            })}
                         </View>
                     )}
                 </View>
@@ -568,7 +588,14 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: '800',
         color: COLORS.textMain,
-        marginBottom: 4,
+    },
+    sectionChapter: {
+        fontSize: 12,
+        fontWeight: '700',
+        color: COLORS.primary,
+        letterSpacing: 0.3,
+        marginBottom: 6,
+        textTransform: 'uppercase',
     },
     sectionMeta: {
         fontSize: 13,
