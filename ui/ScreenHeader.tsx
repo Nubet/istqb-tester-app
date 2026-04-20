@@ -9,6 +9,7 @@ interface ScreenHeaderProps {
     title?: string;
     showBack?: boolean;
     onBack?: () => void;
+    leftAction?: React.ReactNode;
     rightActions?: React.ReactNode;
     children?: React.ReactNode;
     containerStyle?: StyleProp<ViewStyle>;
@@ -20,6 +21,7 @@ export function ScreenHeader({
     title,
     showBack = false,
     onBack,
+    leftAction,
     rightActions,
     children,
     containerStyle,
@@ -36,7 +38,7 @@ export function ScreenHeader({
         }
     };
 
-    const hasTopRow = showBack || title || rightActions;
+    const hasTopRow = showBack || leftAction || title || rightActions;
 
     return (
         <SafeAreaView
@@ -50,7 +52,9 @@ export function ScreenHeader({
             {hasTopRow && (
                 <View style={[styles.headerTopRow, contentStyle]}>
                     <View style={styles.leftCol}>
-                        {showBack ? (
+                        {leftAction ? (
+                            leftAction
+                        ) : showBack ? (
                             <TouchableOpacity onPress={handleBack} style={styles.iconBtn}>
                                 <ArrowLeft size={22} color={COLORS.card} />
                             </TouchableOpacity>

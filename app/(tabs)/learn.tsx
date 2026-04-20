@@ -1,6 +1,8 @@
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Animated } from 'react-native';
 import { useEffect, useState, useCallback, useMemo } from 'react';
-import { Star, Funnel, ChevronLeft, ChevronRight, Lightbulb, CheckSquare, XSquare } from 'lucide-react-native';
+import { useNavigation } from '@react-navigation/native';
+import { Star, Funnel, ChevronLeft, ChevronRight, Lightbulb, CheckSquare, XSquare, X } from 'lucide-react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { COLORS } from '@/constants/colors';
 import { scaleValue } from '@/constants/readingDensity';
 import { ScreenHeader } from '@/ui/ScreenHeader';
@@ -43,6 +45,7 @@ export default function LearnScreen() {
         isCorrect,
         answerFeedbackVersion,
         startSection,
+        backToSections,
         answerQuestion,
         goToQuestion,
         isLoadingSections,
@@ -50,6 +53,8 @@ export default function LearnScreen() {
     } = useLearningSession();
     const { toggleBookmark, isBookmarked } = useBookmarks();
     const { density } = useReadingPreferences();
+    const navigation = useNavigation();
+    const insets = useSafeAreaInsets();
 
     const [showExplanation, setShowExplanation] = useState(false);
     const [showAnswerBanner, setShowAnswerBanner] = useState(false);
@@ -129,7 +134,7 @@ export default function LearnScreen() {
         controls: {
             gap: scaleValue(12, density.answerSpacingScale, 6),
             paddingHorizontal: scaleValue(16, density.answerSpacingScale, 10),
-            paddingBottom: scaleValue(16, density.answerSpacingScale, 10),
+            paddingBottom: scaleValue(10, density.answerSpacingScale, 6) + insets.bottom,
             paddingTop: scaleValue(8, density.answerSpacingScale, 5),
         },
         answerButton: {
@@ -149,7 +154,7 @@ export default function LearnScreen() {
             fontSize: scaleValue(15, density.answerTextScale, 12),
             lineHeight: scaleValue(22, density.answerTextScale, 17),
         },
-    }), [density.answerSpacingScale, density.answerTextScale, density.optionMinHeight, density.spacingScale, density.textScale]);
+    }), [density.answerSpacingScale, density.answerTextScale, density.optionMinHeight, density.spacingScale, density.textScale, insets.bottom]);
 
     const getFilterLabel = (filter: QuestionFilter) => {
         if (filter === 'all') return 'Wszystkie';
@@ -181,6 +186,28 @@ export default function LearnScreen() {
             goToQuestion(filteredQuestionIndexes[0]);
         }
     }, [currentIndex, filteredQuestionIndexes, goToQuestion]);
+
+    useEffect(() => {
+        navigation.setOptions({
+            tabBarStyle: isSectionSelection ? undefined : { display: 'none' },
+        });
+
+        return () => {
+            navigation.setOptions({ tabBarStyle: undefined });
+        };
+    }, [isSectionSelection, navigation]);
+
+    const handleCloseSection = useCallback(() => {
+        setIsFilterOpen(false);
+        setShowExplanation(false);
+        backToSections();
+    }, [backToSections]);
+
+    const closeSectionAction = !isSectionSelection ? (
+        <TouchableOpacity style={styles.iconBtn} onPress={handleCloseSection}>
+            <X size={19} color={COLORS.card} />
+        </TouchableOpacity>
+    ) : null;
 
     if (isSectionSelection) {
         return (
@@ -222,7 +249,7 @@ export default function LearnScreen() {
     if (!currentQuestion) {
         return (
             <View style={styles.container}>
-                <ScreenHeader title="Tryb nauki" />
+                <ScreenHeader title="Tryb nauki" leftAction={closeSectionAction} />
                 <View style={styles.center}>
                     <Text style={styles.loading}>Ładowanie pytań...</Text>
                 </View>
@@ -234,6 +261,7 @@ export default function LearnScreen() {
         <View style={styles.container}>
             <ScreenHeader
                 title={`Pytanie ${currentIndex + 1} z ${totalQuestions}`}
+                leftAction={closeSectionAction}
                 rightActions={
                     <>
                         <TouchableOpacity style={styles.iconBtn} onPress={() => setIsFilterOpen((prev) => !prev)}>
