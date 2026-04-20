@@ -73,15 +73,14 @@ export function useExam() {
 
         try {
             const result = await examService.completeExam(session.id);
+            queryClient.setQueryData(['latestExamResult'], result);
             await queryClient.invalidateQueries({ queryKey: ['examSession'] });
             await queryClient.invalidateQueries({ queryKey: ['userProgress'] });
 
-            router.push({
-                pathname: '/results',
-                params: { result: JSON.stringify(result) },
-            });
-        } finally {
+            router.replace('/results');
+        } catch (error) {
             isFinishingRef.current = false;
+            console.error('Failed to finish exam:', error);
         }
     }, [session, queryClient, router]);
 
@@ -100,6 +99,7 @@ export function useExam() {
     }, []);
 
     useEffect(() => {
+        if (isFinishingRef.current) return;
         if ((!session || session.isCompleted) && !startExam.isPending) {
             startExam.mutate();
         }

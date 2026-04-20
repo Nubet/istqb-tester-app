@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Alert, Animated } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Animated } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { X, Clock, Flag, ChevronLeft, ChevronRight } from 'lucide-react-native';
 import { useEffect, useMemo, useRef, useState } from 'react';
@@ -43,6 +43,8 @@ export default function ExamRunScreen() {
     });
 
     const [timer, setTimer] = useState('59:59');
+    const [showExitConfirm, setShowExitConfirm] = useState(false);
+    const [isFinishingExam, setIsFinishingExam] = useState(false);
 
     const dynamicStyles = useMemo(() => ({
         header: {
@@ -116,20 +118,24 @@ export default function ExamRunScreen() {
     }, [currentIndex]);
 
     const handleConfirmExit = () => {
-        Alert.alert(
-            'Zakończyć egzamin?',
-            'Po opuszczeniu egzaminu przejdziesz do podsumowania i nie bedziesz mógł kontynuować tej sesji.',
-            [
-                { text: 'Anuluj', style: 'cancel' },
-                {
-                    text: 'Zakończ i pokaż podsumowanie',
-                    style: 'destructive',
-                    onPress: () => {
-                        finishExam();
-                    },
-                },
-            ]
-        );
+        setShowExitConfirm(true);
+    };
+
+    const handleCancelExit = () => {
+        if (isFinishingExam) return;
+        setShowExitConfirm(false);
+    };
+
+    const handleFinishExamFromModal = async () => {
+        if (isFinishingExam) return;
+
+        setIsFinishingExam(true);
+        try {
+            await finishExam();
+        } finally {
+            setIsFinishingExam(false);
+            setShowExitConfirm(false);
+        }
     };
 
     if (!currentQuestion) {
@@ -252,6 +258,37 @@ export default function ExamRunScreen() {
 
                 <View style={dynamicStyles.contentBottomSpacer} />
             </Animated.View>
+
+            {showExitConfirm && (
+                <View style={styles.modalOverlay}>
+                    <View style={styles.modalCard}>
+                        <Text style={styles.modalTitle}>Zakończyć egzamin?</Text>
+                        <Text style={styles.modalText}>
+                            Po zakończeniu przejdziesz do podsumowania. Tej sesji nie będzie można kontynuować.
+                        </Text>
+
+                        <View style={styles.modalActions}>
+                            <TouchableOpacity
+                                style={[styles.modalBtn, styles.modalBtnGhost, isFinishingExam && styles.modalBtnDisabled]}
+                                onPress={handleCancelExit}
+                                disabled={isFinishingExam}
+                            >
+                                <Text style={styles.modalBtnGhostText}>Anuluj</Text>
+                            </TouchableOpacity>
+
+                            <TouchableOpacity
+                                style={[styles.modalBtn, styles.modalBtnDanger, isFinishingExam && styles.modalBtnDisabled]}
+                                onPress={handleFinishExamFromModal}
+                                disabled={isFinishingExam}
+                            >
+                                <Text style={styles.modalBtnDangerText}>
+                                    {isFinishingExam ? 'Przetwarzanie...' : 'Zakończ i pokaż podsumowanie'}
+                                </Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </View>
+            )}
         </View>
     );
 }
@@ -389,5 +426,65 @@ const styles = StyleSheet.create({
     },
     options: {
         gap: 12,
+    },
+    modalOverlay: {
+        ...StyleSheet.absoluteFillObject,
+        backgroundColor: 'rgba(0,0,0,0.36)',
+        justifyContent: 'center',
+        paddingHorizontal: 20,
+    },
+    modalCard: {
+        backgroundColor: COLORS.card,
+        borderRadius: 18,
+        padding: 18,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 6 },
+        shadowOpacity: 0.16,
+        shadowRadius: 16,
+        elevation: 8,
+    },
+    modalTitle: {
+        fontSize: 18,
+        fontWeight: '800',
+        color: COLORS.textMain,
+    },
+    modalText: {
+        marginTop: 8,
+        fontSize: 14,
+        lineHeight: 20,
+        color: COLORS.textMuted,
+        fontWeight: '600',
+    },
+    modalActions: {
+        marginTop: 16,
+        gap: 10,
+    },
+    modalBtn: {
+        minHeight: 46,
+        borderRadius: 12,
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingHorizontal: 14,
+    },
+    modalBtnGhost: {
+        backgroundColor: COLORS.background,
+        borderWidth: 1,
+        borderColor: COLORS.border,
+    },
+    modalBtnDanger: {
+        backgroundColor: COLORS.danger,
+    },
+    modalBtnGhostText: {
+        color: COLORS.textMain,
+        fontWeight: '700',
+        fontSize: 14,
+    },
+    modalBtnDangerText: {
+        color: COLORS.card,
+        fontWeight: '700',
+        fontSize: 14,
+    },
+    modalBtnDisabled: {
+        opacity: 0.55,
     },
 });

@@ -56,6 +56,10 @@ export default function RootLayout() {
                             name="glossary"
                             options={{ presentation: 'card' }}
                         />
+                        <Stack.Screen
+                            name="review"
+                            options={{ presentation: 'card' }}
+                        />
                     </Stack>
                 </View>
             </SafeAreaProvider>
