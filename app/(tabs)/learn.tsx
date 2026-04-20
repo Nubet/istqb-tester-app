@@ -13,6 +13,34 @@ import { useBookmarks } from '@/hooks/useBookmarks';
 import type { AnswerId } from '@/types';
 
 type QuestionFilter = 'all' | 'unanswered' | 'wrong' | 'correct';
+type QuestionContentProfile = 'normal' | 'long' | 'extreme';
+
+const QUESTION_PROFILE_SCALES: Record<
+    QuestionContentProfile,
+    { textScale: number; spacingScale: number; answerTextScale: number; answerSpacingScale: number; headerScale: number }
+> = {
+    normal: {
+        textScale: 1,
+        spacingScale: 1,
+        answerTextScale: 1,
+        answerSpacingScale: 1,
+        headerScale: 1,
+    },
+    long: {
+        textScale: 0.92,
+        spacingScale: 0.9,
+        answerTextScale: 0.9,
+        answerSpacingScale: 0.88,
+        headerScale: 0.9,
+    },
+    extreme: {
+        textScale: 0.86,
+        spacingScale: 0.82,
+        answerTextScale: 0.86,
+        answerSpacingScale: 0.82,
+        headerScale: 0.82,
+    },
+};
 
 function splitSectionLabel(section: string): { chapter: string; title: string } {
     const match = section.match(/^Rozdzia(?:ł|l)\s*(\d+)\s*:\s*(.+)$/i);
@@ -104,62 +132,124 @@ export default function LearnScreen() {
         setIsFilterOpen(false);
     };
 
-    const dynamicStyles = useMemo(() => ({
+    const questionContentProfile = useMemo<QuestionContentProfile>(() => {
+        if (!currentQuestion) return 'normal';
+
+        const answerLengths = (['A', 'B', 'C', 'D'] as AnswerId[]).map(
+            (optionId) => currentQuestion.options[optionId]?.length ?? 0
+        );
+        const questionLength = currentQuestion.text.length;
+        const answersTotal = answerLengths.reduce((sum, length) => sum + length, 0);
+        const maxAnswerLength = Math.max(...answerLengths);
+        const totalLength = questionLength + answersTotal;
+
+        if (totalLength >= 1200 || questionLength >= 700 || maxAnswerLength >= 260) {
+            return 'extreme';
+        }
+
+        if (totalLength >= 780 || questionLength >= 280 || maxAnswerLength >= 180) {
+            return 'long';
+        }
+
+        return 'normal';
+    }, [currentQuestion]);
+
+    const dynamicStyles = useMemo(() => {
+        const profileScale = QUESTION_PROFILE_SCALES[questionContentProfile];
+        const textScale = density.textScale * profileScale.textScale;
+        const spacingScale = density.spacingScale * profileScale.spacingScale;
+        const answerTextScale = density.answerTextScale * profileScale.answerTextScale;
+        const answerSpacingScale = density.answerSpacingScale * profileScale.answerSpacingScale;
+        const headerScale = profileScale.headerScale;
+
+        return {
+        headerTopRow: {
+            minHeight: scaleValue(54, headerScale, 44),
+            paddingTop: scaleValue(8, headerScale, 4),
+            paddingBottom: scaleValue(8, headerScale, 4),
+        },
+        headerIconBtn: {
+            width: scaleValue(38, headerScale, 34),
+            height: scaleValue(38, headerScale, 34),
+            borderRadius: scaleValue(19, headerScale, 17),
+        },
+        quickNavRow: {
+            gap: scaleValue(8, headerScale, 4),
+        },
+        quickArrowBtn: {
+            width: scaleValue(36, headerScale, 32),
+            height: scaleValue(36, headerScale, 32),
+            borderRadius: scaleValue(10, headerScale, 8),
+        },
+        quickStepsContainer: {
+            gap: scaleValue(8, headerScale, 4),
+            paddingRight: scaleValue(6, headerScale, 3),
+        },
+        quickStep: {
+            minWidth: scaleValue(44, headerScale, 36),
+            height: scaleValue(36, headerScale, 30),
+            borderRadius: scaleValue(8, headerScale, 7),
+            paddingHorizontal: scaleValue(10, headerScale, 6),
+        },
+        quickStepText: {
+            fontSize: scaleValue(13, headerScale, 11),
+        },
         content: {
-            paddingHorizontal: scaleValue(16, density.spacingScale, 12),
-            paddingTop: scaleValue(16, density.spacingScale, 12),
+            paddingHorizontal: scaleValue(16, spacingScale, 10),
+            paddingTop: scaleValue(16, spacingScale, 10),
         },
         scrollContent: {
-            paddingBottom: scaleValue(32, density.spacingScale, 20),
+            paddingBottom: scaleValue(32, spacingScale, 18),
         },
         questionCard: {
-            padding: scaleValue(20, density.spacingScale, 14),
-            marginBottom: scaleValue(12, density.spacingScale, 8),
+            padding: scaleValue(20, spacingScale, 12),
+            marginBottom: scaleValue(12, spacingScale, 6),
         },
         questionText: {
-            fontSize: scaleValue(18, density.textScale, 15),
-            lineHeight: scaleValue(25, density.textScale, 21),
+            fontSize: scaleValue(18, textScale, 14),
+            lineHeight: scaleValue(25, textScale, 19),
         },
         explainButton: {
-            paddingVertical: scaleValue(12, density.spacingScale, 10),
-            paddingHorizontal: scaleValue(16, density.spacingScale, 12),
-            gap: scaleValue(8, density.spacingScale, 6),
+            paddingVertical: scaleValue(12, spacingScale, 8),
+            paddingHorizontal: scaleValue(16, spacingScale, 10),
+            gap: scaleValue(8, spacingScale, 5),
         },
         explainButtonText: {
-            fontSize: scaleValue(15, density.textScale, 13),
+            fontSize: scaleValue(15, textScale, 12),
         },
         feedback: {
-            padding: scaleValue(16, density.spacingScale, 12),
-            marginTop: scaleValue(10, density.spacingScale, 8),
+            padding: scaleValue(16, spacingScale, 10),
+            marginTop: scaleValue(10, spacingScale, 6),
         },
         feedbackText: {
-            fontSize: scaleValue(14, density.textScale, 12),
-            lineHeight: scaleValue(20, density.textScale, 17),
+            fontSize: scaleValue(14, textScale, 11),
+            lineHeight: scaleValue(20, textScale, 16),
         },
         controls: {
-            gap: scaleValue(12, density.answerSpacingScale, 6),
-            paddingHorizontal: scaleValue(16, density.answerSpacingScale, 10),
-            paddingBottom: scaleValue(10, density.answerSpacingScale, 6) + insets.bottom,
-            paddingTop: scaleValue(8, density.answerSpacingScale, 5),
+            gap: scaleValue(12, answerSpacingScale, 6),
+            paddingHorizontal: scaleValue(16, answerSpacingScale, 9),
+            paddingBottom: scaleValue(10, answerSpacingScale, 6) + insets.bottom,
+            paddingTop: scaleValue(8, answerSpacingScale, 4),
         },
         answerButton: {
-            padding: scaleValue(16, density.answerSpacingScale, 10),
-            gap: scaleValue(12, density.answerSpacingScale, 7),
-            minHeight: density.optionMinHeight,
+            padding: scaleValue(16, answerSpacingScale, 9),
+            gap: scaleValue(12, answerSpacingScale, 6),
+            minHeight: Math.max(44, scaleValue(density.optionMinHeight, answerSpacingScale, 44)),
         },
         answerLetterContainer: {
-            width: scaleValue(32, density.answerSpacingScale, 26),
-            height: scaleValue(32, density.answerSpacingScale, 26),
-            borderRadius: scaleValue(16, density.answerSpacingScale, 13),
+            width: scaleValue(32, answerSpacingScale, 24),
+            height: scaleValue(32, answerSpacingScale, 24),
+            borderRadius: scaleValue(16, answerSpacingScale, 12),
         },
         answerLetterText: {
-            fontSize: scaleValue(15, density.answerTextScale, 12),
+            fontSize: scaleValue(15, answerTextScale, 11),
         },
         answerText: {
-            fontSize: scaleValue(15, density.answerTextScale, 12),
-            lineHeight: scaleValue(22, density.answerTextScale, 17),
+            fontSize: scaleValue(15, answerTextScale, 11),
+            lineHeight: scaleValue(22, answerTextScale, 15),
         },
-    }), [density.answerSpacingScale, density.answerTextScale, density.optionMinHeight, density.spacingScale, density.textScale, insets.bottom]);
+    };
+    }, [density.answerSpacingScale, density.answerTextScale, density.optionMinHeight, density.spacingScale, density.textScale, insets.bottom, questionContentProfile]);
 
     const getFilterLabel = (filter: QuestionFilter) => {
         if (filter === 'all') return 'Wszystkie';
@@ -219,7 +309,7 @@ export default function LearnScreen() {
     }, [backToSections]);
 
     const closeSectionAction = !isSectionSelection ? (
-        <TouchableOpacity style={styles.iconBtn} onPress={handleCloseSection}>
+        <TouchableOpacity style={[styles.iconBtn, dynamicStyles.headerIconBtn]} onPress={handleCloseSection}>
             <X size={19} color={COLORS.card} />
         </TouchableOpacity>
     ) : null;
@@ -264,7 +354,7 @@ export default function LearnScreen() {
     if (!currentQuestion) {
         return (
             <View style={styles.container}>
-                <ScreenHeader title="Tryb nauki" leftAction={closeSectionAction} />
+                <ScreenHeader title="Tryb nauki" leftAction={closeSectionAction} contentStyle={dynamicStyles.headerTopRow} />
                 <View style={styles.center}>
                     <Text style={styles.loading}>Ładowanie pytań...</Text>
                 </View>
@@ -277,13 +367,14 @@ export default function LearnScreen() {
             <ScreenHeader
                 title={`Pytanie ${currentIndex + 1} z ${totalQuestions}`}
                 leftAction={closeSectionAction}
+                contentStyle={dynamicStyles.headerTopRow}
                 rightActions={
                     <>
-                        <TouchableOpacity style={styles.iconBtn} onPress={() => setIsFilterOpen((prev) => !prev)}>
+                        <TouchableOpacity style={[styles.iconBtn, dynamicStyles.headerIconBtn]} onPress={() => setIsFilterOpen((prev) => !prev)}>
                             <Funnel size={19} color={COLORS.card} />
                         </TouchableOpacity>
                         <TouchableOpacity
-                            style={styles.iconBtn}
+                            style={[styles.iconBtn, dynamicStyles.headerIconBtn]}
                             onPress={() => currentQuestion && toggleBookmark({ questionId: currentQuestion.id, source: 'learning' })}
                         >
                             <Star
@@ -315,10 +406,10 @@ export default function LearnScreen() {
                     </View>
                 )}
 
-                <View style={styles.quickNavRow}>
+                <View style={[styles.quickNavRow, dynamicStyles.quickNavRow]}>
                     <TouchableOpacity
                         onPress={goToPreviousVisibleQuestion}
-                        style={[styles.quickArrowBtn, !canGoToPrevious && styles.quickArrowBtnDisabled]}
+                        style={[styles.quickArrowBtn, dynamicStyles.quickArrowBtn, !canGoToPrevious && styles.quickArrowBtnDisabled]}
                         disabled={!canGoToPrevious}
                     >
                         <ChevronLeft size={20} color={!canGoToPrevious ? COLORS.textMuted : COLORS.card} />
@@ -328,7 +419,7 @@ export default function LearnScreen() {
                         ref={quickStepsScrollRef}
                         horizontal
                         showsHorizontalScrollIndicator={false}
-                        contentContainerStyle={styles.quickStepsContainer}
+                        contentContainerStyle={[styles.quickStepsContainer, dynamicStyles.quickStepsContainer]}
                     >
                         {filteredQuestionIndexes.map((index) => {
                             const isActive = index === currentIndex;
@@ -344,6 +435,7 @@ export default function LearnScreen() {
                                     }}
                                     style={[
                                         styles.quickStep,
+                                        dynamicStyles.quickStep,
                                         !isAnswered && styles.quickStepUnanswered,
                                         isAnswered && isCorrectAnswer && styles.quickStepCorrect,
                                         isAnswered && !isCorrectAnswer && styles.quickStepWrong,
@@ -351,7 +443,7 @@ export default function LearnScreen() {
                                     ]}
                                     onPress={() => goToQuestion(index)}
                                 >
-                                    <Text style={styles.quickStepText}>{index + 1}</Text>
+                                    <Text style={[styles.quickStepText, dynamicStyles.quickStepText]}>{index + 1}</Text>
                                 </TouchableOpacity>
                             );
                         })}
@@ -359,7 +451,7 @@ export default function LearnScreen() {
 
                     <TouchableOpacity
                         onPress={goToNextVisibleQuestion}
-                        style={[styles.quickArrowBtn, !canGoToNext && styles.quickArrowBtnDisabled]}
+                        style={[styles.quickArrowBtn, dynamicStyles.quickArrowBtn, !canGoToNext && styles.quickArrowBtnDisabled]}
                         disabled={!canGoToNext}
                     >
                         <ChevronRight size={20} color={!canGoToNext ? COLORS.textMuted : COLORS.card} />
