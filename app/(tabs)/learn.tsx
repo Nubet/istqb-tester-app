@@ -496,15 +496,19 @@ export default function LearnScreen() {
                         <Text style={[styles.questionText, dynamicStyles.questionText]}>{currentQuestion.text}</Text>
                     </View>
 
-                    <TouchableOpacity style={[styles.explainBtn, dynamicStyles.explainButton]} onPress={() => setShowExplanation((prev) => !prev)}>
-                        <Lightbulb size={18} color={COLORS.primary} />
-                        <Text style={[styles.explainBtnText, dynamicStyles.explainButtonText]}>{showExplanation ? 'Ukryj wyjaśnienie pytania' : 'Pokaż wyjaśnienie pytania'}</Text>
-                    </TouchableOpacity>
+                    {hasAnswered && (
+                        <>
+                            <TouchableOpacity style={[styles.explainBtn, dynamicStyles.explainButton]} onPress={() => setShowExplanation((prev) => !prev)}>
+                                <Lightbulb size={18} color={COLORS.primary} />
+                                <Text style={[styles.explainBtnText, dynamicStyles.explainButtonText]}>{showExplanation ? 'Ukryj wyjaśnienie pytania' : 'Pokaż wyjaśnienie pytania'}</Text>
+                            </TouchableOpacity>
 
-                    {showExplanation && (
-                        <View style={[styles.feedback, dynamicStyles.feedback]}>
-                            <Text style={[styles.feedbackText, dynamicStyles.feedbackText]}>{currentQuestion.explanation}</Text>
-                        </View>
+                            {showExplanation && (
+                                <View style={[styles.feedback, dynamicStyles.feedback]}>
+                                    <Text style={[styles.feedbackText, dynamicStyles.feedbackText]}>{currentQuestion.explanation}</Text>
+                                </View>
+                            )}
+                        </>
                     )}
                 </ScrollView>
             </Animated.View>
