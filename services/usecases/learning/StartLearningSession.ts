@@ -1,5 +1,5 @@
-import type { IQuestionRepository } from '../../../repositories/contracts/IQuestionRepository';
-import type { LearningSession } from '../../../types';
+import type { IQuestionRepository } from '@/repositories/contracts';
+import type { LearningSession } from '@/types';
 
 export class StartLearningSessionUseCase {
     constructor(private questionRepository: IQuestionRepository) {}

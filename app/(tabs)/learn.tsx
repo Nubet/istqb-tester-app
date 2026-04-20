@@ -405,7 +405,7 @@ export default function LearnScreen() {
                             const questionId = questionIds[index];
                             const answerState = answersByQuestionId[questionId];
                             const isAnswered = !!answerState;
-                            const isCorrectAnswer = !!answerState?.isCorrect;
+                            const isCorrectAnswer = answerState?.isCorrect;
                             return (
                                 <TouchableOpacity
                                     key={`step-${index}`}
