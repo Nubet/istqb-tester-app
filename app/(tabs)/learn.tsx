@@ -92,6 +92,8 @@ export default function LearnScreen() {
     const { panHandlers, pan } = useHorizontalSwipe({
         onSwipeLeft: goToNextVisibleQuestion,
         onSwipeRight: goToPreviousVisibleQuestion,
+        canSwipeLeft: canGoToNext,
+        canSwipeRight: canGoToPrevious,
     });
 
     const selectFilter = (filter: QuestionFilter) => {

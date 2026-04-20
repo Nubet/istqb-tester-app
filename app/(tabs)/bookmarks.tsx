@@ -61,6 +61,8 @@ export default function BookmarksScreen() {
     const { panHandlers, pan } = useHorizontalSwipe({
         onSwipeLeft: goToNextVisibleQuestion,
         onSwipeRight: goToPreviousVisibleQuestion,
+        canSwipeLeft: canGoToNext,
+        canSwipeRight: canGoToPrevious,
     });
 
     const handleAnswerQuestion = (optionId: AnswerId) => {
