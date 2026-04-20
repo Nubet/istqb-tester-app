@@ -38,7 +38,7 @@ export default function HomeScreen() {
                     </View>
                 </View>
 
-                <TouchableOpacity style={styles.cta} onPress={() => router.push('/exam-info')}>
+                <TouchableOpacity style={styles.cta} onPress={() => router.push('/exam')}>
                     <LeafyGreen size={20} color={COLORS.card} />
                     <Text style={styles.ctaText}>Rozpocznij egzamin próbny</Text>
                 </TouchableOpacity>

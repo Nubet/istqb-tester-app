@@ -41,10 +41,6 @@ export default function RootLayout() {
                     >
                         <Stack.Screen name="(tabs)" />
                         <Stack.Screen
-                            name="exam-info"
-                            options={{ presentation: 'card' }}
-                        />
-                        <Stack.Screen
                             name="exam-run"
                             options={{ presentation: 'fullScreenModal' }}
                         />
