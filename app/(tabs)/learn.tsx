@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Animated } from 'react-native';
-import { useEffect, useState, useCallback, useMemo } from 'react';
+import { useEffect, useState, useCallback, useMemo, useRef } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { Star, Funnel, ChevronLeft, ChevronRight, Lightbulb, CheckSquare, XSquare, X } from 'lucide-react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -31,6 +31,9 @@ function splitSectionLabel(section: string): { chapter: string; title: string } 
 }
 
 export default function LearnScreen() {
+    const quickStepsScrollRef = useRef<ScrollView>(null);
+    const quickStepXPositionsRef = useRef<Record<number, number>>({});
+
     const {
         sections,
         selectedSection,
@@ -190,6 +193,16 @@ export default function LearnScreen() {
     }, [currentIndex, filteredQuestionIndexes, goToQuestion]);
 
     useEffect(() => {
+        const x = quickStepXPositionsRef.current[currentIndex];
+        if (x === undefined) return;
+
+        quickStepsScrollRef.current?.scrollTo({
+            x: Math.max(0, x - 2),
+            animated: true,
+        });
+    }, [currentIndex, filteredQuestionIndexes]);
+
+    useEffect(() => {
         navigation.setOptions({
             tabBarStyle: isSectionSelection ? undefined : { display: 'none' },
         });
@@ -311,7 +324,12 @@ export default function LearnScreen() {
                         <ChevronLeft size={20} color={!canGoToPrevious ? COLORS.textMuted : COLORS.card} />
                     </TouchableOpacity>
 
-                    <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.quickStepsContainer}>
+                    <ScrollView
+                        ref={quickStepsScrollRef}
+                        horizontal
+                        showsHorizontalScrollIndicator={false}
+                        contentContainerStyle={styles.quickStepsContainer}
+                    >
                         {filteredQuestionIndexes.map((index) => {
                             const isActive = index === currentIndex;
                             const questionId = questionIds[index];
@@ -321,6 +339,9 @@ export default function LearnScreen() {
                             return (
                                 <TouchableOpacity
                                     key={`step-${index}`}
+                                    onLayout={(event) => {
+                                        quickStepXPositionsRef.current[index] = event.nativeEvent.layout.x;
+                                    }}
                                     style={[
                                         styles.quickStep,
                                         !isAnswered && styles.quickStepUnanswered,
