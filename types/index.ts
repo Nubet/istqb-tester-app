@@ -77,4 +77,16 @@ export interface ExamResult {
     passed: boolean;
     timeSpentMinutes: number;
     recommendations: string[];
+    questionReviews: ExamQuestionReview[];
+}
+
+export interface ExamQuestionReview {
+    questionId: QuestionId;
+    questionNumber: number;
+    category: Category;
+    questionText: string;
+    options: Record<AnswerId, string>;
+    selectedAnswer: AnswerId | null;
+    correctAnswer: AnswerId;
+    isCorrect: boolean;
 }

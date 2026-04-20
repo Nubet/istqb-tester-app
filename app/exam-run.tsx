@@ -1,34 +1,78 @@
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { useRouter } from 'expo-router';
-import { X, Clock, Star, Flag } from 'lucide-react-native';
-import { useEffect, useMemo, useState } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Alert, Animated } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { X, Clock, Flag, ChevronLeft, ChevronRight } from 'lucide-react-native';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { COLORS } from '@/constants/colors';
 import { scaleValue } from '@/constants/readingDensity';
 import { useExam } from '@/hooks/useExam';
+import { useHorizontalSwipe } from '@/hooks/useHorizontalSwipe';
 import { useReadingPreferences } from '@/hooks/useReadingPreferences';
 import { OptionButton } from '@/ui/OptionButton';
 
 export default function ExamRunScreen() {
-    const router = useRouter();
+    const insets = useSafeAreaInsets();
+    const quickStepsScrollRef = useRef<ScrollView>(null);
+    const quickStepXPositionsRef = useRef<Record<number, number>>({});
     const {
         currentQuestion,
         currentIndex,
+        questionIds,
         totalQuestions,
         timeRemaining,
         selectedAnswer,
-        isBookmarked,
+        answeredQuestionIds,
+        flaggedQuestionIds,
+        isFlagged,
+        goToQuestion,
+        goToNextQuestion,
+        goToPreviousQuestion,
         answerQuestion,
-        toggleBookmark,
+        toggleFlag,
         finishExam,
     } = useExam();
     const { density } = useReadingPreferences();
 
+    const canGoToPrevious = currentIndex > 0;
+    const canGoToNext = currentIndex < totalQuestions - 1;
+
+    const { panHandlers, pan } = useHorizontalSwipe({
+        onSwipeLeft: goToNextQuestion,
+        onSwipeRight: goToPreviousQuestion,
+        canSwipeLeft: canGoToNext,
+        canSwipeRight: canGoToPrevious,
+    });
+
     const [timer, setTimer] = useState('59:59');
 
     const dynamicStyles = useMemo(() => ({
+        header: {
+            paddingTop: Math.max(insets.top + 8, 20),
+            paddingBottom: scaleValue(20, density.spacingScale, 14),
+        },
         content: {
             padding: scaleValue(24, density.spacingScale, 16),
+        },
+        quickNavRow: {
+            gap: scaleValue(8, density.spacingScale, 6),
+            marginTop: scaleValue(14, density.spacingScale, 10),
+        },
+        quickArrowBtn: {
+            width: scaleValue(36, density.spacingScale, 34),
+            height: scaleValue(36, density.spacingScale, 34),
+            borderRadius: scaleValue(10, density.spacingScale, 8),
+        },
+        quickStepsContainer: {
+            gap: scaleValue(8, density.spacingScale, 6),
+            paddingRight: 6,
+        },
+        quickStep: {
+            minWidth: scaleValue(44, density.spacingScale, 42),
+            height: scaleValue(36, density.spacingScale, 34),
+            borderRadius: scaleValue(8, density.spacingScale, 8),
+            paddingHorizontal: scaleValue(10, density.spacingScale, 8),
+        },
+        quickStepText: {
+            fontSize: scaleValue(13, density.textScale, 12),
         },
         questionMeta: {
             fontSize: scaleValue(13, density.textScale, 12),
@@ -45,27 +89,48 @@ export default function ExamRunScreen() {
         options: {
             gap: scaleValue(12, density.answerSpacingScale, 7),
         },
-        controls: {
-            gap: scaleValue(16, density.answerSpacingScale, 9),
-            padding: scaleValue(24, density.answerSpacingScale, 12),
+        contentBottomSpacer: {
+            paddingBottom: scaleValue(16, density.answerSpacingScale, 10) + insets.bottom,
         },
-        controlButton: {
-            minHeight: density.optionMinHeight,
-            paddingVertical: scaleValue(16, density.answerSpacingScale, 10),
-            paddingHorizontal: scaleValue(16, density.answerSpacingScale, 10),
-        },
-        controlButtonText: {
-            fontSize: scaleValue(16, density.answerTextScale, 13),
-        },
-    }), [density.answerSpacingScale, density.answerTextScale, density.optionMinHeight, density.spacingScale, density.textScale]);
+    }), [density.answerSpacingScale, density.spacingScale, density.textScale, insets.bottom, insets.top]);
 
     useEffect(() => {
         if (timeRemaining > 0) {
             const minutes = Math.floor(timeRemaining / 60);
             const seconds = timeRemaining % 60;
             setTimer(`${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`);
+            return;
         }
+
+        setTimer('00:00');
     }, [timeRemaining]);
+
+    useEffect(() => {
+        const x = quickStepXPositionsRef.current[currentIndex];
+        if (x === undefined) return;
+
+        quickStepsScrollRef.current?.scrollTo({
+            x: Math.max(0, x - 2),
+            animated: true,
+        });
+    }, [currentIndex]);
+
+    const handleConfirmExit = () => {
+        Alert.alert(
+            'Zakończyć egzamin?',
+            'Po opuszczeniu egzaminu przejdziesz do podsumowania i nie bedziesz mógł kontynuować tej sesji.',
+            [
+                { text: 'Anuluj', style: 'cancel' },
+                {
+                    text: 'Zakończ i pokaż podsumowanie',
+                    style: 'destructive',
+                    onPress: () => {
+                        finishExam();
+                    },
+                },
+            ]
+        );
+    };
 
     if (!currentQuestion) {
         return (
@@ -79,8 +144,8 @@ export default function ExamRunScreen() {
 
     return (
         <View style={styles.container}>
-            <SafeAreaView style={styles.header} edges={['top']}>
-                <TouchableOpacity onPress={() => router.back()} style={styles.iconBtn}>
+            <View style={[styles.header, dynamicStyles.header]}>
+                <TouchableOpacity onPress={handleConfirmExit} style={styles.iconBtn} hitSlop={12}>
                     <X size={20} color={COLORS.card} />
                 </TouchableOpacity>
 
@@ -91,18 +156,80 @@ export default function ExamRunScreen() {
 
                 <View style={styles.headerActions}>
                     <TouchableOpacity
-                        style={[styles.iconBtn, isBookmarked && styles.iconBtnActive]}
-                        onPress={toggleBookmark}
+                        style={[styles.iconBtn, isFlagged && styles.iconBtnActive]}
+                        onPress={toggleFlag}
                     >
-                        <Star size={20} color={isBookmarked ? COLORS.warning : COLORS.card} />
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.iconBtn} onPress={finishExam}>
-                        <Flag size={20} color={COLORS.card} />
+                        <Flag size={20} color={isFlagged ? COLORS.warning : COLORS.card} />
                     </TouchableOpacity>
                 </View>
-            </SafeAreaView>
+            </View>
 
-            <View style={[styles.content, dynamicStyles.content]}>
+            <View style={[styles.quickNavRow, dynamicStyles.quickNavRow]}>
+                <TouchableOpacity
+                    onPress={goToPreviousQuestion}
+                    style={[styles.quickArrowBtn, dynamicStyles.quickArrowBtn, !canGoToPrevious && styles.quickArrowBtnDisabled]}
+                    disabled={!canGoToPrevious}
+                >
+                    <ChevronLeft size={20} color={!canGoToPrevious ? COLORS.textMuted : COLORS.card} />
+                </TouchableOpacity>
+
+                <ScrollView
+                    ref={quickStepsScrollRef}
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    contentContainerStyle={[styles.quickStepsContainer, dynamicStyles.quickStepsContainer]}
+                >
+                    {questionIds.map((questionId, index) => {
+                        const isActive = index === currentIndex;
+                        const isAnswered = answeredQuestionIds.includes(questionId);
+                        const isFlaggedQuestion = flaggedQuestionIds.includes(questionId);
+
+                        return (
+                            <TouchableOpacity
+                                key={`exam-step-${questionId}`}
+                                onLayout={(event) => {
+                                    quickStepXPositionsRef.current[index] = event.nativeEvent.layout.x;
+                                }}
+                                style={[
+                                    styles.quickStep,
+                                    dynamicStyles.quickStep,
+                                    !isAnswered && styles.quickStepUnanswered,
+                                    isAnswered && styles.quickStepAnswered,
+                                    isFlaggedQuestion && styles.quickStepFlagged,
+                                    isActive && styles.quickStepActive,
+                                ]}
+                                onPress={() => goToQuestion(index)}
+                            >
+                                <Text style={[styles.quickStepText, dynamicStyles.quickStepText]}>{index + 1}</Text>
+                            </TouchableOpacity>
+                        );
+                    })}
+                </ScrollView>
+
+                <TouchableOpacity
+                    onPress={goToNextQuestion}
+                    style={[styles.quickArrowBtn, dynamicStyles.quickArrowBtn, !canGoToNext && styles.quickArrowBtnDisabled]}
+                    disabled={!canGoToNext}
+                >
+                    <ChevronRight size={20} color={!canGoToNext ? COLORS.textMuted : COLORS.card} />
+                </TouchableOpacity>
+            </View>
+
+            <Animated.View
+                style={[
+                    styles.content,
+                    dynamicStyles.content,
+                    {
+                        transform: [{ translateX: pan }],
+                        opacity: pan.interpolate({
+                            inputRange: [-400, 0, 400],
+                            outputRange: [0, 1, 0],
+                            extrapolate: 'clamp',
+                        }),
+                    },
+                ]}
+                {...panHandlers}
+            >
                 <Text style={[styles.questionMeta, dynamicStyles.questionMeta]}>
                     Pytanie {currentIndex + 1}/{totalQuestions}
                 </Text>
@@ -122,16 +249,9 @@ export default function ExamRunScreen() {
                         />
                     ))}
                 </View>
-            </View>
 
-            <View style={[styles.controls, dynamicStyles.controls]}>
-                <TouchableOpacity style={[styles.ghostBtn, dynamicStyles.controlButton]} onPress={() => {}}>
-                    <Text style={[styles.ghostText, dynamicStyles.controlButtonText]}>Wyczyść</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={[styles.ctaBtn, dynamicStyles.controlButton]} onPress={finishExam}>
-                    <Text style={[styles.ctaText, dynamicStyles.controlButtonText]}>Dalej</Text>
-                </TouchableOpacity>
-            </View>
+                <View style={dynamicStyles.contentBottomSpacer} />
+            </Animated.View>
         </View>
     );
 }
@@ -179,7 +299,55 @@ const styles = StyleSheet.create({
     },
     headerActions: {
         flexDirection: 'row',
+        gap: 10,
+    },
+    quickNavRow: {
+        flexDirection: 'row',
+        alignItems: 'center',
         gap: 8,
+        paddingHorizontal: 16,
+        marginTop: 14,
+    },
+    quickArrowBtn: {
+        width: 36,
+        height: 36,
+        borderRadius: 10,
+        backgroundColor: COLORS.primary,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    quickArrowBtnDisabled: {
+        backgroundColor: COLORS.border,
+    },
+    quickStepsContainer: {
+        gap: 8,
+        paddingRight: 6,
+    },
+    quickStep: {
+        minWidth: 44,
+        height: 36,
+        borderRadius: 8,
+        borderWidth: 2,
+        borderColor: 'transparent',
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingHorizontal: 10,
+    },
+    quickStepUnanswered: {
+        backgroundColor: '#b7b7b7',
+    },
+    quickStepAnswered: {
+        backgroundColor: '#7f9fb8',
+    },
+    quickStepFlagged: {
+        backgroundColor: COLORS.warning,
+    },
+    quickStepActive: {
+        borderColor: 'rgba(255,255,255,0.92)',
+    },
+    quickStepText: {
+        color: COLORS.card,
+        fontWeight: '700',
     },
     content: {
         flex: 1,
@@ -221,36 +389,5 @@ const styles = StyleSheet.create({
     },
     options: {
         gap: 12,
-    },
-    controls: {
-        flexDirection: 'row',
-        gap: 16,
-        padding: 24,
-    },
-    ghostBtn: {
-        flex: 1,
-        borderWidth: 2,
-        borderColor: COLORS.border,
-        borderRadius: 100,
-        padding: 16,
-        alignItems: 'center',
-        backgroundColor: COLORS.card,
-    },
-    ghostText: {
-        fontSize: 16,
-        fontWeight: '700',
-        color: COLORS.textMain,
-    },
-    ctaBtn: {
-        flex: 1,
-        backgroundColor: COLORS.primary,
-        borderRadius: 100,
-        padding: 16,
-        alignItems: 'center',
-    },
-    ctaText: {
-        fontSize: 16,
-        fontWeight: '700',
-        color: COLORS.card,
     },
 });

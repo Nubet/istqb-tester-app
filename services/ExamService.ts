@@ -11,7 +11,11 @@ const answerQuestionUseCase = new AnswerQuestionUseCase(
     examSessionRepository,
     userProgressRepository
 );
-const completeExamUseCase = new CompleteExamUseCase(examSessionRepository, userProgressRepository);
+const completeExamUseCase = new CompleteExamUseCase(
+    questionRepository,
+    examSessionRepository,
+    userProgressRepository
+);
 
 export class ExamService {
     async getCurrentSession(): Promise<ExamSession | null> {

@@ -1,12 +1,25 @@
+import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { COLORS } from '@/constants/colors';
 import { useExamResult } from '@/hooks/useExamResult';
+import type { ExamQuestionReview } from '@/types';
 
 export default function ResultsScreen() {
     const router = useRouter();
     const { result } = useExamResult();
+    const [selectedQuestion, setSelectedQuestion] = React.useState<ExamQuestionReview | null>(null);
+    const reviews = React.useMemo(() => result?.questionReviews ?? [], [result]);
+
+    React.useEffect(() => {
+        if (!reviews.length) {
+            setSelectedQuestion(null);
+            return;
+        }
+
+        setSelectedQuestion(reviews[0]);
+    }, [reviews]);
 
     if (!result) {
         return (
@@ -67,6 +80,71 @@ export default function ResultsScreen() {
                 >
                     <Text style={styles.backText}>Wróć na pulpit</Text>
                 </TouchableOpacity>
+
+                {reviews.length > 0 && (
+                    <View style={styles.reviewSection}>
+                        <Text style={styles.reviewTitle}>Mapa pytan</Text>
+                        <Text style={styles.reviewMeta}>Kliknij numer, aby zobaczyc szczegoly pytania.</Text>
+
+                        <View style={styles.reviewGrid}>
+                            {reviews.map((review) => {
+                                const isActive = selectedQuestion?.questionId === review.questionId;
+                                const isUnanswered = review.selectedAnswer === null;
+
+                                return (
+                                    <TouchableOpacity
+                                        key={review.questionId}
+                                        style={[
+                                            styles.reviewCell,
+                                            isUnanswered && styles.reviewCellUnanswered,
+                                            !isUnanswered && review.isCorrect && styles.reviewCellCorrect,
+                                            !isUnanswered && !review.isCorrect && styles.reviewCellWrong,
+                                            isActive && styles.reviewCellActive,
+                                        ]}
+                                        onPress={() => setSelectedQuestion(review)}
+                                    >
+                                        <Text style={styles.reviewCellText}>{review.questionNumber}</Text>
+                                    </TouchableOpacity>
+                                );
+                            })}
+                        </View>
+                    </View>
+                )}
+
+                {selectedQuestion && (
+                    <View style={styles.questionDetailCard}>
+                        <Text style={styles.questionDetailHeader}>Pytanie {selectedQuestion.questionNumber}</Text>
+                        <Text style={styles.questionDetailCategory}>{selectedQuestion.category}</Text>
+                        <Text style={styles.questionDetailText}>{selectedQuestion.questionText}</Text>
+
+                        <View style={styles.optionList}>
+                            {(['A', 'B', 'C', 'D'] as const).map((option) => {
+                                const isSelected = selectedQuestion.selectedAnswer === option;
+                                const isCorrect = selectedQuestion.correctAnswer === option;
+
+                                return (
+                                    <View
+                                        key={`${selectedQuestion.questionId}-${option}`}
+                                        style={[
+                                            styles.optionRow,
+                                            isSelected && styles.optionRowSelected,
+                                            isCorrect && styles.optionRowCorrect,
+                                        ]}
+                                    >
+                                        <Text style={styles.optionLetter}>{option}</Text>
+                                        <Text style={styles.optionText}>{selectedQuestion.options[option]}</Text>
+                                    </View>
+                                );
+                            })}
+                        </View>
+
+                        <Text style={styles.answerSummary}>
+                            {selectedQuestion.selectedAnswer
+                                ? `Twoja odpowiedz: ${selectedQuestion.selectedAnswer} | Poprawna: ${selectedQuestion.correctAnswer}`
+                                : `Brak odpowiedzi | Poprawna: ${selectedQuestion.correctAnswer}`}
+                        </Text>
+                    </View>
+                )}
             </ScrollView>
         </View>
     );
@@ -183,5 +261,119 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: '700',
         color: COLORS.textMain,
+    },
+    reviewSection: {
+        marginHorizontal: 24,
+        marginBottom: 16,
+        backgroundColor: COLORS.card,
+        borderRadius: 18,
+        padding: 16,
+    },
+    reviewTitle: {
+        fontSize: 16,
+        fontWeight: '800',
+        color: COLORS.textMain,
+    },
+    reviewMeta: {
+        marginTop: 4,
+        fontSize: 13,
+        fontWeight: '600',
+        color: COLORS.textMuted,
+    },
+    reviewGrid: {
+        marginTop: 12,
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        gap: 8,
+    },
+    reviewCell: {
+        width: 38,
+        height: 38,
+        borderRadius: 10,
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderWidth: 1,
+        borderColor: 'transparent',
+    },
+    reviewCellUnanswered: {
+        backgroundColor: '#b7b7b7',
+    },
+    reviewCellCorrect: {
+        backgroundColor: '#4f8e53',
+    },
+    reviewCellWrong: {
+        backgroundColor: COLORS.danger,
+    },
+    reviewCellActive: {
+        borderColor: COLORS.frame,
+    },
+    reviewCellText: {
+        color: COLORS.card,
+        fontWeight: '700',
+        fontSize: 13,
+    },
+    questionDetailCard: {
+        marginHorizontal: 24,
+        marginBottom: 30,
+        padding: 16,
+        borderRadius: 18,
+        backgroundColor: COLORS.card,
+    },
+    questionDetailHeader: {
+        fontSize: 15,
+        fontWeight: '800',
+        color: COLORS.textMain,
+    },
+    questionDetailCategory: {
+        marginTop: 4,
+        fontSize: 12,
+        fontWeight: '700',
+        color: COLORS.primary,
+    },
+    questionDetailText: {
+        marginTop: 10,
+        fontSize: 14,
+        lineHeight: 20,
+        fontWeight: '600',
+        color: COLORS.textMain,
+    },
+    optionList: {
+        marginTop: 12,
+        gap: 8,
+    },
+    optionRow: {
+        borderRadius: 12,
+        padding: 12,
+        backgroundColor: COLORS.background,
+        flexDirection: 'row',
+        gap: 10,
+    },
+    optionRowSelected: {
+        borderWidth: 1,
+        borderColor: COLORS.primary,
+    },
+    optionRowCorrect: {
+        backgroundColor: COLORS.successSoft,
+        borderWidth: 1,
+        borderColor: COLORS.success,
+    },
+    optionLetter: {
+        width: 22,
+        fontSize: 13,
+        fontWeight: '800',
+        color: COLORS.textMain,
+    },
+    optionText: {
+        flex: 1,
+        fontSize: 13,
+        lineHeight: 18,
+        color: COLORS.textMain,
+        fontWeight: '600',
+    },
+    answerSummary: {
+        marginTop: 12,
+        fontSize: 13,
+        color: COLORS.textMuted,
+        fontWeight: '700',
     },
 });

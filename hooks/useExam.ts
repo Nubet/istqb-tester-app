@@ -1,16 +1,18 @@
 import { useState, useCallback, useEffect, useRef } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'expo-router';
-import { examService, bookmarkService } from '@/services';
-import type { AnswerId } from '@/types';
+import { examService } from '@/services';
+import { DEFAULT_EXAM_CONFIG, type AnswerId } from '@/types';
 
 export function useExam() {
     const router = useRouter();
     const queryClient = useQueryClient();
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-    const [selectedAnswer, setSelectedAnswer] = useState<AnswerId | null>(null);
-    const [isBookmarked, setIsBookmarked] = useState(false);
+    const [timeRemaining, setTimeRemaining] = useState(DEFAULT_EXAM_CONFIG.timeLimitMinutes * 60);
+    const [answersByQuestionId, setAnswersByQuestionId] = useState<Record<string, AnswerId | null>>({});
+    const [flaggedQuestionIds, setFlaggedQuestionIds] = useState<string[]>([]);
     const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+    const isFinishingRef = useRef(false);
 
     const { data: session, refetch: refetchSession } = useQuery({
         queryKey: ['examSession'],
@@ -31,15 +33,8 @@ export function useExam() {
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['examSession'] });
             setCurrentQuestionIndex(0);
-            setSelectedAnswer(null);
-        },
-    });
-
-    const toggleBookmarkMutation = useMutation({
-        mutationFn: ({ questionId, source }: { questionId: string; source: 'exam' | 'learning' }) =>
-            bookmarkService.toggleBookmark(questionId, source),
-        onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['userProgress'] });
+            setAnswersByQuestionId({});
+            setFlaggedQuestionIds([]);
         },
     });
 
@@ -49,46 +44,87 @@ export function useExam() {
         const currentQuestion = questions[currentQuestionIndex];
         if (!currentQuestion) return;
 
-        setSelectedAnswer(answer);
+        setAnswersByQuestionId((prev) => ({
+            ...prev,
+            [currentQuestion.id]: answer,
+        }));
 
         await examService.answerQuestion(session.id, currentQuestion.id, answer);
         await refetchSession();
     }, [session, questions, currentQuestionIndex, refetchSession]);
 
-    const toggleBookmark = useCallback(() => {
-        if (!questions || !session) return;
+    const toggleFlag = useCallback(() => {
+        if (!questions) return;
         const currentQuestion = questions[currentQuestionIndex];
         if (!currentQuestion) return;
 
-        toggleBookmarkMutation.mutate({
-            questionId: currentQuestion.id,
-            source: 'exam',
+        setFlaggedQuestionIds((prev) => {
+            if (prev.includes(currentQuestion.id)) {
+                return prev.filter((id) => id !== currentQuestion.id);
+            }
+
+            return [...prev, currentQuestion.id];
         });
-        setIsBookmarked(!isBookmarked);
-    }, [questions, currentQuestionIndex, isBookmarked, session, toggleBookmarkMutation]);
+    }, [questions, currentQuestionIndex]);
 
     const finishExam = useCallback(async () => {
-        if (!session) return;
+        if (!session || isFinishingRef.current) return;
+        isFinishingRef.current = true;
 
-        const result = await examService.completeExam(session.id);
-        await queryClient.invalidateQueries({ queryKey: ['examSession'] });
-        await queryClient.invalidateQueries({ queryKey: ['userProgress'] });
+        try {
+            const result = await examService.completeExam(session.id);
+            await queryClient.invalidateQueries({ queryKey: ['examSession'] });
+            await queryClient.invalidateQueries({ queryKey: ['userProgress'] });
 
-        router.push({
-            pathname: '/results',
-            params: { result: JSON.stringify(result) },
-        });
+            router.push({
+                pathname: '/results',
+                params: { result: JSON.stringify(result) },
+            });
+        } finally {
+            isFinishingRef.current = false;
+        }
     }, [session, queryClient, router]);
 
+    const goToQuestion = useCallback((index: number) => {
+        if (!questions || index < 0 || index >= questions.length) return;
+        setCurrentQuestionIndex(index);
+    }, [questions]);
+
+    const goToNextQuestion = useCallback(() => {
+        if (!questions) return;
+        setCurrentQuestionIndex((prev) => Math.min(prev + 1, questions.length - 1));
+    }, [questions]);
+
+    const goToPreviousQuestion = useCallback(() => {
+        setCurrentQuestionIndex((prev) => Math.max(prev - 1, 0));
+    }, []);
+
     useEffect(() => {
-        if (!session && !startExam.isPending) {
+        if ((!session || session.isCompleted) && !startExam.isPending) {
             startExam.mutate();
         }
     }, [session, startExam]);
 
     useEffect(() => {
+        if (session) {
+            setTimeRemaining(session.timeRemainingSeconds);
+
+            const restoredAnswers: Record<string, AnswerId | null> = {};
+            for (const [questionId, answer] of session.getAllAnswers().entries()) {
+                restoredAnswers[questionId] = answer.selectedAnswer;
+            }
+
+            setAnswersByQuestionId((prev) => ({
+                ...restoredAnswers,
+                ...prev,
+            }));
+        }
+    }, [session]);
+
+    useEffect(() => {
         if (session && !session.isCompleted) {
             timerRef.current = setInterval(() => {
+                setTimeRemaining((prev) => Math.max(0, prev - 1));
                 examService.tickSession(session);
             }, 1000);
         }
@@ -100,17 +136,46 @@ export function useExam() {
         };
     }, [session]);
 
+    useEffect(() => {
+        if (!session || session.isCompleted) return;
+        if (timeRemaining > 0) return;
+
+        finishExam();
+    }, [finishExam, session, timeRemaining]);
+
+    useEffect(() => {
+        if (!questions || questions.length === 0) return;
+        if (currentQuestionIndex < questions.length) return;
+
+        setCurrentQuestionIndex(questions.length - 1);
+    }, [currentQuestionIndex, questions]);
+
     const currentQuestion = questions?.[currentQuestionIndex];
+    const selectedAnswer = currentQuestion ? answersByQuestionId[currentQuestion.id] ?? null : null;
+    const isFlagged = currentQuestion ? flaggedQuestionIds.includes(currentQuestion.id) : false;
+
+    const questionIds = questions?.map((question) => question.id) ?? [];
+
+    const answeredQuestionIds = questionIds.filter((questionId) => {
+        const answer = answersByQuestionId[questionId];
+        return answer !== null && answer !== undefined;
+    });
 
     return {
         currentQuestion,
         currentIndex: currentQuestionIndex,
+        questionIds,
         totalQuestions: questions?.length || 0,
-        timeRemaining: session?.timeRemainingSeconds || 0,
+        timeRemaining,
         selectedAnswer,
-        isBookmarked,
+        answeredQuestionIds,
+        flaggedQuestionIds,
+        isFlagged,
+        goToQuestion,
+        goToNextQuestion,
+        goToPreviousQuestion,
         answerQuestion,
-        toggleBookmark,
+        toggleFlag,
         finishExam,
         isLoading: startExam.isPending,
     };
