@@ -1,5 +1,8 @@
+import { useMemo } from 'react';
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { COLORS } from '@/constants/colors';
+import { scaleValue } from '@/constants/readingDensity';
+import { useReadingPreferences } from '@/hooks/useReadingPreferences';
 import type { AnswerId } from '@/types';
 
 interface OptionButtonProps {
@@ -19,8 +22,29 @@ export function OptionButton({
                                  correct = false,
                                  wrong = false,
                                  disabled = false,
-                                 onPress,
-                             }: OptionButtonProps) {
+                              onPress,
+                              }: OptionButtonProps) {
+    const { density } = useReadingPreferences();
+
+    const dynamicStyles = useMemo(() => ({
+        container: {
+            padding: scaleValue(16, density.answerSpacingScale, 10),
+            gap: scaleValue(16, density.answerSpacingScale, 8),
+            minHeight: density.optionMinHeight,
+        },
+        letter: {
+            width: scaleValue(32, density.answerSpacingScale, 26),
+            height: scaleValue(32, density.answerSpacingScale, 26),
+            borderRadius: scaleValue(16, density.answerSpacingScale, 13),
+            lineHeight: scaleValue(32, density.answerSpacingScale, 26),
+            fontSize: scaleValue(14, density.answerTextScale, 12),
+        },
+        text: {
+            fontSize: scaleValue(15, density.answerTextScale, 12),
+            lineHeight: scaleValue(20, density.answerTextScale, 16),
+        },
+    }), [density.answerSpacingScale, density.answerTextScale, density.optionMinHeight]);
+
     const getBackgroundColor = () => {
         if (correct) return COLORS.successSoft;
         if (wrong) return COLORS.dangerSoft;
@@ -51,6 +75,7 @@ export function OptionButton({
         <TouchableOpacity
             style={[
                 styles.container,
+                dynamicStyles.container,
                 {
                     backgroundColor: getBackgroundColor(),
                     borderColor: getBorderColor(),
@@ -63,6 +88,7 @@ export function OptionButton({
             <Text
                 style={[
                     styles.letter,
+                    dynamicStyles.letter,
                     {
                         backgroundColor: getLetterBackgroundColor(),
                         color: getLetterColor(),
@@ -71,7 +97,7 @@ export function OptionButton({
             >
                 {option}
             </Text>
-            <Text style={styles.text}>{text}</Text>
+            <Text style={[styles.text, dynamicStyles.text]}>{text}</Text>
         </TouchableOpacity>
     );
 }

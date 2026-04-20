@@ -2,9 +2,11 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { X, Clock, Star, Flag } from 'lucide-react-native';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { COLORS } from '@/constants/colors';
+import { scaleValue } from '@/constants/readingDensity';
 import { useExam } from '@/hooks/useExam';
+import { useReadingPreferences } from '@/hooks/useReadingPreferences';
 import { OptionButton } from '@/ui/OptionButton';
 
 export default function ExamRunScreen() {
@@ -20,8 +22,42 @@ export default function ExamRunScreen() {
         toggleBookmark,
         finishExam,
     } = useExam();
+    const { density } = useReadingPreferences();
 
     const [timer, setTimer] = useState('59:59');
+
+    const dynamicStyles = useMemo(() => ({
+        content: {
+            padding: scaleValue(24, density.spacingScale, 16),
+        },
+        questionMeta: {
+            fontSize: scaleValue(13, density.textScale, 12),
+            marginBottom: scaleValue(16, density.spacingScale, 10),
+        },
+        questionCard: {
+            padding: scaleValue(24, density.spacingScale, 16),
+            marginBottom: scaleValue(16, density.spacingScale, 10),
+        },
+        questionText: {
+            fontSize: scaleValue(19, density.textScale, 16),
+            lineHeight: scaleValue(26, density.textScale, 22),
+        },
+        options: {
+            gap: scaleValue(12, density.answerSpacingScale, 7),
+        },
+        controls: {
+            gap: scaleValue(16, density.answerSpacingScale, 9),
+            padding: scaleValue(24, density.answerSpacingScale, 12),
+        },
+        controlButton: {
+            minHeight: density.optionMinHeight,
+            paddingVertical: scaleValue(16, density.answerSpacingScale, 10),
+            paddingHorizontal: scaleValue(16, density.answerSpacingScale, 10),
+        },
+        controlButtonText: {
+            fontSize: scaleValue(16, density.answerTextScale, 13),
+        },
+    }), [density.answerSpacingScale, density.answerTextScale, density.optionMinHeight, density.spacingScale, density.textScale]);
 
     useEffect(() => {
         if (timeRemaining > 0) {
@@ -66,16 +102,16 @@ export default function ExamRunScreen() {
                 </View>
             </SafeAreaView>
 
-            <View style={styles.content}>
-                <Text style={styles.questionMeta}>
+            <View style={[styles.content, dynamicStyles.content]}>
+                <Text style={[styles.questionMeta, dynamicStyles.questionMeta]}>
                     Pytanie {currentIndex + 1}/{totalQuestions}
                 </Text>
 
-                <View style={styles.questionCard}>
-                    <Text style={styles.questionText}>{currentQuestion.text}</Text>
+                <View style={[styles.questionCard, dynamicStyles.questionCard]}>
+                    <Text style={[styles.questionText, dynamicStyles.questionText]}>{currentQuestion.text}</Text>
                 </View>
 
-                <View style={styles.options}>
+                <View style={[styles.options, dynamicStyles.options]}>
                     {(['A', 'B', 'C', 'D'] as const).map((option) => (
                         <OptionButton
                             key={option}
@@ -88,12 +124,12 @@ export default function ExamRunScreen() {
                 </View>
             </View>
 
-            <View style={styles.controls}>
-                <TouchableOpacity style={styles.ghostBtn} onPress={() => {}}>
-                    <Text style={styles.ghostText}>Wyczyść</Text>
+            <View style={[styles.controls, dynamicStyles.controls]}>
+                <TouchableOpacity style={[styles.ghostBtn, dynamicStyles.controlButton]} onPress={() => {}}>
+                    <Text style={[styles.ghostText, dynamicStyles.controlButtonText]}>Wyczyść</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.ctaBtn} onPress={finishExam}>
-                    <Text style={styles.ctaText}>Dalej</Text>
+                <TouchableOpacity style={[styles.ctaBtn, dynamicStyles.controlButton]} onPress={finishExam}>
+                    <Text style={[styles.ctaText, dynamicStyles.controlButtonText]}>Dalej</Text>
                 </TouchableOpacity>
             </View>
         </View>

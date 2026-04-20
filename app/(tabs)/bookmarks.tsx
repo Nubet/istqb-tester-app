@@ -1,17 +1,17 @@
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Animated } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { useRouter } from 'expo-router';
-import { useEffect, useState, useCallback } from 'react';
-import { ArrowLeft, Star, Lightbulb, CheckSquare, XSquare } from 'lucide-react-native';
+import { useEffect, useState, useCallback, useMemo } from 'react';
+import { Star, Lightbulb, CheckSquare, XSquare } from 'lucide-react-native';
 import { COLORS } from '@/constants/colors';
+import { scaleValue } from '@/constants/readingDensity';
 import { ScreenHeader } from '@/ui/ScreenHeader';
 import { useHorizontalSwipe } from '@/hooks/useHorizontalSwipe';
 import { useBookmarks } from '@/hooks/useBookmarks';
+import { useReadingPreferences } from '@/hooks/useReadingPreferences';
 import type { AnswerId } from '@/types';
 
 export default function BookmarksScreen() {
-    const router = useRouter();
     const { questions, isEmpty, isLoadingQuestions, toggleBookmark, isBookmarked } = useBookmarks();
+    const { density } = useReadingPreferences();
 
     const [currentIndex, setCurrentIndex] = useState(0);
     const [showExplanation, setShowExplanation] = useState(false);
@@ -82,6 +82,63 @@ export default function BookmarksScreen() {
         toggleBookmark({ questionId: currentQuestion.id, source: 'learning' });
     };
 
+    const dynamicStyles = useMemo(() => ({
+        content: {
+            paddingHorizontal: scaleValue(16, density.spacingScale, 12),
+            paddingTop: scaleValue(16, density.spacingScale, 12),
+        },
+        scrollContent: {
+            paddingBottom: scaleValue(32, density.spacingScale, 20),
+        },
+        questionCard: {
+            padding: scaleValue(20, density.spacingScale, 14),
+            marginBottom: scaleValue(12, density.spacingScale, 8),
+        },
+        questionText: {
+            fontSize: scaleValue(18, density.textScale, 15),
+            lineHeight: scaleValue(25, density.textScale, 21),
+        },
+        explainButton: {
+            paddingVertical: scaleValue(12, density.spacingScale, 10),
+            paddingHorizontal: scaleValue(16, density.spacingScale, 12),
+            gap: scaleValue(8, density.spacingScale, 6),
+        },
+        explainButtonText: {
+            fontSize: scaleValue(15, density.textScale, 13),
+        },
+        feedback: {
+            padding: scaleValue(16, density.spacingScale, 12),
+            marginTop: scaleValue(10, density.spacingScale, 8),
+        },
+        feedbackText: {
+            fontSize: scaleValue(14, density.textScale, 12),
+            lineHeight: scaleValue(20, density.textScale, 17),
+        },
+        controls: {
+            gap: scaleValue(12, density.answerSpacingScale, 6),
+            paddingHorizontal: scaleValue(16, density.answerSpacingScale, 10),
+            paddingBottom: scaleValue(16, density.answerSpacingScale, 10),
+            paddingTop: scaleValue(8, density.answerSpacingScale, 5),
+        },
+        answerButton: {
+            padding: scaleValue(16, density.answerSpacingScale, 10),
+            gap: scaleValue(12, density.answerSpacingScale, 7),
+            minHeight: density.optionMinHeight,
+        },
+        answerLetterContainer: {
+            width: scaleValue(32, density.answerSpacingScale, 26),
+            height: scaleValue(32, density.answerSpacingScale, 26),
+            borderRadius: scaleValue(16, density.answerSpacingScale, 13),
+        },
+        answerLetterText: {
+            fontSize: scaleValue(15, density.answerTextScale, 12),
+        },
+        answerText: {
+            fontSize: scaleValue(15, density.answerTextScale, 12),
+            lineHeight: scaleValue(22, density.answerTextScale, 17),
+        },
+    }), [density.answerSpacingScale, density.answerTextScale, density.optionMinHeight, density.spacingScale, density.textScale]);
+
     if (isEmpty || questions.length === 0) {
         return (
             <View style={styles.container}>
@@ -130,6 +187,7 @@ export default function BookmarksScreen() {
             <Animated.View 
                 style={[
                     styles.content, 
+                    dynamicStyles.content,
                     { 
                         marginTop: hasAnswered ? -8 : 0, 
                         transform: [{ translateX: pan }],
@@ -156,27 +214,27 @@ export default function BookmarksScreen() {
                 <ScrollView 
                     style={{ flex: 1 }} 
                     showsVerticalScrollIndicator={false}
-                    contentContainerStyle={{ paddingBottom: 32, flexGrow: 1 }}
+                    contentContainerStyle={[{ flexGrow: 1 }, dynamicStyles.scrollContent]}
                     keyboardShouldPersistTaps="handled"
                 >
-                    <View style={styles.questionCard}>
-                        <Text style={styles.questionText}>{currentQuestion.text}</Text>
+                    <View style={[styles.questionCard, dynamicStyles.questionCard]}>
+                        <Text style={[styles.questionText, dynamicStyles.questionText]}>{currentQuestion.text}</Text>
                     </View>
 
-                    <TouchableOpacity style={styles.explainBtn} onPress={() => setShowExplanation((prev) => !prev)}>
+                    <TouchableOpacity style={[styles.explainBtn, dynamicStyles.explainButton]} onPress={() => setShowExplanation((prev) => !prev)}>
                         <Lightbulb size={18} color={COLORS.primary} />
-                        <Text style={styles.explainBtnText}>{showExplanation ? 'Ukryj wyjaśnienie pytania' : 'Pokaż wyjaśnienie pytania'}</Text>
+                        <Text style={[styles.explainBtnText, dynamicStyles.explainButtonText]}>{showExplanation ? 'Ukryj wyjaśnienie pytania' : 'Pokaż wyjaśnienie pytania'}</Text>
                     </TouchableOpacity>
 
                     {showExplanation && (
-                        <View style={styles.feedback}>
-                            <Text style={styles.feedbackText}>{currentQuestion.explanation}</Text>
+                        <View style={[styles.feedback, dynamicStyles.feedback]}>
+                            <Text style={[styles.feedbackText, dynamicStyles.feedbackText]}>{currentQuestion.explanation}</Text>
                         </View>
                     )}
                 </ScrollView>
             </Animated.View>
 
-            <View style={styles.controls}>
+            <View style={[styles.controls, dynamicStyles.controls]}>
                 {(['A', 'B', 'C', 'D'] as AnswerId[]).map((optionId) => {
                     const isSelected = selectedAnswer === optionId;
                     const isCorrectOption = optionId === currentQuestion.correctAnswer;
@@ -212,15 +270,15 @@ export default function BookmarksScreen() {
                     return (
                         <TouchableOpacity
                             key={optionId}
-                            style={[styles.ctaBtn, containerStyle]}
+                            style={[styles.ctaBtn, containerStyle, dynamicStyles.answerButton]}
                             onPress={() => handleAnswerQuestion(optionId)}
                             disabled={hasAnswered}
                             activeOpacity={0.7}
                         >
-                            <View style={letterContainerStyle}>
-                                <Text style={letterTextStyle}>{optionId}</Text>
+                            <View style={[letterContainerStyle, dynamicStyles.answerLetterContainer]}>
+                                <Text style={[letterTextStyle, dynamicStyles.answerLetterText]}>{optionId}</Text>
                             </View>
-                            <Text style={textStyle}>{currentQuestion.options[optionId]}</Text>
+                            <Text style={[textStyle, dynamicStyles.answerText]}>{currentQuestion.options[optionId]}</Text>
                         </TouchableOpacity>
                     );
                 })}
