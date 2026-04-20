@@ -173,27 +173,6 @@ export default function LearnScreen() {
             height: scaleValue(38, headerScale, 34),
             borderRadius: scaleValue(19, headerScale, 17),
         },
-        quickNavRow: {
-            gap: scaleValue(8, headerScale, 4),
-        },
-        quickArrowBtn: {
-            width: scaleValue(36, headerScale, 32),
-            height: scaleValue(36, headerScale, 32),
-            borderRadius: scaleValue(10, headerScale, 8),
-        },
-        quickStepsContainer: {
-            gap: scaleValue(8, headerScale, 4),
-            paddingRight: scaleValue(6, headerScale, 3),
-        },
-        quickStep: {
-            minWidth: scaleValue(44, headerScale, 36),
-            height: scaleValue(36, headerScale, 30),
-            borderRadius: scaleValue(8, headerScale, 7),
-            paddingHorizontal: scaleValue(10, headerScale, 6),
-        },
-        quickStepText: {
-            fontSize: scaleValue(13, headerScale, 11),
-        },
         content: {
             paddingHorizontal: scaleValue(16, spacingScale, 10),
             paddingTop: scaleValue(16, spacingScale, 10),
@@ -406,10 +385,10 @@ export default function LearnScreen() {
                     </View>
                 )}
 
-                <View style={[styles.quickNavRow, dynamicStyles.quickNavRow]}>
+                <View style={styles.quickNavRow}>
                     <TouchableOpacity
                         onPress={goToPreviousVisibleQuestion}
-                        style={[styles.quickArrowBtn, dynamicStyles.quickArrowBtn, !canGoToPrevious && styles.quickArrowBtnDisabled]}
+                        style={[styles.quickArrowBtn, !canGoToPrevious && styles.quickArrowBtnDisabled]}
                         disabled={!canGoToPrevious}
                     >
                         <ChevronLeft size={20} color={!canGoToPrevious ? COLORS.textMuted : COLORS.card} />
@@ -419,7 +398,7 @@ export default function LearnScreen() {
                         ref={quickStepsScrollRef}
                         horizontal
                         showsHorizontalScrollIndicator={false}
-                        contentContainerStyle={[styles.quickStepsContainer, dynamicStyles.quickStepsContainer]}
+                        contentContainerStyle={styles.quickStepsContainer}
                     >
                         {filteredQuestionIndexes.map((index) => {
                             const isActive = index === currentIndex;
@@ -435,7 +414,6 @@ export default function LearnScreen() {
                                     }}
                                     style={[
                                         styles.quickStep,
-                                        dynamicStyles.quickStep,
                                         !isAnswered && styles.quickStepUnanswered,
                                         isAnswered && isCorrectAnswer && styles.quickStepCorrect,
                                         isAnswered && !isCorrectAnswer && styles.quickStepWrong,
@@ -443,7 +421,7 @@ export default function LearnScreen() {
                                     ]}
                                     onPress={() => goToQuestion(index)}
                                 >
-                                    <Text style={[styles.quickStepText, dynamicStyles.quickStepText]}>{index + 1}</Text>
+                                    <Text style={styles.quickStepText}>{index + 1}</Text>
                                 </TouchableOpacity>
                             );
                         })}
@@ -451,7 +429,7 @@ export default function LearnScreen() {
 
                     <TouchableOpacity
                         onPress={goToNextVisibleQuestion}
-                        style={[styles.quickArrowBtn, dynamicStyles.quickArrowBtn, !canGoToNext && styles.quickArrowBtnDisabled]}
+                        style={[styles.quickArrowBtn, !canGoToNext && styles.quickArrowBtnDisabled]}
                         disabled={!canGoToNext}
                     >
                         <ChevronRight size={20} color={!canGoToNext ? COLORS.textMuted : COLORS.card} />
@@ -646,13 +624,14 @@ const styles = StyleSheet.create({
         backgroundColor: '#a8a8a8',
     },
     quickStepCorrect: {
-        backgroundColor: COLORS.success,
+        backgroundColor: '#4f8e53',
     },
     quickStepWrong: {
         backgroundColor: COLORS.danger,
     },
     quickStepActive: {
-        borderColor: COLORS.frame,
+        borderColor: 'rgba(255,255,255,0.92)',
+        borderWidth: 2,
     },
     quickStepText: {
         color: COLORS.card,
