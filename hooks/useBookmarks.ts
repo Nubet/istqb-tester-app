@@ -41,7 +41,7 @@ function reconstructUserProgress(raw: unknown): UserProgress {
 
 export function useBookmarks() {
     const queryClient = useQueryClient();
-
+6
     const { data: rawProgress } = useQuery({
         queryKey: ['userProgress'],
         queryFn: () => progressService.getProgress(),

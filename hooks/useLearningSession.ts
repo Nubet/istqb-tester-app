@@ -143,7 +143,7 @@ export function useLearningSession() {
         answersByQuestionId,
         currentQuestion,
         currentIndex: session?.currentIndex || 0,
-        totalQuestions: session?.questionIds.length || 10,
+        totalQuestions: session?.questionIds.length || 0,
         selectedAnswer,
         hasAnswered,
         isCorrect,
