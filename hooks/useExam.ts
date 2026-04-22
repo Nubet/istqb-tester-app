@@ -13,6 +13,7 @@ export function useExam() {
     const [flaggedQuestionIds, setFlaggedQuestionIds] = useState<string[]>([]);
     const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
     const isFinishingRef = useRef(false);
+    const shouldAutoStartRef = useRef(true);
 
     const { data: session, refetch: refetchSession } = useQuery({
         queryKey: ['examSession'],
@@ -84,6 +85,23 @@ export function useExam() {
         }
     }, [session, queryClient, router]);
 
+    const abandonExam = useCallback(async () => {
+        if (isFinishingRef.current) return;
+
+        isFinishingRef.current = true;
+        shouldAutoStartRef.current = false;
+
+        try {
+            await examService.abandonExam();
+            await queryClient.invalidateQueries({ queryKey: ['examSession'] });
+            setCurrentQuestionIndex(0);
+            setAnswersByQuestionId({});
+            setFlaggedQuestionIds([]);
+        } finally {
+            isFinishingRef.current = false;
+        }
+    }, [queryClient]);
+
     const goToQuestion = useCallback((index: number) => {
         if (!questions || index < 0 || index >= questions.length) return;
         setCurrentQuestionIndex(index);
@@ -100,6 +118,7 @@ export function useExam() {
 
     useEffect(() => {
         if (isFinishingRef.current) return;
+        if (!shouldAutoStartRef.current) return;
         if ((!session || session.isCompleted) && !startExam.isPending) {
             startExam.mutate();
         }
@@ -177,6 +196,7 @@ export function useExam() {
         answerQuestion,
         toggleFlag,
         finishExam,
+        abandonExam,
         isLoading: startExam.isPending,
     };
 }

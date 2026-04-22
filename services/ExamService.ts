@@ -39,6 +39,10 @@ export class ExamService {
         return completeExamUseCase.execute(sessionId);
     }
 
+    async abandonExam(): Promise<void> {
+        await examSessionRepository.clear();
+    }
+
     async tickSession(session: ExamSession): Promise<void> {
         session.tick();
         await examSessionRepository.save(session);

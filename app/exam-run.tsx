@@ -1,4 +1,5 @@
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Animated } from 'react-native';
+import { useRouter } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { X, Clock, Flag, ChevronLeft, ChevronRight } from 'lucide-react-native';
 import { useEffect, useMemo, useRef, useState } from 'react';
@@ -40,6 +41,7 @@ const QUESTION_PROFILE_SCALES: Record<
 };
 
 export default function ExamRunScreen() {
+    const router = useRouter();
     const insets = useSafeAreaInsets();
     const quickStepsScrollRef = useRef<ScrollView>(null);
     const quickStepXPositionsRef = useRef<Record<number, number>>({});
@@ -59,6 +61,7 @@ export default function ExamRunScreen() {
         answerQuestion,
         toggleFlag,
         finishExam,
+        abandonExam,
     } = useExam();
     const { density } = useReadingPreferences();
 
@@ -75,6 +78,7 @@ export default function ExamRunScreen() {
     const [timer, setTimer] = useState('59:59');
     const [showExitConfirm, setShowExitConfirm] = useState(false);
     const [isFinishingExam, setIsFinishingExam] = useState(false);
+    const hasAnsweredAnyQuestion = answeredQuestionIds.length > 0;
 
     const questionContentProfile = useMemo<QuestionContentProfile>(() => {
         if (!currentQuestion) return 'normal';
@@ -178,7 +182,21 @@ export default function ExamRunScreen() {
         });
     }, [currentIndex]);
 
-    const handleConfirmExit = () => {
+    const handleConfirmExit = async () => {
+        if (!hasAnsweredAnyQuestion) {
+            if (isFinishingExam) return;
+
+            setIsFinishingExam(true);
+            try {
+                await abandonExam();
+                router.replace('/exam');
+            } finally {
+                setIsFinishingExam(false);
+                setShowExitConfirm(false);
+            }
+            return;
+        }
+
         setShowExitConfirm(true);
     };
 
