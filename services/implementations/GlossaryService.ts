@@ -1,5 +1,6 @@
 import { glossaryRepository } from '@/repositories';
 import { GlossaryTerm } from '@/types';
+import { compareCategoryLabels } from '../utils/categorySort';
 
 export class GlossaryService {
     async getAllTerms(): Promise<GlossaryTerm[]> {
@@ -11,6 +12,7 @@ export class GlossaryService {
     }
 
     async getCategories(): Promise<string[]> {
-        return await glossaryRepository.getCategories();
+        const categories = await glossaryRepository.getCategories();
+        return [...categories].sort(compareCategoryLabels);
     }
 }

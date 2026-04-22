@@ -1,6 +1,7 @@
 import type { LearningSession, Question } from '@/types';
 import { questionRepository } from '@/repositories';
 import { StartLearningSessionUseCase } from './usecases/learning/StartLearningSession';
+import { compareCategoryLabels } from './utils/categorySort';
 
 const startLearningSessionUseCase = new StartLearningSessionUseCase(questionRepository);
 
@@ -82,7 +83,7 @@ export class LearningService {
                 return orderA - orderB;
             }
 
-            return a.localeCompare(b, 'pl');
+            return compareCategoryLabels(a, b);
         });
     }
 
