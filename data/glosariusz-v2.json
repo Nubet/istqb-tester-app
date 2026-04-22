@@ -1,0 +1,3431 @@
+{
+  "rowCount": 571,
+  "values": [
+    [
+      "1",
+      "Adekwatność Funkcjonalna",
+      "Stopień, w jakim funkcje ułatwiają realizację określonych zadań i celów.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "2",
+      "Analityczna Strategia Testowa",
+      "Strategia testowa, podczas której zespół testowy analizuje podstawę testów, by zidentyfikować te warunki testowe, które należy pokryć.",
+      "III. Zarządzanie Testami"
+    ],
+    [
+      "3",
+      "Analiza Drzewa Usterek",
+      "Metoda używana do analizy przyczyn usterek (defektów). Technika modeluje wizualnie to, jak związki logiczne pomiędzy awariami, błędami człowieka i zewnętrznymi zdarzeniami mogą powodować powstawanie specyficznych defektów. (FTA - akronim od ang. Fault Tree Analysis).",
+      "IV. Techniki Projektowania"
+    ],
+    [
+      "4",
+      "Analiza Dynamiczna",
+      "Proces oceny modułu lub systemu oparty na jego zachowaniu podczas wykonania.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "5",
+      "Analiza Przepływu Danych",
+      "Rodzaj analizy statycznej przeprowadzanej w oparciu o cykl życia zmiennych.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "6",
+      "Analiza Przepływu Sterowania",
+      "Forma analizy statycznej oparta na reprezentacji unikalnych ścieżek wykonywanych podczas działania modułu lub systemu.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "7",
+      "Analiza Przyczyn I Skutków Awarii (Fmea)",
+      "Systematyczne podejście do identyfikacji i analizy ryzyka polegające na wskazywaniu możliwych stanów awarii i zapobieganiu ich wystąpieniu. (FMEA - akronim od angielskiego Failure Mode and Effect Analysis).",
+      "III. Zarządzanie Testami"
+    ],
+    [
+      "8",
+      "Analiza Przyczyny Podstawowej",
+      "Technika analizy zorientowana na identyfikację podstawowych przyczyn defektów. Przez wprowadzenie ukierunkowanych miar na podstawowe przyczyny defektów ma się nadzieję, że prawdopodobieństwo ponownego wystąpienia defektu będzie zminimalizowane.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "9",
+      "Analiza Punktów Testowych",
+      "Metoda umożliwiająca szacowanie czasu testów oparta na analizie punktów funkcyjnych. (TPA - akronim od angielskiego Test Point Analysis).",
+      "III. Zarządzanie Testami"
+    ],
+    [
+      "10",
+      "Analiza Ryzyka",
+      "Całkowity proces identyfikacji ryzyk i ich oceny.",
+      "III. Zarządzanie Testami"
+    ],
+    [
+      "11",
+      "Analiza Statyczna",
+      "Proces oceny modułu lub systemu bez jego wykonywania, oparty na jego formie, strukturze, zawartości lub dokumentacji.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "12",
+      "Analiza Testów",
+      "Czynność polegająca na identyfikowaniu warunków testowych w wyniku analizy podstawy testów.",
+      "II. Proces Testowy"
+    ],
+    [
+      "13",
+      "Analiza Wartości Brzegowych",
+      "Czarnoskrzynkowa technika testowania, w której przypadki testowe są projektowane w oparciu o wartości brzegowe.",
+      "IV. Techniki Projektowania"
+    ],
+    [
+      "14",
+      "Analiza Wpływu",
+      "Identyfikacja wszystkich produktów pracy, na które zmiana ma wpływ, w tym oszacowanie zasobów potrzebnych do przeprowadzenia zmiany.",
+      "III. Zarządzanie Testami"
+    ],
+    [
+      "15",
+      "Analizowalność",
+      "Stopień, w jakim można dokonać oceny modułu lub systemu pod kątem wpływu jednej lub więcej zamierzonych zmian, diagnozy braków lub przyczyn awarii lub identyfikacji elementów (części) do zmodyfikowania.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "16",
+      "Ankieta Użytkownika",
+      "Ocena użyteczności, podczas której reprezentatywna próbka użytkowników jest proszona o zgłaszanie subiektywnych uwag w kwestionariuszu, w oparciu o ich doświadczenie w używaniu modułu lub systemu.",
+      "VI. Charakterystyki Jakości"
+    ],
+    [
+      "17",
+      "Anomalia",
+      "Sytuacja odbiegająca od oczekiwań.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "18",
+      "Anti-Malware",
+      "Oprogramowanie używane do wykrywania i niszczenia złośliwego oprogramowania (malware).",
+      "IX. Bezpieczeństwo i Ataki"
+    ],
+    [
+      "19",
+      "Architekt Testów",
+      "(1) Osoba, która definiuje zalecenia i kierunki strategiczne dla organizacji testów i jej związków z innymi dziedzinami. (2) Osoba, która definiuje sposób, w jaki testy są modelowane dla danego systemu, włączając w to takie zagadnienia jak narzędzia testowe i zarządzanie danymi testowymi.",
+      "VII. Automatyzacja i Narzędzia"
+    ],
+    [
+      "20",
+      "Architektura Testów Automatycznych",
+      "Instancja ogólnej architektury testów automatycznych definiująca rozwiązanie dla testów automatycznych, tzn. jej warstw, modułów, usług i interfejsów.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "21",
+      "Atak Na Zabezpieczenia",
+      "Próba uzyskania nieautoryzowanego dostępu do modułu lub systemu, zasobów, informacji lub próba naruszenia integralności systemu.",
+      "IX. Bezpieczeństwo i Ataki"
+    ],
+    [
+      "22",
+      "Atakujący",
+      "Osoba lub proces, który próbuje uzyskać dostęp do danych, funkcji lub innych zastrzeżonych obszarów systemu bez autoryzacji, potencjalnie ze złośliwą intencją.",
+      "IX. Bezpieczeństwo i Ataki"
+    ],
+    [
+      "23",
+      "Audyt",
+      "Niezależne badanie produktu pracy, procesu lub zestawu procesów wykonywane przez stronę trzecią, mające na celu ocenę zgodności ze specyfikacjami, standardami, umowami lub innymi kryteriami.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "24",
+      "Audyt Zabezpieczeń",
+      "Audyt sprawdzający procesy zabezpieczeń oraz infrastrukturę w organizacji.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "25",
+      "Autentykacja",
+      "Stopień, w jakim można udowodnić tożsamość podmiotu lub zasobu.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "26",
+      "Automatyzacja Testów",
+      "Użycie oprogramowania do wykonania lub wspierania czynności testowych, np. zarządzania testami, projektowania testów, wykonywania testów i sprawdzania wyników.",
+      "VII. Automatyzacja i Narzędzia"
+    ],
+    [
+      "27",
+      "Automatyzacja Wykonania Testu",
+      "Użycie oprogramowania, np. narzędzia rejestrująco-odtwarzającego, w celu kontrolowania wykonania testu, porównania rezultatów rzeczywistych z oczekiwanymi, ustawienia warunków wstępnych testu i innych funkcji kontroli i raportowania testu.",
+      "VII. Automatyzacja i Narzędzia"
+    ],
+    [
+      "28",
+      "Autoryzacja",
+      "Zgoda udzielana użytkownikowi lub procesowi do dostępu do zasobów.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "29",
+      "Awaria",
+      "Zdarzenie, w którym moduł lub system nie wykonuje wymaganej funkcji w określonym zakresie.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "30",
+      "Bezpieczeństwo Funkcjonalne",
+      "Brak nieuzasadnionego ryzyka spowodowanego zagrożeniami wynikającymi z nieprawidłowego działania układów elektrycznych / elektronicznych (E/E).",
+      "III. Zarządzanie Testami"
+    ],
+    [
+      "31",
+      "Białoskrzynkowa Technika Testowania",
+      "Technika testowania oparta wyłącznie na wewnętrznej strukturze modułu lub systemu.",
+      "IV. Techniki Projektowania"
+    ],
+    [
+      "32",
+      "Blokada Usług",
+      "Atak na zabezpieczenia, mający na celu przeładowanie systemu żądaniami tak, by uprawnione żądania nie mogły być obsługiwane.(od ang. DoS Denial of Service)",
+      "IX. Bezpieczeństwo i Ataki"
+    ],
+    [
+      "33",
+      "Botnet",
+      "Sieć zaatakowanych komputerów, zwanych botami lub robotami, sterowana przez osoby trzecie i używana do przesyłania zagrożeń lub spamu lub do przeprowadzania ataków.",
+      "IX. Bezpieczeństwo i Ataki"
+    ],
+    [
+      "34",
+      "Cel Testów",
+      "Cel testowania.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "35",
+      "Certyfikacja",
+      "Proces potwierdzający, że moduł, system lub osoba spełnia określone wymagania.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "36",
+      "Charakterystyka Jakościowa",
+      "Kategoria cech oprogramowania, które mają wpływ na jakość produktu prac.",
+      "VI. Charakterystyki Jakości"
+    ],
+    [
+      "37",
+      "Ciągła Integracja",
+      "Praktyka wytwarzania oprogramowania polegająca na automatycznym łączeniu, integrowaniu i testowaniu wszystkich zmian w oprogramowaniu w momencie ich wprowadzania.",
+      "X. Specjalistyczne i Nowoczesne"
+    ],
+    [
+      "38",
+      "Ciągłe Testowanie",
+      "Podejście obejmujące proces wczesnego, częstego, szerokiego, automatycznego testowania w celu otrzymania możliwie szybko informacji zwrotnej o poziomie ryzyka biznesowego związanego z aplikacją przed jej wydaniem.",
+      "III. Zarządzanie Testami"
+    ],
+    [
+      "39",
+      "Coaching Jakości",
+      "Działania skoncentrowane na pomaganiu zwinnej organizacji w identyfikowaniu, zrozumieniu i radzeniu sobie z zarządzaniem jakością, wartością biznesową, przepływem i współpracą z klientami.",
+      "VIII. Metodyki Zwinne (Agile)"
+    ],
+    [
+      "40",
+      "Cross-Site Scripting",
+      "Luka w zabezpieczeniach umożliwiająca atakującym wstrzyknięcie złośliwego kodu do dotychczas bezpiecznej witryny internetowej.",
+      "IX. Bezpieczeństwo i Ataki"
+    ],
+    [
+      "41",
+      "Cykl Testowy",
+      "Instancja procesu testowego dotycząca pojedynczej, identyfikowalnej wersji przedmiotu testów.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "42",
+      "Cykl Wytwarzania Oprogramowania",
+      "Czynności wykonywane na każdym etapie wytwarzania oprogramowania oraz układ ich wzajemnych relacji logicznych i chronologicznych. (SDLC - od ang. software development lifecycle).",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "43",
+      "Cykl Życia Oprogramowania",
+      "Okres czasu rozpoczynający się, kiedy pojawi się pomysł na oprogramowanie i kończący się, gdy oprogramowanie nie jest już dostępne do użytku. Zazwyczaj cykl życia oprogramowania zawiera fazę koncepcji, fazę wymagań, fazę projektowania, fazę implementacji, fazę testów, fazę instalacji i zastępowania, fazę wykorzystania produkcyjnego i pielęgnowania oraz - czasami - fazę wycofania. Uwaga: te fazy mogą na siebie nachodzić lub mogą być wykonywane iteracyjnie.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "44",
+      "Czarnoskrzynkowa Technika Testowania",
+      "Technika testowania oparta na analizie specyfikacji modułu lub systemu.",
+      "IV. Techniki Projektowania"
+    ],
+    [
+      "45",
+      "Czas Namysłu",
+      "Ilość czasu wymagana do tego, by użytkownik zidentyfikował i wykonał kolejną akcję w sekwencji swoich działań.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "46",
+      "Czytanie Oparte Na Perspektywie",
+      "Technika przeglądu, w której przeglądający oceniają produkt prac z różnych punktów widzenia.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "47",
+      "Dane Testowe",
+      "Dane niezbędne do wykonania testów.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "48",
+      "Debugowanie",
+      "Proces wyszukiwania, analizowania i usuwania przyczyn awarii w module lub systemie.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "49",
+      "Defekt",
+      "Niedoskonałość lub wada produktu pracy polegająca na niespełnieniu wymagań.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "50",
+      "Diagram Pętli Przyczynowej",
+      "Graficzna reprezentacja używana do wizualizacji związków przyczynowo-skutkowych i pętli sprzężenia zwrotnego w systemie.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "51",
+      "Diagram Przyczynowo – Skutkowy",
+      "Graficzny model używany do organizowania i przedstawienia związków pomiędzy różnymi możliwymi podstawowymi przyczynami problemu. Możliwe przyczyny rzeczywistego lub potencjalnego defektu lub awarii są porządkowane w kategoriach i podkategoriach poziomej struktury drzewiastej, z (potencjalnym) defektem lub awarią umieszczoną w korzeniu drzewa.",
+      "IV. Techniki Projektowania"
+    ],
+    [
+      "52",
+      "Dług Jakościowy",
+      "Domniemany koszt odroczonych działań w zakresie zapewnienia jakości.",
+      "VI. Charakterystyki Jakości"
+    ],
+    [
+      "53",
+      "Dojrzałość",
+      "(1) Zdolność organizacji w odniesieniu do skuteczności i wydajności jej procesów i praktyk pracy. (2) Stopień, w jakim moduł lub system spełnia wymagania niezawodności w normalnym działaniu.",
+      "VI. Charakterystyki Jakości"
+    ],
+    [
+      "54",
+      "Doskonalący Proces Testowy",
+      "Osoba wprowadzająca udoskonalenia w procesie testowym zgodnie z planem doskonalenia testów.",
+      "III. Zarządzanie Testami"
+    ],
+    [
+      "55",
+      "Doskonalenie Procesu Tworzenia Oprogramowania",
+      "Program czynności zaprojektowanych w celu poprawy wydajności i dojrzałości procesów wytwarzania oprogramowania w organizacji oraz wyniki tego programu. (SPI - od ang. Software Process Improvement).",
+      "VI. Charakterystyki Jakości"
+    ],
+    [
+      "56",
+      "Dostępność",
+      "Stopień, w jakim moduł lub system może być używany przez ludzi z jak najszerszym zakresem cech i możliwości, by osiągnąć określony cel w określonym kontekście użycia.",
+      "VI. Charakterystyki Jakości"
+    ],
+    [
+      "57",
+      "Doświadczenie Użytkownika",
+      "Osobiste doświadczenia i reakcje z użycia lub przewidywanego użycia oprogramowania.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "58",
+      "Drzewo Klasyfikacji",
+      "Drzewo obrazujące dziedziny danych przedmiotu testów.",
+      "IV. Techniki Projektowania"
+    ],
+    [
+      "59",
+      "Dyrektor Testów",
+      "Menedżer wyższego szczebla zarządzający kierownikami testów.",
+      "III. Zarządzanie Testami"
+    ],
+    [
+      "60",
+      "Dziennik (Log) Testów",
+      "Chronologiczny zapis szczegółów związanych z wykonaniem testów.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "61",
+      "Dziki Wskaźnik",
+      "Wskaźnik, który wskazuje na adres, który jest poza zakresem tego wskaźnika lub który nie istnieje.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "62",
+      "Efekt Próbnika",
+      "Efekt wpływu urządzenia pomiarowego na moduł lub system podczas dokonywania pomiaru, np. poprzez narzędzie do testów wydajnościowych. Przykładowo wydajność testowanego oprogramowania może być nieznacznie gorsza, kiedy stosowane jest narzędzie do testów wydajnościowych.",
+      "VII. Automatyzacja i Narzędzia"
+    ],
+    [
+      "63",
+      "Efektywność",
+      "Stopień wykorzystania zasobów w stosunku do osiągniętych wyników.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "64",
+      "Ekspercki Przegląd Użyteczności",
+      "Nieformalny przegląd użyteczności, w którym przeglądający są ekspertami. Ekspertami mogą być eksperci od użyteczności i/lub przedmiotowi.",
+      "VI. Charakterystyki Jakości"
+    ],
+    [
+      "65",
+      "Eksplozja Przypadków Testowych",
+      "Nieproporcjonalny wzrost liczby przypadków testowych wraz ze wzrostem wielkości podstawy testów, przy zastosowaniu określonej techniki projektowania testów. Eksplozja przypadków testowych może również zdarzyć się przy systematycznym stosowaniu techniki projektowania testów po raz pierwszy.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "66",
+      "Ekwiwalent Nakładu Testowania Manualnego",
+      "Nakład pracy potrzebny do wykonania testów manualnie.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "67",
+      "Element Pokrycia",
+      "Atrybut lub kombinacja atrybutów uzyskana z jednego lub więcej warunków testowych za pomocą techniki testowej.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "68",
+      "Element Testowy",
+      "Część przedmiotu testów wykorzystywana w procesie testowym.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "69",
+      "Emulator",
+      "Oprogramowanie używane podczas testowania, które naśladuje zachowanie sprzętu.",
+      "VII. Automatyzacja i Narzędzia"
+    ],
+    [
+      "70",
+      "Estetyka Interfejsu Użytkownika",
+      "Stopień, w jakim interfejs użytkownika umożliwia przyjemną i satysfakcjonującą interakcję dla użytkownika.",
+      "VI. Charakterystyki Jakości"
+    ],
+    [
+      "71",
+      "Etyczny Haker",
+      "Tester zabezpieczeń używający technik hakerskich.",
+      "IX. Bezpieczeństwo i Ataki"
+    ],
+    [
+      "72",
+      "Firewall",
+      "Moduł lub zbiór modułów, które kontrolują ruch sieciowy - wchodzący i wychodzący - zgodnie z określonymi z góry zasadami bezpieczeństwa.",
+      "IX. Bezpieczeństwo i Ataki"
+    ],
+    [
+      "73",
+      "Funkcjonalna Wydajność ML",
+      "Stopień, w jakim model ML spełnia kryteria wydajności funkcjonalnej ML.",
+      "VI. Charakterystyki Jakości"
+    ],
+    [
+      "74",
+      "Gałąź",
+      "Przeniesienie sterowania z miejsca w kodzie będącego instrukcją decyzyjną do innego miejsca w kodzie.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "75",
+      "Generator Obciążenia",
+      "Narzędzie generujące obciążenie dla testowanego systemu.",
+      "VII. Automatyzacja i Narzędzia"
+    ],
+    [
+      "76",
+      "Generowanie Obciążenia",
+      "Proces symulowania określonego zbioru czynności pod określonym obciążeniem, które mają być wykonane przez moduł lub system.",
+      "V. Poziomy i Typy Testów"
+    ],
+    [
+      "77",
+      "Gęstość Defektów",
+      "Liczba defektów na jednostkę wielkości produktu pracy.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "78",
+      "Gęstość Defektów W Kodzie Testów Automatycznych",
+      "Gęstość defektów modułu zawierającego kod testów automatycznych.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "79",
+      "Główny Plan Testów",
+      "Plan testów używany do koordynowania wielu poziomów testów lub typów testów.",
+      "III. Zarządzanie Testami"
+    ],
+    [
+      "80",
+      "Graf Przyczynowo-Skutkowy",
+      "Graficzna reprezentacja wejść i/lub bodźców (przyczyn) z odpowiadającymi im wyjściami (skutkami), które mogą być wykorzystane do projektowania przypadków testowych.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "81",
+      "Graficzny Interfejs Użytkownika",
+      "Rodzaj interfejsu, który umożliwia użytkownikom interakcję z modułem lub systemem za pomocą graficznych ikon i wizualnych wskaźników. (GUI od ang. Graphical User Interface).",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "82",
+      "Grupa Procesu Testowego",
+      "Grupa specjalistów, którzy ułatwiają definiowanie, utrzymywanie i doskonalenie procesów testowych stosowanych przez organizację. (TPG od ang. test process group).",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "83",
+      "Haker",
+      "Osoba lub organizacja aktywnie zaangażowana w ataki na zabezpieczenia, na ogół z intencją szkodzenia.",
+      "IX. Bezpieczeństwo i Ataki"
+    ],
+    [
+      "84",
+      "Harmonogram Wykonania Testów",
+      "Harmonogram opisujący kolejność wykonywania zestawów testowych w ramach cyklu testowego.",
+      "III. Zarządzanie Testami"
+    ],
+    [
+      "85",
+      "Haszowanie",
+      "Transformacja zmiennej znakowej o zmiennej długości do na ogół krótszej, o stałej długości lub na klucz. Zahaszowane wartości (hasze) są często używane przy sprawdzeniu w tabeli lub bazie danych. Kryptograficzne funkcje haszujące są używane do zabezpieczania danych.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "86",
+      "Heurystyka",
+      "Powszechnie uznana praktyczna zasada wspomagająca osiągnięcie celu.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "87",
+      "Hiperłącze",
+      "Wskaźnik w dokumencie elektronicznym, który stanowi odwołanie do innego dokumentu elektronicznego.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "88",
+      "Historyjka Użytkownika",
+      "Wymóg użytkownika lub biznesowy składający się z jednego zdania wyrażonego w języku codziennym lub biznesowym, określający funkcjonalność, której potrzebuje użytkownik, uzasadnienie, wszelkie kryteria niefunkcjonalne, a także kryteria akceptacji.",
+      "VIII. Metodyki Zwinne (Agile)"
+    ],
+    [
+      "89",
+      "Identyfikacja Ryzyka",
+      "Proces znajdowania, rozpoznawania i opisywania ryzyka.",
+      "III. Zarządzanie Testami"
+    ],
+    [
+      "90",
+      "Implementowanie Testów",
+      "Czynność polegająca na przygotowaniu testaliów potrzebnych do wykonania testów, oparta na analizie i projektowaniu testów.",
+      "II. Proces Testowy"
+    ],
+    [
+      "91",
+      "Informatyka Śledcza",
+      "Praktyka określająca, dlaczego atak na zabezpieczenia się powiódł i oceniająca wyrządzone szkody.",
+      "IX. Bezpieczeństwo i Ataki"
+    ],
+    [
+      "92",
+      "Infrastruktura Testu",
+      "Organizacyjne artefakty niezbędne do przeprowadzenia testu, składające się ze środowisk testowych, narzędzi testowych, wyposażenia biurowego i procedur.",
+      "VII. Automatyzacja i Narzędzia"
+    ],
+    [
+      "93",
+      "Inspekcja",
+      "Rodzaj przeglądu formalnego, który wykorzystuje zdefiniowane role zespołowe i miary w celu zidentyfikowania defektów w produkcie pracy oraz usprawnienia procesu przeglądu i procesu tworzenia oprogramowania.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "94",
+      "Instalowalność",
+      "Stopień, w jakim moduł lub system może zostać pomyślnie zainstalowany lub odinstalowany w określonym środowisku.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "95",
+      "Integralność",
+      "Stopień, w jakim moduł lub system zapobiega nieautoryzowanemu dostępowi oraz modyfikacji modułu, systemu lub danych.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "96",
+      "Interfejs Linii Komend",
+      "Rodzaj interfejsu, w którym informacje są przekazywane w postaci linii komend. (CLI od ang. Command-Line Interface).",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "97",
+      "Interfejs Programowania Aplikacji",
+      "Rodzaj interfejsu, w którym moduły lub systemy wymieniają informacje o określonej strukturze formalnej. (API - akronim od ang. Application Programming Interface).",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "98",
+      "Interfejs Użytkownika",
+      "Wszystkie moduły systemu, które dostarczają informacji i nadzorują użytkownika, by zrealizować określone zadania systemu.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "99",
+      "Internacjonalizacja",
+      "Proces udostępniania systemu międzynarodowym grupom użytkowników.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "100",
+      "Inwentarz Analizy I Pomiaru Stron Internetowych",
+      "Komercyjna usługa analizy stron internetowych, dostarczająca kwestionariusz do pomiaru satysfakcji użytkowników i oceny realizacji celów biznesowych online. (WAMMI - od ang. Website Analysis and MeasureMent Inventory).",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "101",
+      "Inwentarz Pomiarów Użyteczności Oprogramowania",
+      "Oparte na kwestionariuszach narzędzie do testowania użyteczności, które mierzy i porównuje doświadczenie użytkowników. (SUMI – od ang. Software Usability Measurement Inventory).",
+      "VII. Automatyzacja i Narzędzia"
+    ],
+    [
+      "102",
+      "Inżynier Testów Automatycznych",
+      "Osoba odpowiedzialna za projektowanie, implementację i pielęgnację architektury dla testów automatycznych, jak też za techniczny rozwój skutecznych rozwiązań testów automatycznych.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "103",
+      "Inżynieria Społeczna",
+      "Próba nakłonienia kogoś do ujawnienia informacji (np. hasła), które mogą zostać użyte do ataku na systemy lub sieci.",
+      "IX. Bezpieczeństwo i Ataki"
+    ],
+    [
+      "104",
+      "Iteracyjny Model Wytwarzania",
+      "Rodzaj cyklu wytwarzania oprogramowania, w którym moduł lub system jest wytwarzany w serii powtarzanych cykli.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "105",
+      "Jakość",
+      "Stopień, w jakim produkt pracy zaspokaja określone i domniemane potrzeby interesariuszy.",
+      "VI. Charakterystyki Jakości"
+    ],
+    [
+      "106",
+      "Jakość Oparta Na Produkcie",
+      "Spojrzenie na jakość mierzone stopniem, w jakim spełnione są dobrze zdefiniowane charakterystyki jakościowe.",
+      "VI. Charakterystyki Jakości"
+    ],
+    [
+      "107",
+      "Jakość Oparta Na Produkcji",
+      "Spojrzenie na jakość mierzone stopniem, w jakim produkt lub usługa jest zgodna z zamierzonym projektem i wymaganiami opartymi na zastosowanym procesie.",
+      "VI. Charakterystyki Jakości"
+    ],
+    [
+      "108",
+      "Jakość Oparta Na Użytkowniku",
+      "Spojrzenie na jakość mierzone stopniem, w jakim zaspokajane są potrzeby i pragnienia użytkownika.",
+      "VI. Charakterystyki Jakości"
+    ],
+    [
+      "109",
+      "Jakość Oparta Na Wartości",
+      "Spojrzenie na jakość mierzone stosunkiem kosztu do wartości otrzymanej z produktu lub usługi.",
+      "VI. Charakterystyki Jakości"
+    ],
+    [
+      "110",
+      "Jakość Transcendentna",
+      "Spojrzenie na jakość oparte na percepcji i odczuciach jednostek.",
+      "VI. Charakterystyki Jakości"
+    ],
+    [
+      "111",
+      "Jarzmo Testowe",
+      "Środowisko testowe składające się z zaślepek i sterowników potrzebnych do wykonania testu.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "112",
+      "Karta Kontrolna",
+      "Statystyczne narzędzie zarządzania procesem, używane do monitorowania procesu i określania, czy jest on statystycznie kontrolowany. Pokazuje graficznie wartość średnią oraz górną i dolną granicę kontrolną procesu (najwyższe i najniższe dopuszczalne wartości).",
+      "VII. Automatyzacja i Narzędzia"
+    ],
+    [
+      "113",
+      "Karta Opisu Testu",
+      "Dokument opisujący cel lub zadania dla sesji testów.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "114",
+      "Kierownik Testów",
+      "Osoba odpowiedzialna za zarządzanie działaniami testowymi, zasobami i oceną przedmiotu testów.",
+      "III. Zarządzanie Testami"
+    ],
+    [
+      "115",
+      "Kierownik Testów Automatycznych",
+      "Osoba odpowiedzialna za planowanie i nadzór nad wytworzeniem i rozwojem rozwiązań dla testów automatycznych.",
+      "III. Zarządzanie Testami"
+    ],
+    [
+      "116",
+      "Klasa Równoważności",
+      "Podzbiór dziedziny wartości zmiennej w module lub systemie, dla którego zakłada się, na podstawie specyfikacji, że wszystkie wartości będą traktowane przez system w podobny sposób.",
+      "IV. Techniki Projektowania"
+    ],
+    [
+      "117",
+      "Komitet Zarządzania Defektami",
+      "Zespół interesariuszy reprezentujących różne specjalności, który zarządza zgłaszanymi defektami od momentu zgłoszenia do końcowego rozwiązania (usunięcia defektu, odroczenia lub anulowania zgłoszenia). W niektórych przypadkach to także rada kontroli zmian.",
+      "III. Zarządzanie Testami"
+    ],
+    [
+      "118",
+      "Kompatybilność",
+      "Stopień, w jakim moduł lub system może wymieniać informacje z innymi modułami lub systemami i/lub wykonywać swoje wymagane funkcje, współużytkując to samo środowisko sprzętowe lub programowe.",
+      "VI. Charakterystyki Jakości"
+    ],
+    [
+      "119",
+      "Kompatybilność Z Różnymi Przeglądarkami",
+      "Stopień, w jakim strona lub aplikacja internetowa może działać pod różnymi wersjami przeglądarek i łagodnie obniżać jakość swego działania, gdy przeglądarka nie posiada odpowiednich cech lub posiada je w niewystarczającym stopniu.",
+      "VI. Charakterystyki Jakości"
+    ],
+    [
+      "120",
+      "Kompleksowe Zarządzanie Jakością",
+      "Podejście do jakości w całej organizacji oparte na uczestnictwie pracowników w celu osiągnięcia długoterminowego sukcesu poprzez zadowolenie klienta. (TQM - od ang. Total Quality Management).",
+      "VI. Charakterystyki Jakości"
+    ],
+    [
+      "121",
+      "Kompletność Funkcjonalna",
+      "Stopień, w jakim zestaw funkcji obejmuje wszystkie określone zadania i cele użytkownika.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "122",
+      "Konsultatywna Strategia Testowa",
+      "Strategia testowa, zgodnie z którą zespół testowy polega na danych dostarczanych przez jednego lub kilku kluczowych interesariuszy przy określaniu szczegółów strategii.",
+      "III. Zarządzanie Testami"
+    ],
+    [
+      "123",
+      "Kontekst Użycia",
+      "Użytkownicy, zadania, wyposażenie (sprzęt, oprogramowanie i materiały) oraz fizyczne i społeczne środowiska, w których oprogramowanie jest używane.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "124",
+      "Kontrola Jakości",
+      "Zestaw działań mających na celu ocenę jakości modułu lub systemu.",
+      "VI. Charakterystyki Jakości"
+    ],
+    [
+      "125",
+      "Kontrola Ryzyka",
+      "Ogólny proces ograniczania ryzyka i monitorowania ryzyka.",
+      "III. Zarządzanie Testami"
+    ],
+    [
+      "126",
+      "Koszt Jakości",
+      "Całkowity koszt poniesiony na działania jakościowe, na który składają się koszty działań prewencyjnych, koszty wykrycia, koszty awarii wewnętrznych i koszty awarii zewnętrznych.",
+      "VI. Charakterystyki Jakości"
+    ],
+    [
+      "127",
+      "Krok Testowy",
+      "Pojedyncza interakcja między aktorem a przedmiotem testów, składająca się z danych wejściowych, akcji i oczekiwanego wyniku.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "128",
+      "Kryteria Akceptacji",
+      "Kryteria, które moduł lub system musi spełniać, aby został zaakceptowany przez użytkownika, klienta lub inny uprawniony podmiot.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "129",
+      "Kryteria Pokrycia",
+      "Kryteria definiowania elementów pokrycia, które są wymagane do osiągnięcia celu testu.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "130",
+      "Kryteria Wyboru Testów",
+      "Kryteria używane do kierowania tworzeniem przypadków testowych lub wyboru przypadków testowych mające na celu ograniczenie wielkości testów.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "131",
+      "Kryteria Wydajności Funkcjonalnej ML",
+      "Kryteria oparte na metrykach wydajności funkcjonalnej ML, wykorzystywane jako podstawa do oceny, dostrajania i testowania modelu.",
+      "VI. Charakterystyki Jakości"
+    ],
+    [
+      "132",
+      "Kryteria Zaliczenia/Niezaliczenia",
+      "Reguły decyzyjne wykorzystywane do określenia, czy element testowy zaliczył test.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "133",
+      "Kryterium Wejścia",
+      "Zbiór warunków definiujących, kiedy można oficjalnie rozpocząć określone zadanie.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "134",
+      "Kryterium Wyjścia",
+      "Zbiór warunków definiujących kiedy można oficjalnie uznać określone zadanie za ukończone.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "135",
+      "Krytyczne Procesy Testowania",
+      "Model usprawniania procesu testowego oparty na zawartości, zbudowany w oparciu o dwanaście procesów krytycznych. Zawierają one bardzo widoczne procesy, przy pomocy których pracownicy i kierownictwo oceniają kompetencje oraz najważniejsze procesy, których wydajność wpływa na zysk i reputację organizacji. (CTP - od ang. Critical Testing Processes).",
+      "VI. Charakterystyki Jakości"
+    ],
+    [
+      "136",
+      "Krytyczność",
+      "Stopień wpływu defektu na rozwój lub działanie modułu lub systemu.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "137",
+      "Kultura Jakości",
+      "Organizacyjny system wartości, którego rezultatem jest środowisko do ustanawiania i ciągłego doskonalenia jakości.",
+      "VI. Charakterystyki Jakości"
+    ],
+    [
+      "138",
+      "Kwadranty Testowe",
+      "Model klasyfikacji typów/poziomów testów według czterech grup odniesionych do dwóch wymiarów celów testowania.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "139",
+      "Laboratorium Użyteczności",
+      "Fizyczne miejsce, w którym przeprowadza się bezinwazyjne obserwacje reakcji uczestników oraz ich odpowiedzi na działanie oprogramowania.",
+      "VI. Charakterystyki Jakości"
+    ],
+    [
+      "140",
+      "Lider Testów",
+      "W większych projektach osoba, która raportuje do kierownika testów i jest odpowiedzialna za zarządzanie projektem w zakresie określonego poziomu testów lub określonych czynności testowych.",
+      "III. Zarządzanie Testami"
+    ],
+    [
+      "141",
+      "Logowanie Testu",
+      "Czynność tworzenia dziennika (logu) testów.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "142",
+      "Lokalizacja",
+      "Proces udostępniania systemu określonej grupie użytkowników.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "143",
+      "Łączność",
+      "Stopień, w jakim moduł lub system może się łączyć z innymi modułami lub systemami.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "144",
+      "Łagodzenie Ryzyka",
+      "Proces, w którym podejmowane są decyzje i wdrażane środki ochronne w celu zmniejszenia lub utrzymania ryzyk na określonych poziomach.",
+      "IV. Techniki Projektowania"
+    ],
+    [
+      "145",
+      "Łamanie Haseł",
+      "Atak na zabezpieczenia odgadujący hasła dostępu w systemie komputerowym lub przesyłane w sieci.",
+      "IX. Bezpieczeństwo i Ataki"
+    ],
+    [
+      "146",
+      "Łatwość Nauki",
+      "Stopień, w jakim moduł lub system może być używany przez określonych użytkowników w celu osiągnięcia specyficznych celów nauki z satysfakcją i wolnością od ryzyka w określonym kontekście użytkowania.",
+      "III. Zarządzanie Testami"
+    ],
+    [
+      "147",
+      "Łatwość Obsługi",
+      "Stopień, w jakim produkt lub system posiada atrybuty umożliwiające łatwość jego obsługi i sprawowania nadzoru nad nim.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "148",
+      "Łatwość Ponownego Użycia",
+      "Stopień, w jakim produkt pracy może być użyty w więcej niż jednym systemie lub w budowie innych produktów prac.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "149",
+      "Macierz Śledzenia",
+      "Dwuwymiarowa tabela, która koreluje dwa pojęcia (np. wymagania i przypadki testowe). Macierz ta umożliwia śledzenie w tył i w przód połączenia między elementami, tym samym umożliwiając określenie pokrycia oraz szacowanie wpływu proponowanych zmian.",
+      "III. Zarządzanie Testami"
+    ],
+    [
+      "150",
+      "Manifest Agile (Manifest Zwinnego Wytwarzania Oprogramowania)",
+      "Określenie zasad, które leżą u podstaw zwinnego wytwarzania oprogramowania. Te zasady to: ludzie i współpraca ponad procesy i narzędzia, działające oprogramowanie ponad obszerną dokumentację, współpraca z klientem ponad formalne ustalenia, reagowanie na zmiany ponad podążaniem za planem.",
+      "VIII. Metodyki Zwinne (Agile)"
+    ],
+    [
+      "151",
+      "Manifest Doskonalenia Procesu Testowego",
+      "Oświadczenie, które odzwierciedla manifest Agile i definiuje wartości dla doskonalenia procesu testowego.",
+      "VIII. Metodyki Zwinne (Agile)"
+    ],
+    [
+      "152",
+      "Matryca Odpowiedzialności – Model Raci",
+      "Macierz przedstawiająca udział różnych ról w wykonywaniu zadań lub produktów w projekcie lub procesie. Jest ona szczególnie użyteczna w wyjaśnianiu ról i odpowiedzialności. RACI jest akronimem wyprowadzonym z czterech kluczowych, najczęściej używanych odpowiedzialności.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "153",
+      "Metoda Określania Celów Smart",
+      "Metoda, według której cele są definiowane bardzo konkretnie, a nie ogólnie. SMART jest akronimem wyprowadzonym z atrybutów celu, które należy zdefiniować.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "154",
+      "Metodyczna Strategia Testowa",
+      "Strategia testowa, zgodnie z którą zespół testowy używa predefiniowanego zbioru warunków testowych takich jak standard jakości, lista wyboru lub zbiór uogólnionych, logicznych przypadków testowych które mogą być powiązane z jakąś dziedziną, aplikacją lub typem testów.",
+      "VI. Charakterystyki Jakości"
+    ],
+    [
+      "155",
+      "Metryka",
+      "Skala pomiaru i sposób jej stosowania do pomiarów.",
+      "III. Zarządzanie Testami"
+    ],
+    [
+      "156",
+      "Metryki Wydajności Funkcjonalnej ML",
+      "Zestaw miar odnoszących się do poprawności funkcjonalnej systemu ML.",
+      "VI. Charakterystyki Jakości"
+    ],
+    [
+      "157",
+      "Miara Zbieżności",
+      "Miara, która pokazuje postęp w kierunku zdefiniowanego kryterium, np. zbieżność całkowitej liczby wykonanych testów do całkowitej liczby zaplanowanych testów.",
+      "III. Zarządzanie Testami"
+    ],
+    [
+      "158",
+      "Misja Testowania",
+      "Cel testowania w organizacji, często dokumentowany jako część polityki testów.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "159",
+      "Model Efqm",
+      "Struktura zarządzania, która wspiera organizacje w zarządzaniu zmianą i poprawie wydajności.",
+      "VI. Charakterystyki Jakości"
+    ],
+    [
+      "160",
+      "Model Mbt",
+      "Dowolny model używany w testowaniu opartym na modelu.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "161",
+      "Model Ml",
+      "Implementacja uczenia maszynowego (ML - ang. Machine Learning), która generuje predykcję, klasyfikację lub rekomendację na podstawie danych wejściowych.",
+      "X. Specjalistyczne i Nowoczesne"
+    ],
+    [
+      "162",
+      "Model Środowiska",
+      "Abstrakcja rzeczywistego środowiska modułu lub systemu, w tym innych modułów, procesów i warunków środowiska, wykorzystywana do symulacji w czasie rzeczywistym.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "163",
+      "Model Testów",
+      "Model opisujący testalia używane do testowania testowanego modułu lub systemu.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "164",
+      "Model V",
+      "Sekwencyjny model cyklu życia oprogramowania opisujący relację jeden-do-jednego pomiędzy głównymi fazami wytwórczymi od specyfikacji wymagań biznesowych do dostarczenia, a odpowiadającymi im poziomami testów od testów akceptacyjnych do testów modułowych.",
+      "V. Poziomy i Typy Testów"
+    ],
+    [
+      "165",
+      "Model W Pętli",
+      "Testy dynamiczne przy użyciu modelu symulacyjnego systemu wykonywane w symulowanym środowisku. (MiL od ang. model in the loop).",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "166",
+      "Model Wzrostu Niezawodności",
+      "Model pokazujący poprawę niezawodności modułu lub systemu w czasie jako wynik usuwania defektów.",
+      "VI. Charakterystyki Jakości"
+    ],
+    [
+      "167",
+      "Modelu Pokrycie",
+      "Pokrycie elementów modelu.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "168",
+      "Moderator",
+      "(1) Osoba odpowiedzialna za prowadzenie spotkań przeglądowych. (2) Osoba, która przeprowadza sesję testów użyteczności.",
+      "VI. Charakterystyki Jakości"
+    ],
+    [
+      "169",
+      "Moduł",
+      "Część systemu, która może być testowana oddzielnie.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "170",
+      "Modułowość",
+      "Stopień, w jakim system jest zbudowany z oddzielnych elementów w ten sposób, że zmiana jednego elementu ma minimalny wpływ na inne elementy.",
+      "V. Poziomy i Typy Testów"
+    ],
+    [
+      "171",
+      "Modyfikowalność",
+      "Stopień, w jakim moduł lub system można zmienić bez wprowadzania defektów lub obniżania jakości istniejącego produktu.",
+      "VI. Charakterystyki Jakości"
+    ],
+    [
+      "172",
+      "Monitorowanie Ryzyka",
+      "Czynność polegająca na sprawdzaniu i zgłaszaniu interesariuszom stanu znanych ryzyk (zagrożeń).",
+      "III. Zarządzanie Testami"
+    ],
+    [
+      "173",
+      "Monitorowanie Testów",
+      "Czynność polegająca na sprawdzaniu statusu aktywności testowych, identyfikowaniu odchylenia od planu lub oczekiwanego statusu oraz raportowaniu statusu do interesariuszy.",
+      "III. Zarządzanie Testami"
+    ],
+    [
+      "174",
+      "Motoryzacyjna Spice",
+      "Model odniesienia procesu i powiązany model oceny procesu w przemyśle motoryzacyjnym, który jest zgodny z wymaganiami normy ISO/IEC 33002.",
+      "X. Specjalistyczne i Nowoczesne"
+    ],
+    [
+      "175",
+      "Nadzór Nad Testami",
+      "Czynność, podczas której rozwija i stosuje się działania naprawcze, aby utrzymać w toku testy projektu, gdy odbiegają one od tego, co zostało zaplanowane.",
+      "III. Zarządzanie Testami"
+    ],
+    [
+      "176",
+      "Narzędzie Do Testowania Wydajności",
+      "Narzędzie testowe, które generuje obciążenie dla wyznaczonego elementu testowego i które mierzy i rejestruje jego wydajność podczas wykonywania testu.",
+      "VII. Automatyzacja i Narzędzia"
+    ],
+    [
+      "177",
+      "Narzędzie Do Wykonywania Testów",
+      "Narzędzie testowe, które wykonuje testy na wyznaczonym obiekcie testowym i ocenia wyniki w stosunku do oczekiwanych wyników i warunków końcowych.",
+      "VII. Automatyzacja i Narzędzia"
+    ],
+    [
+      "178",
+      "Narzędzie Wspomagające Zarządzanie Testami",
+      "Narzędzie wspomagające zarządzanie testami i sterowanie częścią procesu testowego. Zwykle ma kilka funkcji takich jak: zarządzanie testaliami, planowanie testów w czasie, logowanie rezultatów, śledzenie postępu prac, zarządzanie incydentami oraz raportowanie wyników testów.",
+      "VII. Automatyzacja i Narzędzia"
+    ],
+    [
+      "179",
+      "Narzędzie Monitorujące",
+      "Narzędzie programistyczne albo sprzętowe, które działa równolegle z testowanym modułem lub systemem i nadzoruje, rejestruje i/lub analizuje zachowanie modułu lub systemu.",
+      "VII. Automatyzacja i Narzędzia"
+    ],
+    [
+      "180",
+      "Narzędzie O Otwartym Kodzie",
+      "Narzędzie programistyczne, które jest dostępne dla wszystkich potencjalnych użytkowników w postaci kodu źródłowego, zwykle poprzez Internet, na ogół w postaci licencji na badanie, zmienianie, poprawianie i czasami dystrybuowanie oprogramowania.",
+      "VII. Automatyzacja i Narzędzia"
+    ],
+    [
+      "181",
+      "Następujący Przypadek Testowy",
+      "Przypadek testowy generowany przez zastosowanie relacji metamorficznej do źródłowego przypadku testowego podczas testowania metamorficznego.",
+      "X. Specjalistyczne i Nowoczesne"
+    ],
+    [
+      "182",
+      "Niezależne Laboratorium Testów",
+      "Organizacja odpowiedzialna za testowanie i certyfikowanie oprogramowania, sprzętu, oprogramowania wbudowanego, platform i systemów operacyjnych zgodnie z przepisami prawa dla miejsca, w którym produkt będzie używany.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "183",
+      "Niezależność Testowania",
+      "Rozdzielenie odpowiedzialności, które sprzyja zapewnieniu obiektywności testowania.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "184",
+      "Niezaliczenie",
+      "Status wyniku testu, w którym rzeczywisty wynik nie zgadza się z wynikiem oczekiwanym.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "185",
+      "Niezamierzony Koniec",
+      "Niezamierzone przerwanie wykonania modułu lub systemu przed zakończeniem.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "186",
+      "Niezaprzeczalność",
+      "Stopień, w jakim można udowodnić podjęcie działań lub zajście zdarzeń tak, by nie można było zaprzeczyć ich wystąpieniu.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "187",
+      "Niezawodność",
+      "Stopień, w jakim moduł lub system wykonuje określone funkcje w określonych warunkach przez określony czas.",
+      "VI. Charakterystyki Jakości"
+    ],
+    [
+      "188",
+      "Ocena Formatywna",
+      "Typ oceny zaprojektowany i używany do poprawy jakości modułu lub systemu, zwłaszcza kiedy jest jeszcze ciągle w fazie projektowania.",
+      "VI. Charakterystyki Jakości"
+    ],
+    [
+      "189",
+      "Ocena Heurystyczna",
+      "Ocena produktu pracy wykorzystująca heurystyki.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "190",
+      "Ocena Podsumowująca",
+      "Typ oceny zaprojektowanej i używanej do gromadzenia wniosków o jakości modułu lub systemu, głownie wtedy, gdy projekt podstawowej jego części jest gotowy.",
+      "VI. Charakterystyki Jakości"
+    ],
+    [
+      "191",
+      "Ocena Procesu",
+      "Uporządkowana ocena procesów wytwarzania oprogramowania w organizacji w stosunku do modelu wzorcowego.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "192",
+      "Ocena Ryzyka",
+      "Proces oceny zidentyfikowanego ryzyka i oceny poziomu ryzyka.",
+      "III. Zarządzanie Testami"
+    ],
+    [
+      "193",
+      "Ocena Użyteczności",
+      "Proces, podczas którego gromadzone są informacje dotyczące użyteczności, mający na celu poprawianie systemu (co jest znane jako ocena formatywna) lub do oszacowania zalet lub wartości (co jest znane jako ocena podsumowująca).",
+      "VI. Charakterystyki Jakości"
+    ],
+    [
+      "194",
+      "Ochrona Przed Błędami Użytkownika",
+      "Stopień, w jakim moduł lub system chroni użytkowników przed popełnianiem błędów.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "195",
+      "Oczekiwany Rezultat",
+      "Obserwowalne przewidywane zachowanie przedmiotu testów w określonych warunkach, na podstawie jego podstawy testowej.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "196",
+      "Odkrycie",
+      "Wynik oceny, który identyfikuje pewne istotne kwestie, problemy lub możliwości.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "197",
+      "Odsetek Wykrytych Defektów",
+      "Liczba defektów wykrytych na poziomie testowania podzielona przez liczbę defektów wykrytych w całym cyklu życia oprogramowania (na poziomie testów i później).",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "198",
+      "Odtwarzalność",
+      "Stopień, w jakim w przypadku przerwy w pracy lub awarii moduł lub system może odzyskać dane bezpośrednio dotknięte tym problemem i przywrócić pożądany stan systemu.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "199",
+      "Offline Mbt",
+      "Testowanie w oparciu o modele, zgodnie z którym przypadki testowe są generowane do repozytorium w celu późniejszego użycia.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "200",
+      "Ogólna Architektura Testów Automatycznych (Gtaa)",
+      "Reprezentacja warstw, modułów i interfejsów architektury testów automatycznych, umożliwiająca strukturalne i modułowe podejście do implementacji testów automatycznych. (akronim gTAA od ang. generic Test Automation Architecture).",
+      "VII. Automatyzacja i Narzędzia"
+    ],
+    [
+      "201",
+      "Określanie Profilu Operacyjnego",
+      "Proces wytwarzania i implementacji profilu operacyjnego.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "202",
+      "Online Mbt",
+      "Testowanie w oparciu o modele, zgodnie z którym przypadki testowe są generowane i od razu wykonywane.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "203",
+      "Operacyjne Testy Akceptacyjne",
+      "Rodzaj testów akceptacyjnych wykonywanych w celu ustalenia, czy operatorzy i / lub administratorzy systemu mogą go zaakceptować.",
+      "V. Poziomy i Typy Testów"
+    ],
+    [
+      "204",
+      "Opowieść",
+      "Historyjka użytkownika, która ze względu na swój duży rozmiar nie może być dostarczona w ramach jednej iteracji lub jest na tyle duża, że może być podzielona na mniejsze historyjki użytkownika.",
+      "VIII. Metodyki Zwinne (Agile)"
+    ],
+    [
+      "205",
+      "Oprogramowanie Do Powszechnej Sprzedaży",
+      "Oprogramowanie stanowiące produkt wytworzony na szeroki rynek, tj. dla dużej liczby klientów, które jest dostarczane wielu klientom w identycznej postaci. (COTS od ang. Commercial off-the-Shelf).",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "206",
+      "Oprogramowanie W Pętli",
+      "Testy dynamiczne wykonywane przy użyciu prawdziwego oprogramowania w symulowanym środowisku lub na eksperymentalnym sprzęcie.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "207",
+      "Organizacyjna Strategia Testowa",
+      "Strategia opisująca ogólne wymagania dotyczące testowania i sposobu przeprowadzania testów w organizacji.",
+      "III. Zarządzanie Testami"
+    ],
+    [
+      "208",
+      "Osiągalność",
+      "Stopień, w jakim moduł lub system jest sprawny i dostępny, gdy jest wymagane jego użycie.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "209",
+      "Para Definicja-Użycie",
+      "Połączenie definicji zmiennej i jej późniejszego użycia.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "210",
+      "Pharming",
+      "Atak na zabezpieczenia mający na celu przekierować ruch ze strony internetowej na fałszywą stronę internetową bez wiedzy lub zgody użytkownika.",
+      "IX. Bezpieczeństwo i Ataki"
+    ],
+    [
+      "211",
+      "Phishing",
+      "Usiłowanie zdobycia osobistej lub istotnej informacji poprzez podawanie się za wiarygodny podmiot w komunikacji elektronicznej.",
+      "IX. Bezpieczeństwo i Ataki"
+    ],
+    [
+      "212",
+      "Pielęgnacja",
+      "Proces modyfikacji modułu lub systemu po jego wydaniu, mający na celu usunięcie defektów, poprawę charakterystyk jakościowych lub dostosowanie do zmienionego środowiska.",
+      "VI. Charakterystyki Jakości"
+    ],
+    [
+      "213",
+      "Piramida Testów",
+      "Graficzny model reprezentujący relacje między ilością testów a poziomem testów, z większą ilością testów dla niższych poziomów i mniejszą dla wyższych.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "214",
+      "Plan Doskonalenia Testów",
+      "Plan osiągnięcia celów doskonalenia procesu testowego oparty na zrozumieniu aktualnych mocnych i słabych stron procesów testowych w organizacji i aktywów procesu testowego.",
+      "III. Zarządzanie Testami"
+    ],
+    [
+      "215",
+      "Plan Przeglądu",
+      "Dokument opisujący podejście, zasoby i harmonogram zamierzonych czynności związanych z przeglądem. Identyfikuje on m.in. dokumenty i kod podlegający przeglądowi, typy przeglądów do wykorzystania, uczestników, kryteria wejścia i wyjścia, które będą stosowane w przeglądach formalnych, a także uzasadnienie ich wyboru. Jest zapisem procesu planowania przeglądu.",
+      "III. Zarządzanie Testami"
+    ],
+    [
+      "216",
+      "Plan Testów",
+      "Dokumentacja opisująca cele testowe do osiągnięcia oraz środki i harmonogram ich realizacji, zorganizowana tak, by koordynować czynności testowe.",
+      "III. Zarządzanie Testami"
+    ],
+    [
+      "217",
+      "Plan Testów Jednego Poziomu",
+      "Plan testu, który odnosi się do jednego poziomu testów.",
+      "III. Zarządzanie Testami"
+    ],
+    [
+      "218",
+      "Planowanie Testów",
+      "Czynność tworzenia planów testów lub wprowadzanie do nich zmian.",
+      "III. Zarządzanie Testami"
+    ],
+    [
+      "219",
+      "Playtest",
+      "Testowanie gry ad-hoc przez graczy w celu zidentyfikowania awarii i zebrania opinii.",
+      "X. Specjalistyczne i Nowoczesne"
+    ],
+    [
+      "220",
+      "Podejście \"Najpierw Test”",
+      "Podejście do wytwarzania oprogramowania, w którym przypadki testowe są projektowane i wdrażane przed opracowaniem odpowiedniego modułu lub systemu.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "221",
+      "Podejście Do Testowania",
+      "Sposób realizacji zadań testowych.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "222",
+      "Podejście Do Testowania Oparte Na Współpracy",
+      "Podejście do testowania, które skupia się na unikaniu defektów poprzez współpracę między interesariuszami.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "223",
+      "Podstawa Testów",
+      "Zasób wiedzy używany jako podstawa dla analizy i projektowania testów.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "224",
+      "Podstawowa Przyczyna",
+      "Przyczyna defektu, która – gdy zostanie wyeliminowana – wystąpienie tego typu defektu redukuje lub usuwa.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "225",
+      "Podział Na Klasy Równoważności",
+      "Czarnoskrzynkowa technika testowania, w której warunki testowe są klasami równoważności sprawdzanymi przez jeden reprezentatywny element każdej klasy.",
+      "IV. Techniki Projektowania"
+    ],
+    [
+      "226",
+      "Poker Planistyczny",
+      "Technika szacowania oparta na kompromisie, zwykle używana do oszacowania nakładu pracy lub relatywnej wielkości historyjek użytkownika, wykorzystywana na ogół w zwinnym wytwarzaniu oprogramowania. Jest modyfikacją szerokopasmowej techniki delfickiej, używającą talii kart z wartościami reprezentującymi jednostki, w których zespół dokonuje szacowania.",
+      "VIII. Metodyki Zwinne (Agile)"
+    ],
+    [
+      "227",
+      "Pokrycie",
+      "Stopień, w jakim określone elementy pokrycia są wykonywane przez zestaw testów, wyrażony w procentach.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "228",
+      "Pokrycie Decyzji",
+      "Pokrycie wyników decyzji.",
+      "IV. Techniki Projektowania"
+    ],
+    [
+      "229",
+      "Pokrycie Gałęzi",
+      "Pokrycie gałęzi na grafie przepływu sterowania.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "230",
+      "Pokrycie Instrukcji Kodu",
+      "Pokrycie wykonywalnych instrukcji kodu.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "231",
+      "Pokrycie Kombinacji Warunków",
+      "Pokrycie wszystkich możliwych kombinacji wszystkich wyników pojedynczych warunków w ramach jednej instrukcji.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "232",
+      "Pokrycie N-Przełączeń",
+      "Pokrycie sekwencji N+1 przejść.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "233",
+      "Pokrycie Neuronów",
+      "Pokrycie aktywowanych neuronów w sieci neuronowej dla zestawu testów.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "234",
+      "Pokrycie Progu",
+      "Pokrycie neuronów przekraczających próg aktywacji w sieci neuronowej dla zbioru testów.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "235",
+      "Pokrycie Strukturalne",
+      "Miary pokrycia oparte na wewnętrznej strukturze modułu lub systemu.",
+      "V. Poziomy i Typy Testów"
+    ],
+    [
+      "236",
+      "Pokrycie Warunków",
+      "Pokrycie wyników warunków.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "237",
+      "Pokrycie Zmiany Wartości",
+      "Pokrycie neuronów aktywowanych, gdzie ich wartości aktywacji różnią się o więcej niż wielkość zmiany w sieci neuronowej dla zestawu testów.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "238",
+      "Pokrycie Zmiany Znaku",
+      "Pokrycie neuronów aktywowanych zarówno dodatnimi, jak i ujemnymi wartościami aktywacji w sieci neuronowej dla zbioru testów.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "239",
+      "Pokrycie Znak-Znak",
+      "Pokrycie osiągane dla zbioru testów, jeśli dla każdego neuronu można wykazać, że zmiana znaku tego neuronu powoduje, że pojedynczy neuron w następnej warstwie zmienia znak, podczas gdy wszystkie inne neurony w następnej warstwie nie zmieniają znaku.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "240",
+      "Polityka Testów",
+      "Dokument wysokiego poziomu opisujący zasady, podejście i główne zadania w organizacji dotyczące testowania.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "241",
+      "Polityka Zabezpieczeń",
+      "Wysokopoziomowy dokument opisujący zasady, podejście i podstawowe cele w organizacji dotyczące zabezpieczeń.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "242",
+      "Polowanie Na Błędy",
+      "Podejście do testowania, w którym motywatorami są grywalizacja i nagrody za wykryte defekty.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "243",
+      "Pomiar",
+      "Proces przypisania liczby bądź kategorii do obiektu, mający na celu opisanie danej właściwości obiektu.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "244",
+      "Pomoc W Zakresie Jakości",
+      "Podejście do zarządzania jakością, które koncentruje się na kulturze jakości w całej organizacji.",
+      "VI. Charakterystyki Jakości"
+    ],
+    [
+      "245",
+      "Pomyłka",
+      "Działanie człowieka powodujące powstanie nieprawidłowego rezultatu.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "246",
+      "Poprawność Funkcjonalna",
+      "Stopień, w jakim moduł lub system zapewnia prawidłowe wyniki z wymaganą precyzją.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "247",
+      "Posiew Usterek",
+      "Proces celowego dodawania defektów do już istniejących w module lub systemie w celu monitorowania efektywności ich wykrywania i usuwania oraz szacowania liczby defektów niewykrytych.",
+      "III. Zarządzanie Testami"
+    ],
+    [
+      "248",
+      "Poufność",
+      "Stopień, w jakim moduł lub system zapewnia dostęp do danych tylko tym osobom, które mają do tego uprawnienia.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "249",
+      "Powstrzymanie Fazowe",
+      "Odsetek defektów, które zostały usunięte w tej samej fazie cyklu życia oprogramowania, w której zostały wprowadzone.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "250",
+      "Poziom Nienaruszalności Bezpieczeństwa",
+      "Poziom zmniejszenia ryzyka zapewniany przez funkcję bezpieczeństwa, związany z częstotliwością i dotkliwością postrzeganych zagrożeń.",
+      "III. Zarządzanie Testami"
+    ],
+    [
+      "251",
+      "Poziom Nienaruszalności Bezpieczeństwa Samochodowego",
+      "Jeden z czterech poziomów określających niezbędne wymagania obiektu lub elementu ISO 26262 oraz środki bezpieczeństwa w celu uniknięcia nieuzasadnionego ryzyka rezydualnego. (ASIL od ang. automotive safety integrity level).",
+      "III. Zarządzanie Testami"
+    ],
+    [
+      "252",
+      "Poziom Ryzyka",
+      "Jakościowa lub ilościowa miara ryzyka zdefiniowana przez wpływ i prawdopodobieństwo.",
+      "VI. Charakterystyki Jakości"
+    ],
+    [
+      "253",
+      "Poziom Testów",
+      "Specyficzna instancja procesu testowego.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "254",
+      "Poziom Wpływu",
+      "Poziom, do którego przedmiot testów jest modyfikowany poprzez dostosowanie go celem uzyskania testowalności.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "255",
+      "Praca Awaryjna",
+      "Zapasowy tryb operacyjny, w którym funkcje systemu, gdy stają się one niedostępne, są przejmowane przez system pomocniczy.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "256",
+      "Prawdopodobieństwo Ryzyka",
+      "Prawdopodobieństwo, że ryzyko wystąpi jako rzeczywisty wynik lub zdarzenie.",
+      "III. Zarządzanie Testami"
+    ],
+    [
+      "257",
+      "Priorytet",
+      "Poziom (biznesowej) ważności określony dla elementu, np. defektu.",
+      "III. Zarządzanie Testami"
+    ],
+    [
+      "258",
+      "Prisma",
+      "Systematyczne podejście do testowania opartego na ryzyku, które wykorzystuje identyfikację i analizę ryzyka produktowego do stworzenia macierzy ryzyka produktowego, w której rozważa się prawdopodobieństwo i wpływ. Nazwa pochodzi od ang. Product RISK Management.",
+      "III. Zarządzanie Testami"
+    ],
+    [
+      "259",
+      "Procedura Testowa",
+      "Sekwencja przypadków testowych w kolejności wykonywania oraz wszelkie powiązane działania, które mogą być wymagane do ustanowienia warunków wstępnych i wszelkich czynności podsumowujących po wykonaniu.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "260",
+      "Procedura Zabezpieczeń",
+      "Zbiór kroków potrzebnych do zaimplementowania polityki zabezpieczeń oraz kroków, które powinny być podjęte w przypadku incydentu z zabezpieczeniami.",
+      "IX. Bezpieczeństwo i Ataki"
+    ],
+    [
+      "261",
+      "Proces Systematycznego Testowania I Oceny",
+      "Ustrukturalizowana metodyka testowania, wykorzystywana również jako model doskonalenia procesu testowania oparty o zawartość. Nie wymaga ona, by poprawę przeprowadzać w zadanym porządku. (STEP od ang. Systematic Test and Evaluation Process).",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "262",
+      "Proces Testowy",
+      "Zbiór powiązanych ze sobą czynności obejmujący: planowanie testów, monitorowanie i nadzór nad testami, analizę testów, projektowanie testów, implementację testów, wykonywanie oraz ukończenie testów.",
+      "III. Zarządzanie Testami"
+    ],
+    [
+      "263",
+      "Profil Obciążenia",
+      "Dokumentacja definiująca określoną liczbę wirtualnych użytkowników, którzy przetwarzają określony zestaw transakcji w zadanym przedziale czasowym, którego testowany moduł lub system może doświadczyć podczas produkcji.",
+      "V. Poziomy i Typy Testów"
+    ],
+    [
+      "264",
+      "Profil Operacyjny",
+      "Rzeczywisty lub przewidywany wzór użycia modułu lub systemu.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "265",
+      "Projektowanie Testów",
+      "Czynność wyprowadzania i specyfikowania przypadków testowych z warunków testowych.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "266",
+      "Projektowanie Ukierunkowane Na Człowieka",
+      "Podejście do projektowania ukierunkowane na uczynienie oprogramowania bardziej użytecznym poprzez ukierunkowanie na jego użycie i zastosowanie czynnika ludzkiego, ergonomii oraz wiedzy i technik z zakresu użyteczności.",
+      "VI. Charakterystyki Jakości"
+    ],
+    [
+      "267",
+      "Protokolant",
+      "Osoba zapisująca informacje podczas spotkań przeglądowych.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "268",
+      "Prywatność Danych",
+      "Ochrona informacji umożliwiających identyfikację osoby lub innych danych wrażliwych przed niepożądanym ujawnieniem.",
+      "IX. Bezpieczeństwo i Ataki"
+    ],
+    [
+      "269",
+      "Przebieg Testu",
+      "Wykonanie zestawu testów na określonej wersji przedmiotu testów.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "270",
+      "Przedmiot Testów",
+      "Moduł lub system podlegający testowaniu.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "271",
+      "Przedział Ufności",
+      "W zarządzaniu ryzykiem projektowym - okres czasu, podczas którego musi zostać podjęte działanie, by skutecznie zredukować wpływ ryzyka.",
+      "III. Zarządzanie Testami"
+    ],
+    [
+      "272",
+      "Przegląd",
+      "Typ testowania statycznego, podczas którego produkt pracy lub proces jest oceniany przez jedną lub więcej osób w celu wykrycia problemów i wprowadzenia udoskonaleń.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "273",
+      "Przegląd Ad Hoc",
+      "Technika przeglądu przeprowadzana nieformalnie bez ustrukturyzowanego procesu.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "274",
+      "Przegląd Formalny",
+      "Typ przeglądu, który przebiega według zdefiniowanego procesu, z formalnie udokumentowanym wynikiem.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "275",
+      "Przegląd Kierowniczy",
+      "Systematyczna ocena procesu zakupu, dostawy, wytworzenia, działania lub utrzymania oprogramowania wykonywana przez albo w imieniu kierownictwa, obejmująca monitorowanie postępów, określanie statusu planów i harmonogramów, zatwierdzanie wymagań oraz ich alokacji, ocenę skuteczności metod zarządzania mających na celu osiągnięcie zakładanych celów/funkcjonalności.",
+      "III. Zarządzanie Testami"
+    ],
+    [
+      "276",
+      "Przegląd Koleżeński",
+      "Przegląd wykonywany przez inne osoby o podobnych kwalifikacjach.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "277",
+      "Przegląd Nieformalny",
+      "Rodzaj przeglądu bez formalnego procesu, nie posiadający formalnie udokumentowanych wyników.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "278",
+      "Przegląd Oparty Na Liście Kontrolnej",
+      "Technika przeglądu oparta na liście pytań lub wymaganych atrybutów.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "279",
+      "Przegląd Oparty Na Rolach",
+      "Technika przeglądu, w której produkt pracy jest oceniany z perspektywy różnych interesariuszy.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "280",
+      "Przegląd Oparty Na Scenariuszach",
+      "Technika przeglądu, w której ocenia się produkt pracy w celu ustalenia jego zdolności do wykonywania określonych scenariuszy.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "281",
+      "Przegląd Techniczny",
+      "Typ formalnego przeglądu przeprowadzany przez wykwalifikowany zespół technicznych specjalistów, którzy sprawdzają jakość produktu prac oraz identyfikują odchylenia od specyfikacji i standardów.",
+      "VI. Charakterystyki Jakości"
+    ],
+    [
+      "282",
+      "Przeglądający",
+      "Uczestnik przeglądu, który identyfikuje problemy w produkcie pracy.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "283",
+      "Przejrzenie",
+      "Typ przeglądu, w którym autor prowadzi przeglądających przez produkt pracy, a przeglądający zadają pytania i komentują możliwe problemy.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "284",
+      "Przenaszalność",
+      "Łatwość, z jaką moduł lub system może zostać przeniesiony z jednego środowiska sprzętowego lub programistycznego do innego.",
+      "VI. Charakterystyki Jakości"
+    ],
+    [
+      "285",
+      "Przepływ Sterowania",
+      "Kolejność, w jakiej wykonywane są operacje podczas wykonywania elementu testowego.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "286",
+      "Przepustowość",
+      "Stopień, w jakim maksymalne wartości graniczne parametru modułu lub systemu spełniają wymagania.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "287",
+      "Przepustowość Systemu",
+      "Ilość danych przetwarzanych przez moduł lub system w określonym przedziale czasu.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "288",
+      "Przesunięcie w Lewo",
+      "Podejście do wykonywania czynności związanych z testowaniem i zapewnianiem jakości na jak najwcześniejszym etapie cyklu rozwoju oprogramowania.",
+      "VI. Charakterystyki Jakości"
+    ],
+    [
+      "289",
+      "Przesunięcie w Prawo",
+      "Podejście do ciągłego testowania systemu na produkcji.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "290",
+      "Przydatność Funkcjonalna",
+      "Stopień, w jakim moduł lub system zapewnia funkcje spełniające określone i domniemane potrzeby, gdy są używane w określonych warunkach.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "291",
+      "Przygotowanie Danych Testowych",
+      "Działanie polegające na wybieraniu danych z istniejących baz danych lub tworzeniu, generowaniu, przetwarzaniu i edycji danych do testowania.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "292",
+      "Przykład Adwersarialny",
+      "Dane wejściowe do modelu ML utworzone przez zastosowanie małych zaburzeń w działającym przykładzie, dla którego model działa poprawnie, w wyniku których model wytwarza nieprawidłowy wynik z wysokim prawdopodobieństwem.",
+      "X. Specjalistyczne i Nowoczesne"
+    ],
+    [
+      "293",
+      "Przypadek Testowy",
+      "Zbiór warunków wstępnych, danych wejściowych, akcji (w stosownych przypadkach), oczekiwanych rezultatów i warunków końcowych opracowany w oparciu o warunki testowe.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "294",
+      "Przypadek Testowy Niskiego Poziomu",
+      "Przypadek testowy z konkretnymi warunkami wstępnymi, wartościami wejściowymi, wynikami oczekiwanymi, warunkami wyjściowymi i odpowiednimi akcjami (o ile ma to zastosowanie).",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "295",
+      "Przypadek Testowy Wysokiego Poziomu",
+      "Przypadek testowy z abstrakcyjnymi warunkami wstępnymi, danymi wejściowych, warunkami wyjściowymi, oczekiwanymi rezultatami i odpowiednimi akcjami (o ile ma to zastosowanie).",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "296",
+      "Przypadek Uszkodzenia",
+      "Przypadek użycia, w którym pewni aktorzy mający intencję szkodzenia powodują uszkodzenia w systemie lub przeszkadzają innym aktorom.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "297",
+      "Przyrostowy Model Wytwarzania",
+      "Typ cyklu życia oprogramowania, w którym moduł lub system wytwarzany jest w serii cykli.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "298",
+      "Przyspieszenie",
+      "technika zwiększania obciążenia systemu w mierzalny i kontrolowany sposób.",
+      "V. Poziomy i Typy Testów"
+    ],
+    [
+      "299",
+      "Pseudo-Wyrocznia",
+      "Niezależnie wyprowadzony wariant elementu testowego, używany do generowania wyników, które są porównywane z wynikami oryginalnego elementu testowego na podstawie tych samych danych wejściowych testu.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "300",
+      "Raport O Defekcie",
+      "Dokumentacja wystąpienia, charakteru i statusu usterki.",
+      "III. Zarządzanie Testami"
+    ],
+    [
+      "301",
+      "Raport O Postępie Testów",
+      "Rodzaj okresowego raportu z testów, który obejmuje postęp działań testowych w odniesieniu do działań zaplanowanych, ryzyk i alternatyw wymagających decyzji.",
+      "IV. Techniki Projektowania"
+    ],
+    [
+      "302",
+      "Raport Z Testów",
+      "Dokumentacja podsumowująca działania testowe i wyniki.",
+      "III. Zarządzanie Testami"
+    ],
+    [
+      "303",
+      "Raportowanie Testów",
+      "Zbieranie i analizowanie danych z aktywności testowych, a następnie konsolidacja tych danych w raporcie dla interesariuszy.",
+      "III. Zarządzanie Testami"
+    ],
+    [
+      "304",
+      "Reaktywna Strategia Testowa",
+      "Strategia testowa, zgodnie z którą zespół testowy czeka z projektowaniem i implementacją testów, aż oprogramowanie zostanie dostarczone, reagując na aktualne testowane oprogramowanie.",
+      "III. Zarządzanie Testami"
+    ],
+    [
+      "305",
+      "Rejestrowanie-Odtwarzanie",
+      "Podejście do automatyzacji testów polegające na tym, że dane wejściowe do przedmiotu testów są rejestrowane podczas ręcznego testowania w celu wygenerowania zautomatyzowanych skryptów testowych, które będą wykonywane później.",
+      "VII. Automatyzacja i Narzędzia"
+    ],
+    [
+      "306",
+      "Rekonesans",
+      "Badanie docelowych obszarów mające na celu zbieranie informacji, które mogą być użyte do ataku.",
+      "IX. Bezpieczeństwo i Ataki"
+    ],
+    [
+      "307",
+      "Relacja Metamorficzna (MR)",
+      "Opis tego, w jaki sposób zmiana danych wejściowych testu ze źródłowego przypadku testowego na kolejny przypadek testowy wpływa na zmianę oczekiwanych wyników ze źródłowego przypadku testowego na kolejny przypadek testowy. (akronim MR od ang. Metamorphic Relation).",
+      "X. Specjalistyczne i Nowoczesne"
+    ],
+    [
+      "308",
+      "Retrospektywa",
+      "Regularne wydarzenie, podczas którego członkowie zespołu omawiają wyniki, przeglądają swoje praktyki i identyfikują sposoby poprawy.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "309",
+      "Rezultat Fałszywie Negatywny",
+      "Rezultat testu, w którym nie zidentyfikowano obecności usterki występującej w przedmiocie testów.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "310",
+      "Rezultat Fałszywie Pozytywny",
+      "Rezultat testu, w którym zaraportowano defekt, który nie występuje w przedmiocie testów.",
+      "III. Zarządzanie Testami"
+    ],
+    [
+      "311",
+      "Rozliczalność",
+      "Stopień, w jakim działania danej jednostki można jednoznacznie przypisać do tej jednostki.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "312",
+      "Rozwiązanie Dla Testów Automatycznych",
+      "Realizacja/implementacja architektury dla testów automatycznych, tzn. kombinacji modułów realizujących określone zadanie automatyzacji testów. Komponenty (moduły) mogą obejmować komercyjne narzędzia testowe, strukturę do testów automatycznych, jak również sprzęt testowy.",
+      "VII. Automatyzacja i Narzędzia"
+    ],
+    [
+      "313",
+      "Ryzyko",
+      "Czynnik, który w przyszłości może skutkować negatywnymi konsekwencjami.",
+      "III. Zarządzanie Testami"
+    ],
+    [
+      "314",
+      "Ryzyko Jakościowe",
+      "Ryzyko związane z charakterystyką jakościową.",
+      "VI. Charakterystyki Jakości"
+    ],
+    [
+      "315",
+      "Ryzyko Produktowe",
+      "Ryzyko wpływające na jakość produktu.",
+      "VI. Charakterystyki Jakości"
+    ],
+    [
+      "316",
+      "Ryzyko Projektowe",
+      "Ryzyko wpływające na sukces projektu.",
+      "III. Zarządzanie Testami"
+    ],
+    [
+      "317",
+      "Ryzyko Zabezpieczeń",
+      "Ryzyko jakości związane z zabezpieczeniami.",
+      "IX. Bezpieczeństwo i Ataki"
+    ],
+    [
+      "318",
+      "Rzeczywisty Rezultat",
+      "Wytworzone/zaobserwowane zachowanie modułu lub systemu, podczas gdy ten moduł lub system jest testowany.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "319",
+      "Ścieżka",
+      "Ciąg sąsiednich krawędzi w grafie skierowanym.",
+      "IV. Techniki Projektowania"
+    ],
+    [
+      "320",
+      "Sekwencyjny Model Wytwarzania Oprogramowania",
+      "Typ modelu cyklu wytwarzania oprogramowania, w którym kompletny system jest wytwarzany sekwencyjnie w oddzielnych, kolejnych, niezachodzących na siebie fazach.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "321",
+      "Sesja Testów Użyteczności",
+      "Sesja testów w testach użyteczności, podczas której ich uczestnik wykonuje testy, prowadzona przez moderatora i obserwowana przez pewną liczbę obserwatorów.",
+      "VI. Charakterystyki Jakości"
+    ],
+    [
+      "322",
+      "Sesja Testowa",
+      "Nieprzerwany okres czasu poświęcony na testowanie.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "323",
+      "Skala Użyteczności Systemu",
+      "Prosta, dziesięciostopniowa skala opisująca subiektywną ocenę użyteczności. (SUS od ang. System Usability Scale).",
+      "VI. Charakterystyki Jakości"
+    ],
+    [
+      "324",
+      "Skalowalność",
+      "Stopień, w jakim moduł lub system może być dostosowany do zmieniającego się obciążenia.",
+      "VI. Charakterystyki Jakości"
+    ],
+    [
+      "325",
+      "Skaner Podatności Na Zagrożenia Zabezpieczeń",
+      "Statyczny analizator używany do wykrywania podatności na zagrożenia zabezpieczeń w kodzie.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "326",
+      "Skanowanie Poszukujące Złośliwego Oprogramowania",
+      "Analiza statyczna mająca na celu wykrycie i usunięcie złośliwego kodu otrzymanego przez interfejs.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "327",
+      "Skrypt Do Testów Użyteczności",
+      "Dokument specyfikujący sekwencję czynności potrzebnych do wykonania testu użyteczności. Używany przez moderatora do utrzymania toku odprawy i pytań przedsesyjnej ankiety, zadań testów użyteczności oraz pytań posesyjnej ankiety.",
+      "VII. Automatyzacja i Narzędzia"
+    ],
+    [
+      "328",
+      "Skrypt Testowy",
+      "Ciąg instrukcji wykonujący zestaw testowy.",
+      "VII. Automatyzacja i Narzędzia"
+    ],
+    [
+      "329",
+      "Skryptowy Dzieciak (Script Kiddie)",
+      "Osoba wykonująca ataki na zabezpieczenia przy użyciu metod/narzędzi stworzonych przez innych hakerów zamiast swoich własnych.",
+      "IX. Bezpieczeństwo i Ataki"
+    ],
+    [
+      "330",
+      "Skrypty Liniowe",
+      "Prosta technika skryptowa bez żadnych struktur sterujących w skrypcie testowym.",
+      "VII. Automatyzacja i Narzędzia"
+    ],
+    [
+      "331",
+      "Skuteczność",
+      "Zakres, w jakim osiągane są poprawne i kompletne cele.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "332",
+      "Śledzenie Wymagań",
+      "Możliwość ustanowienia jednoznacznych relacji między powiązanymi produktami pracy lub elementami w produktach pracy.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "333",
+      "Solenie (Salting)",
+      "Technika kryptograficzna, w której dodaje się dane losowe (tzw. sól) do danych użytkownika przed haszowaniem.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "334",
+      "Specyfikacja Na Przykładach",
+      "Technika rozwoju oprogramowania, w której specyfikacja jest definiowana poprzez przykłady. (SBE od ang. specification by example).",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "335",
+      "Specyfikacja Testów",
+      "Kompletna dokumentacja projektu testów, przypadków testowych i skryptów testowych dla określonego elementu testowego.",
+      "VII. Automatyzacja i Narzędzia"
+    ],
+    [
+      "336",
+      "Spowolnienie",
+      "Technika zmniejszania obciążenia systemu w mierzalny i kontrolowany sposób.",
+      "V. Poziomy i Typy Testów"
+    ],
+    [
+      "337",
+      "Sprzęt W Pętli",
+      "Testy dynamiczne przeprowadzane przy użyciu prawdziwego sprzętu ze zintegrowanym oprogramowaniem w symulowanym środowisku. (HiL od ang. Hardware in the Loop).",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "338",
+      "SQL Injection",
+      "Rodzaj wstrzyknięcia kodu w zapytanie języka SQL.",
+      "IX. Bezpieczeństwo i Ataki"
+    ],
+    [
+      "339",
+      "Średni Czas Do Awarii",
+      "Średni czas od rozpoczęcia działania do awarii modułu lub systemu. (Od ang. MTTF - Mean Time to Failure).",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "340",
+      "Średni Czas Do Naprawy",
+      "Średni czas, w jakim system będzie uruchomiony po awarii. (MTTR od ang. Mean Time To Repair).",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "341",
+      "Średni Czas Pomiędzy Awariami",
+      "Średni czas pomiędzy kolejnymi awariami modułu lub systemu. (MTBF od ang. Mean Time Between Failures).",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "342",
+      "Środowisko Testowe",
+      "Środowisko, w skład którego wchodzi sprzęt, wyposażenie, symulatory, narzędzia programistyczne oraz inne elementy wspierające, potrzebne do wykonania testu.",
+      "VII. Automatyzacja i Narzędzia"
+    ],
+    [
+      "343",
+      "Środowisko Testowe Xil",
+      "Uogólniony termin na testy dynamiczne w różnych wirtualnych środowiskach testowych.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "344",
+      "Stan Awarii",
+      "Fizyczny lub funkcjonalny przejaw awarii.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "345",
+      "Standard Kodowania",
+      "Standard opisujący cechy projektu lub opis projektu danych lub modułów programu.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "346",
+      "Sterownik",
+      "Tymczasowy moduł lub narzędzie, które zastępuje inny moduł i steruje lub wywołuje izolowany element testowy.",
+      "VII. Automatyzacja i Narzędzia"
+    ],
+    [
+      "347",
+      "Stosowność",
+      "Stopień, w jakim użytkownicy mogą rozpoznać, czy moduł lub system jest odpowiedni do ich potrzeb.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "348",
+      "Strategia Automatyzacji Testów",
+      "Wysokopoziomowy plan osiągnięcia długoterminowych celów przez testy automatyczne przy zadanych ograniczeniach.",
+      "VII. Automatyzacja i Narzędzia"
+    ],
+    [
+      "349",
+      "Strategia Testów",
+      "Opis sposobu przeprowadzania testowania aby osiągnąć cele testów w danych okolicznościach.",
+      "III. Zarządzanie Testami"
+    ],
+    [
+      "350",
+      "Strategia Testowa Minimalizująca Regresję",
+      "Strategia testowa, zgodnie z którą zespół testowy stosuje różne techniki do zarządzania ryzykiem regresji, takie jak funkcjonalne i niefunkcjonalne automatyczne testy regresji na jednym lub kilku poziomach.",
+      "V. Poziomy i Typy Testów"
+    ],
+    [
+      "351",
+      "Strategia Testowa Oparta Na Modelu",
+      "Strategia testowa, zgodnie z którą zespół testowy wywodzi testalia z modeli.",
+      "III. Zarządzanie Testami"
+    ],
+    [
+      "352",
+      "Strategia Testowa Zgodna Z Procesem",
+      "Strategia testowa, zgodnie z którą zespół testowy postępuje zgodnie ze zbiorem predefiniowanych procesów, przy pomocy których adresuje takie kwestie jak: dokumentacja, właściwa identyfikacja i użycie podstawy testów oraz wyroczni testowej (testowych), organizacja zespołu testowego.",
+      "III. Zarządzanie Testami"
+    ],
+    [
+      "353",
+      "Strategia Testowa Zgodna Ze Standardem",
+      "Strategia testowa, zgodnie z którą zespół testowy postępuje zgodnie ze standardem. Wykorzystywane standardy mogą być ważne np. w kraju (standardy legislacyjne), w dziedzinie biznesowej (standardy dziedzinowe) lub być międzynarodowe (standardy organizacyjne).",
+      "III. Zarządzanie Testami"
+    ],
+    [
+      "354",
+      "Strefa Sieci",
+      "Podsieć ze zdefiniowanympoziomem zaufania. Na przykład Internet lub strefy publiczne powinny być rozważane jako pozbawione zaufania.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "355",
+      "Strefa Zdemilitaryzowana",
+      "Fizyczna lub logiczna podsieć, która zawiera i udostępnia zewnętrzne serwisy organizacji dla niezaufanej sieci, na ogół dla Internetu. (DMZ od ang. Demilitarized Zone).",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "356",
+      "Struktura Do Testów Automatycznych",
+      "Narzędzie dostarczające środowisko do testów automatycznych. Na ogół zawiera jarzmo testowe i biblioteki testowe.",
+      "VII. Automatyzacja i Narzędzia"
+    ],
+    [
+      "357",
+      "Struktura Do Testów Jednostkowych",
+      "Narzędzie, które dostarcza środowisko do testów jednostkowych lub modułowych, w takim środowisku moduł może być testowany niezależnie (w izolacji) lub z użyciem odpowiednich zaślepek i sterowników. Dostarcza również innego rodzaju wsparcia dla programistów np. możliwość debugowania.",
+      "VII. Automatyzacja i Narzędzia"
+    ],
+    [
+      "358",
+      "Sumaryczny Raport Z Testów",
+      "Raport z testów, który zawiera ocenę odpowiednich pozycji testowych w odniesieniu do kryteriów wyjścia.",
+      "III. Zarządzanie Testami"
+    ],
+    [
+      "359",
+      "Symulator",
+      "Moduł systemu używany podczas testowania, który zachowuje się lub działa jak dany moduł lub system.",
+      "VII. Automatyzacja i Narzędzia"
+    ],
+    [
+      "360",
+      "System Podlegający Testowaniu",
+      "Rodzaj przedmiotu testów będący systemem. (SUT od ang. System Under Test).",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "361",
+      "System Systemów (Zbudowany Z Systemów)",
+      "Złożone, heterogeniczne, rozproszone systemy, które mogą być zagnieżdżone w sieciach na wielu poziomach i w wielu połączonych dziedzinach, ukierunkowane na rozwiązywanie interdyscyplinarnych problemów i zamierzeń o wielkiej skali, na ogół bez wspólnej struktury zarządczej.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "362",
+      "System Wykrywania Nieautoryzowanego Dostępu",
+      "System, który monitoruje działalność na wszystkich 7 warstwach modelu OSI od poziomu sieci do poziomu aplikacji, by wykrywać naruszenia w polityce bezpieczeństwa. (IDS od ang. Intrusion Detection System).",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "363",
+      "System Z Otwartą Pętlą",
+      "System, w którym działanie sterujące lub wejście jest niezależne od wyjścia lub zmian w wyjściu.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "364",
+      "System Z Zamkniętą Pętlą",
+      "System, w którym działanie sterujące lub wejście zależą od wyniku lub zmian w wyniku.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "365",
+      "Szacowanie Testów",
+      "Aproksymacja związana z różnymi aspektami testowania.",
+      "III. Zarządzanie Testami"
+    ],
+    [
+      "366",
+      "Szerokopasmowa Technika Delficka",
+      "Bazująca na wiedzy eksperckiej technika estymacji opierająca się na zbiorowej wiedzy członków zespołu polegająca na dokładnym szacowaniu.",
+      "III. Zarządzanie Testami"
+    ],
+    [
+      "367",
+      "Szyfrowanie",
+      "Proces kodowania informacji w ten sposób, by tylko upoważnione strony mogły uzyskać oryginalną informację, na ogół przy użyciu określonego klucza dekodującego lub procesu deszyfrowania.",
+      "IX. Bezpieczeństwo i Ataki"
+    ],
+    [
+      "368",
+      "Tabela Metod",
+      "Tabela zawierająca różne podejścia testowe, techniki testowania i typy testów, które są wymagane w zależności od poziomu nienaruszalności bezpieczeństwa samochodowego (ASIL od ang. Automotive Safety Integrity Level) i kontekstu przedmiotu testów.",
+      "X. Specjalistyczne i Nowoczesne"
+    ],
+    [
+      "369",
+      "Tablica Wskaźników",
+      "Przedstawienie dynamicznych miar wydajności operacyjnej pewnej organizacji lub pewnego działania, przy użyciu metaforycznych metryk takich jak wizualne zegary, liczniki i inne wskaźniki podobne do tych na desce rozdzielczej samochodu, tak żeby skutki zdarzeń i działań były zrozumiałe i mogły być w prosty sposób powiązane z celami operacyjnymi.",
+      "VI. Charakterystyki Jakości"
+    ],
+    [
+      "370",
+      "Taksonomia Defektów",
+      "Lista kategorii zaprojektowana w celu identyfikacji i klasyfikacji defektów.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "371",
+      "Technika Drzewa Klasyfikacji",
+      "Czarnoskrzynkowa technika, w której przypadki testowe projektowane są za pomocą drzewa klasyfikacji.",
+      "IV. Techniki Projektowania"
+    ],
+    [
+      "372",
+      "Technika Testów Oparta Na Defektach",
+      "Technika testowa, w której przypadki testowe projektuje się na podstawie wiedzy o określonym typie defektów.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "373",
+      "Technika Testowania",
+      "Procedura używana do definiowania warunków testowych, projektowania przypadków testowych i określania danych testowych.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "374",
+      "Technika Testowania Oparta Na Doświadczeniu",
+      "Technika testowania oparta tylko o doświadczenie, wiedzę i intuicję testera.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "375",
+      "Test",
+      "Zestaw jednego lub więcej przypadków testowych.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "376",
+      "Test Dymny",
+      "Zestaw testów obejmujący główną funkcjonalność modułu lub systemu sprawdzający, czy działa ona poprawnie przed rozpoczęciem planowanych testów.",
+      "III. Zarządzanie Testami"
+    ],
+    [
+      "377",
+      "Test Kwalifikacyjny Oprogramowania",
+      "Testy przeprowadzone na kompletnym, zintegrowanym oprogramowaniu w celu potwierdzenia zgodności z wymaganiami na oprogramowanie.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "378",
+      "Test Kwalifikacyjny Systemu",
+      "Testowanie przeprowadzane na kompletnym, zintegrowanym systemie złożonym z komponentów oprogramowania, sprzętu oraz mechaniki mające na celu dostarczenie dowodu na zgodność z wymaganiami systemowymi oraz na gotowość całego systemu do wdrożenia.",
+      "V. Poziomy i Typy Testów"
+    ],
+    [
+      "379",
+      "Test Osobowości Myers-Briggs",
+      "Wskaźnik preferencji psychologicznych reprezentujący różne typy osobowości i style komunikacji. (MBTI od ang. Myers-Briggs Type Indicator).",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "380",
+      "Test Weryfikacji Wersji",
+      "Zbiór automatycznych testów, które walidują (sprawdzają) integralność każdej nowej wersji i weryfikują jej kluczową/podstawową funkcjonalność, stabilność i testowalność. (BVT od ang. build verification test).",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "381",
+      "Testalia",
+      "Produkty prac stworzone w ramach procesu testowego, używane do planowania, projektowania, wykonywania, oceny i raportowania testów.",
+      "III. Zarządzanie Testami"
+    ],
+    [
+      "382",
+      "Tester",
+      "Osoba wykonująca testy.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "383",
+      "Testowalność",
+      "Stopień, w jakim można ustalić warunki testowe dla modułu lub systemu oraz sprawdzić, czy testy można przeprowadzić w celu ustalenia, czy warunki te zostały spełnione.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "384",
+      "Testowanie",
+      "Proces w cyklu rozwoju oprogramowania, który ocenia jakość modułu lub systemu i powiązanych produktów pracy.",
+      "VI. Charakterystyki Jakości"
+    ],
+    [
+      "385",
+      "Testowanie A/B",
+      "Statystyczne podejście do testowania umożliwiające określenie, który z dwóch systemów lub modułów działa lepiej.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "386",
+      "Testowanie Ad Hoc",
+      "Nieformalne testy wykonywane bez analizy testów i projektowania testów.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "387",
+      "Testowanie Akceptacyjne",
+      "Poziom testów zorientowany na ustalenie, czy zaakceptować system.",
+      "V. Poziomy i Typy Testów"
+    ],
+    [
+      "388",
+      "Testowanie Akceptacyjne Przez Użytkownika",
+      "Rodzaj testu akceptacyjnego wykonywanego w celu ustalenia, czy użytkownicy dla których przeznaczony jest system, akceptują go.",
+      "V. Poziomy i Typy Testów"
+    ],
+    [
+      "389",
+      "Testowanie Akceptacyjne Zgodności Z Prawem",
+      "Rodzaj testów akceptacyjnych przeprowadzanych w celu określenia zgodności z prawem badanego przedmiotu testów.",
+      "V. Poziomy i Typy Testów"
+    ],
+    [
+      "390",
+      "Testowanie Akceptacyjne Zgodności Z Umową",
+      "Rodzaj testów akceptacyjnych przeprowadzonych w celu sprawdzenia, czy system spełnia wymagania umowy.",
+      "V. Poziomy i Typy Testów"
+    ],
+    [
+      "391",
+      "Testowanie Alfa",
+      "Rodzaj testów akceptacyjnych wykonywanych w środowisku testowym programisty przez osoby spoza organizacji wytwórczej.",
+      "V. Poziomy i Typy Testów"
+    ],
+    [
+      "392",
+      "Testowanie API",
+      "Testowanie przeprowadzane przez przesyłanie żądań do przedmiotu testów poprzez bezpośrednie wykorzystanie interfejsu tej aplikacji.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "393",
+      "Testowanie Audio",
+      "Testowanie w celu określenia, czy muzyka i efekty dźwiękowe w grze komputerowej będą odpowiednio angażować użytkownika w tę grę.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "394",
+      "Testowanie Back-To-Back",
+      "Testowanie w celu porównania dwóch lub więcej wariantów elementu testowego lub modelu symulacyjnego tego samego elementu testowego poprzez wykonanie tych samych przypadków testowych na wszystkich wariantach i porównanie wyników.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "395",
+      "Testowanie Beta",
+      "Rodzaj testów akceptacyjnych przeprowadzanego poza środowiskiem testowym organizacji wytwórczej przez osoby spoza organizacji.",
+      "V. Poziomy i Typy Testów"
+    ],
+    [
+      "396",
+      "Testowanie Białoskrzynkowe",
+      "Testowanie oparte na analizie wewnętrznej struktury modułu lub systemu.",
+      "IV. Techniki Projektowania"
+    ],
+    [
+      "397",
+      "Testowanie CLI",
+      "Testowanie przeprowadzane przez wprowadzanie poleceń do testowanego oprogramowania z wykorzystaniem dedykowanego interfejsu linii komend. (CLI od ang. Command-Line Interface),",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "398",
+      "Testowanie Czarnoskrzynkowe",
+      "Testowanie oparte na analizie specyfikacji modułu lub systemu.",
+      "IV. Techniki Projektowania"
+    ],
+    [
+      "399",
+      "Testowanie Danych Wejściowych",
+      "Poziom testu koncentrujący się na jakości danych wykorzystywanych do uczenia i przewidywania przez modele ML.",
+      "VI. Charakterystyki Jakości"
+    ],
+    [
+      "400",
+      "Testowanie Decyzji",
+      "Białoskrzynkowa technika testowania, w której przypadki testowe są projektowane tak, by sprawdzać wyniki decyzji.",
+      "IV. Techniki Projektowania"
+    ],
+    [
+      "401",
+      "Testowanie Dynamiczne",
+      "Testowanie, podczas którego wykonywany jest kod modułu lub systemu.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "402",
+      "Testowanie Eksploracyjne",
+      "Podejście do testowania, w którym testerzy dynamicznie projektują i przeprowadzają testy na podstawie swojej wiedzy, badania elementu testowego i wyników z poprzednich testów.",
+      "IV. Techniki Projektowania"
+    ],
+    [
+      "403",
+      "Testowanie Ergonomii",
+      "Testowanie w celu ustalenia, czy komponent lub system i jego urządzenia wejściowe są właściwie używane z zachowaniem prawidłowej postawy.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "404",
+      "Testowanie Funkcjonalne",
+      "Testowanie wykonywane, by ocenić, czy moduł lub system spełnia wymagania funkcjonalne.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "405",
+      "Testowanie Gałęzi",
+      "Białoskrzynkowa technika testowania, w której warunki testowe są gałęziami.",
+      "IV. Techniki Projektowania"
+    ],
+    [
+      "406",
+      "Testowanie Gruntowne",
+      "Podejście do testów, w którym zestaw testowy obejmuje wszystkie kombinacje wartości wejściowych i warunków wstępnych.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "407",
+      "Testowanie GUI",
+      "Testowanie wykonywane przez współdziałanie z testowanym oprogramowaniem poprzez graficzny interfejs użytkownika. (od ang. GUI Graphical User Interface).",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "408",
+      "Testowanie Hipotez",
+      "Walidacja teorii i jej założeń przy użyciu przykładowych danych.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "409",
+      "Testowanie Instrukcji",
+      "Białoskrzynkowa technika testowania, w której przypadki testowe projektuje się tak, by wykonały instrukcje.",
+      "IV. Techniki Projektowania"
+    ],
+    [
+      "410",
+      "Testowanie Integracji Modułów",
+      "Testowanie integracyjne modułów.",
+      "V. Poziomy i Typy Testów"
+    ],
+    [
+      "411",
+      "Testowanie Integracji Parami",
+      "Typ testowania integracyjnego, w którym testuje się pary współpracujących ze sobą modułów według ich rozmieszczenia w grafie wywołań.",
+      "V. Poziomy i Typy Testów"
+    ],
+    [
+      "412",
+      "Testowanie Integracji Sąsiadująco",
+      "Typ testowania integracyjnego, w którym wszystkie węzły połączone z danym węzłem stanowią podstawę do testowania integracyjnego.",
+      "V. Poziomy i Typy Testów"
+    ],
+    [
+      "413",
+      "Testowanie Integracji Systemów",
+      "Testowanie integracyjne przeprowadzane dla systemów.",
+      "V. Poziomy i Typy Testów"
+    ],
+    [
+      "414",
+      "Testowanie Integracyjne",
+      "Poziom testów, który koncentruje się na interakcjach pomiędzy modułami lub systemami.",
+      "V. Poziomy i Typy Testów"
+    ],
+    [
+      "415",
+      "Testowanie Interfejsu",
+      "Typ testów integracyjnych wykonywanych w celu sprawdzenia poprawności przekazywania danych i sterowania pomiędzy modułami lub systemami.",
+      "V. Poziomy i Typy Testów"
+    ],
+    [
+      "416",
+      "Testowanie Kombinacji Warunków",
+      "Białoskrzynkowa technika testowania, w której przypadki testowe są projektowane tak, aby wykonać kombinacje wyników warunków atomowych.",
+      "IV. Techniki Projektowania"
+    ],
+    [
+      "417",
+      "Testowanie Kombinatoryczne",
+      "Czarnoskrzynkowa technika testowania, w której przypadki testowe są projektowane tak, by sprawdzać określone kombinacje wartości kilku parametrów.",
+      "IV. Techniki Projektowania"
+    ],
+    [
+      "418",
+      "Testowanie Kompleksowe",
+      "Rodzaj testowania, w którym procesy biznesowe są testowane od początku do końca w warunkach zbliżonych do produkcyjnych.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "419",
+      "Testowanie Losowe",
+      "Czarnoskrzynkowa technika projektowania przypadków testowych, w której przypadki testowe są dobierane przy pomocy algorytmu generującego wartości pseudolosowe tak, aby były zgodne z profilem operacyjnym.",
+      "IV. Techniki Projektowania"
+    ],
+    [
+      "420",
+      "Testowanie Metamorficzne (Mt)",
+      "Technika testowa, w której dane wejściowe i oczekiwane wyniki są prognozowane z zaliczonego przypadku testowego przy użyciu relacji metamorficznej. (akronim MT od ang. Metamorphic Testing).",
+      "X. Specjalistyczne i Nowoczesne"
+    ],
+    [
+      "421",
+      "Testowanie Modelu Ml",
+      "Poziom testów, który koncentruje się na zdolności modelu ML do spełnienia wymaganych kryteriów wydajności funkcjonalnej ML i kryteriów niefunkcjonalnych.",
+      "VI. Charakterystyki Jakości"
+    ],
+    [
+      "422",
+      "Testowanie Modułowe",
+      "Poziom testów, który koncentruje się na poszczególnych modułach sprzętowych lub programowych.",
+      "V. Poziomy i Typy Testów"
+    ],
+    [
+      "423",
+      "Testowanie Negatywne",
+      "Testowanie komponentu lub systemu niezgodnie z jego przeznaczeniem.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "424",
+      "Testowanie Niefunkcjonalne",
+      "Testowanie przeprowadzane w celu sprawdzenia zgodności modułu lub systemu z wymaganiami niefunkcjonalnymi.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "425",
+      "Testowanie Obciążenia",
+      "Rodzaj testów wydajnościowych, których zadaniem jest ocena zachowania modułu lub systemu przy zmieniającym się obciążeniu, na ogół pomiędzy przewidywanymi warunkami niskiego, typowego i szczytowego poziomu wykorzystania.",
+      "VI. Charakterystyki Jakości"
+    ],
+    [
+      "426",
+      "Testowanie Odporności Na Błędne Dane (Fuzz Testing)",
+      "Technika testowania oprogramowania używana do wykrywania podatności na zagrożenia zabezpieczeń poprzez wprowadzanie bardzo dużej liczby losowych danych, zwanych farfocle (ang. fuzz) do modułu lub systemu.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "427",
+      "Testowanie Oparte Na Agencie-Użytkowniku",
+      "Rodzaj testów, w których klient testowy jest używany do zmiany identyfikatora agenta-użytkownika (ang. user-agent string) i przedstawia się jako inny klient podczas wykonywania zestawów testowych.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "428",
+      "Testowanie Oparte Na Modelu",
+      "Testowanie oparte na lub wykorzystujące modele. (MBT - od ang. Model-Based Testing).",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "429",
+      "Testowanie Oparte Na Przypadkach Użycia",
+      "Czarnoskrzynkowa technika testowania, w której przypadki testowe są projektowane w celu wykonywania zachowań przypadków użycia.",
+      "IV. Techniki Projektowania"
+    ],
+    [
+      "430",
+      "Testowanie Oparte Na Ryzyku",
+      "Testowanie, w którym zarządzanie, wybór, priorytetyzacja i wykorzystanie działań testowych i zasobów są oparte na odpowiednich typach i poziomach ryzyka.",
+      "III. Zarządzanie Testami"
+    ],
+    [
+      "431",
+      "Testowanie Oparte Na Słowach Kluczowych",
+      "Technika skryptowa wykorzystująca skrypty zawierające wysokopoziomowe słowa kluczowe oraz pliki wspomagające, zawierające niskopoziomowe skrypty implementujące te słowa kluczowe.",
+      "VII. Automatyzacja i Narzędzia"
+    ],
+    [
+      "432",
+      "Testowanie Oparte Na Urządzeniach",
+      "Typ testowania, w którym zestawy testowe wykonywane są na fizycznych lub wirtualnych urządzeniach.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "433",
+      "Testowanie Oparte Na Wymaganiach",
+      "Podejście do testowania, w którym przypadki testowe są projektowane w oparciu o wymagania.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "434",
+      "Testowanie Penetracyjne",
+      "Technika testowania mająca na celu wykrycie podatności na zagrożenia zabezpieczeń (znanych lub nie), umożliwiających uzyskanie nieautoryzowanego dostępu.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "435",
+      "Testowanie Pielęgnacyjne",
+      "Testowanie zmian we wdrożonym systemie lub testowanie wpływu zmienionego środowiska na wdrożony system.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "436",
+      "Testowanie Po Wydaniu",
+      "Typ testów wykonywanych w celu upewnienia się, że wydanie zostało przeprowadzone poprawnie i aplikacja może być wdrożona.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "437",
+      "Testowanie Potwierdzające",
+      "Rodzaj testu związanego ze zmianą przeprowadzonego po naprawieniu defektu w celu potwierdzenia, że awaria spowodowana przez ten defekt już nie występuje.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "438",
+      "Testowanie Przeciążające",
+      "Typ testowania wydajnościowego wykonywany, by określić, jak system lub jego moduł pracuje na przewidywanej lub wyspecyfikowanej granicy obciążenia lub poza nią lub też przy ograniczonym dostępie do pamięci lub serwerów.",
+      "VI. Charakterystyki Jakości"
+    ],
+    [
+      "439",
+      "Testowanie Przejść Pomiędzy Stanami",
+      "Czarnoskrzynkowa technika testowania, w której przypadki testowe są zaprojektowane tak, by wykonywać elementy modelu przejścia stanów.",
+      "IV. Techniki Projektowania"
+    ],
+    [
+      "440",
+      "Testowanie Przepustowości",
+      "Testowanie mające na celu ocenę przepustowości systemu.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "441",
+      "Testowanie Przez Wielu Graczy",
+      "Testowanie mające na celu określenie, czy wielu graczy może jednocześnie wchodzić w interakcję ze światem gry hazardowej, z komputerowo sterowanymi przeciwnikami, serwerami gry i ze sobą nawzajem, zgodnie z założeniami projektu gry.",
+      "X. Specjalistyczne i Nowoczesne"
+    ],
+    [
+      "442",
+      "Testowanie Reaktywne",
+      "Testowanie, które dynamicznie reaguje na zachowanie przedmiotu testów i na otrzymane wyniki testowania.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "443",
+      "Testowanie Regresji",
+      "Rodzaj testowania związanego ze zmianami mającego na celu wykrycie, czy defekty zostały wprowadzone lub odkryte w niezmienionych obszarach oprogramowania.",
+      "V. Poziomy i Typy Testów"
+    ],
+    [
+      "444",
+      "Testowanie Ścieżek",
+      "Białoskrzynkowa technika testowania, w której przypadki testowe są zaprojektowane tak, by wykonać ścieżki grafu przepływu sterowania.",
+      "IV. Techniki Projektowania"
+    ],
+    [
+      "445",
+      "Testowanie Skalowalności",
+      "Testowanie mające na celu określenie skalowalności oprogramowania.",
+      "VI. Charakterystyki Jakości"
+    ],
+    [
+      "446",
+      "Testowanie Skokowe",
+      "Testowanie oceniające zdolność systemu do powrotu do stanu równowagi po nagłym skoku i spadku obciążenia.",
+      "V. Poziomy i Typy Testów"
+    ],
+    [
+      "447",
+      "Testowanie Skryptowe",
+      "Testowanie (ręczne lub automatyczne) wykonywane zgodnie ze skryptem testowym.",
+      "VII. Automatyzacja i Narzędzia"
+    ],
+    [
+      "448",
+      "Testowanie Sposobem Par",
+      "Czarnoskrzynkowa technika projektowania przypadków testowych, w której przypadki testowe są projektowane tak, by wykonać pary parametr-wartość.",
+      "IV. Techniki Projektowania"
+    ],
+    [
+      "449",
+      "Testowanie Statyczne",
+      "Testowanie, które nie wymaga wykonania elementu testowego.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "450",
+      "Testowanie Sterowane Danymi",
+      "Technika skryptowa wykorzystująca pliki danych do przechowywania danych testowych i wyników oczekiwanych, które są potrzebne do wykonania skryptów testowych.",
+      "VII. Automatyzacja i Narzędzia"
+    ],
+    [
+      "451",
+      "Testowanie Systemowe",
+      "Poziom testów, który koncentruje się na sprawdzeniu, czy system jako całość spełnia określone wymagania.",
+      "V. Poziomy i Typy Testów"
+    ],
+    [
+      "452",
+      "Testowanie Tablicy Wyników Gier",
+      "Testowanie mające na celu określenia, czy gra zwraca poprawne matematycznie wyniki na ekran, na konto gracza oraz na konto kasyna.",
+      "X. Specjalistyczne i Nowoczesne"
+    ],
+    [
+      "453",
+      "Testowanie Użyteczności",
+      "Testowanie mające na celu ocenę stopnia, w jakim system może być używany przez określonych użytkowników w sposób skuteczny, wydajny i przynoszący satysfakcję w określonym kontekście użycia.",
+      "VI. Charakterystyki Jakości"
+    ],
+    [
+      "454",
+      "Testowanie Użyteczności Metodą Głośnego Myślenia",
+      "Technika testowania użyteczności, podczas której uczestnicy testu dzielą się swoimi pomysłami z moderatorem i obserwatorami myśląc głośno podczas rozwiązywania zadań testów użyteczności. Głośne myślenie jest użyteczne do zrozumienia uczestników testów.",
+      "VI. Charakterystyki Jakości"
+    ],
+    [
+      "455",
+      "Testowanie W Oparciu O Doświadczenie",
+      "Testowanie w oparciu o doświadczenie, wiedzę i intuicję testera.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "456",
+      "Testowanie W Oparciu O Historyjki Użytkownika",
+      "Czarnoskrzynkowa technika projektowania testów, w której przypadki testowe są projektowane w oparciu o historyjki użytkownika, by zweryfikować poprawność ich implementacji.",
+      "VIII. Metodyki Zwinne (Agile)"
+    ],
+    [
+      "457",
+      "Testowanie W Oparciu O Listę Kontrolną",
+      "Technika testowania oparta na doświadczeniu, w której przypadki testowe są zaprojektowane do wykonywania elementów listy kontrolnej.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "458",
+      "Testowanie W Oparciu O Tablicę Decyzyjną",
+      "Czarnoskrzynkowa technika testowania, w której przypadki testowe są projektowane w celu wykonania kombinacji wejść i wynikających akcji, ujęte w formie tablicy decyzyjnej.",
+      "IV. Techniki Projektowania"
+    ],
+    [
+      "459",
+      "Testowanie W Parach",
+      "Podejście, w którym dwie osoby równocześnie współpracują nad testowaniem produktu prac.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "460",
+      "Testowanie W Sesjach",
+      "Podejście do testowania, w którym czynności testowe są planowane jako sesje testowe.",
+      "III. Zarządzanie Testami"
+    ],
+    [
+      "461",
+      "Testowanie W Środowisku Produkcyjnym",
+      "Typ testu wykonywany w środowisku produkcyjnym z rzeczywistymi danymi.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "462",
+      "Testowanie W Tłumie",
+      "Podejście do testowania, w którym testowanie jest dystrybuowane do dużej grupy testerów.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "463",
+      "Testowanie W Warunkach Naturalnych",
+      "Typ testów przeprowadzanych w celu oceny zachowania systemu w docelowym środowisku, w warunkach rzeczywistej interakcji.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "464",
+      "Testowanie Warunków",
+      "Białoskrzynkowa technika projektowania przypadków testowych polegająca na testowaniu wyniku dla warunków.",
+      "IV. Techniki Projektowania"
+    ],
+    [
+      "465",
+      "Testowanie Współbieżności",
+      "Testowanie mające na celu ocenę poprawności zachowania modułu lub systemu wykorzystującego mechanizmy współbieżności.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "466",
+      "Testowanie Wydajnościowe",
+      "Proces testowy mający na celu określenie wydajności oprogramowania.",
+      "VI. Charakterystyki Jakości"
+    ],
+    [
+      "467",
+      "Testowanie Wytrzymałościowe",
+      "Testowanie mające na celu określenie stabilności systemu podlegającego testowaniu w warunkach znacznego obciążenia w długim okresie czasu w kontekście eksploatacji systemu.",
+      "V. Poziomy i Typy Testów"
+    ],
+    [
+      "468",
+      "Testowanie Z Perspektywy Gracza",
+      "Testowanie przeprowadzane przez testerów przyjmujących role graczy, aby ocenić satysfakcję gracza z gry.",
+      "X. Specjalistyczne i Nowoczesne"
+    ],
+    [
+      "469",
+      "Testowanie Zabezpieczeń",
+      "Testowanie mające na celu sprawdzenie zabezpieczeń oprogramowania.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "470",
+      "Testowanie Zakontraktowane",
+      "Testy wykonywane przez osoby, które pracują w zespole projektowym, ale nie są zatrudnione w organizacji.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "471",
+      "Testowanie Zgodności",
+      "Testowanie mające na celu określenie zgodności modułu albo systemu.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "472",
+      "Testowanie Zlecane Na Zewnątrz",
+      "Testowanie wykonywane przez osoby, które nie pracują w tej samej lokalizacji co zespół projektowy i nie są zatrudnione w organizacji.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "473",
+      "Testowanie Związane Ze Zmianami",
+      "Typ testowania inicjowany przez modyfikację modułu lub systemu.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "474",
+      "Testy Adwersarialne",
+      "Technika testowa oparta na próbie utworzenia i wykonania przykładów adwersarialnych w celu zidentyfikowania defektów w modelu ML.",
+      "X. Specjalistyczne i Nowoczesne"
+    ],
+    [
+      "475",
+      "Testy Matematyczne",
+      "Testowanie oceniające poprawność implementacji tablicy wypłat, wyników działania generatorów liczb losowych i teoretycznego procentu zwrotu z wygranej w grze.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "476",
+      "Testy Wizualne",
+      "Testowanie wykorzystujące rozpoznawanie obrazu do interakcji z obiektami graficznego interfejsu użytkownika (GUI).",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "477",
+      "Testy Zbliżeniowe",
+      "Typ testów mających na celu potwierdzenie, że czujniki mogą wykryć bliskie obiekty bez fizycznego kontaktu.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "478",
+      "Tolerowanie Usterek",
+      "Stopień, w jakim moduł lub system działa zgodnie z przeznaczeniem, pomimo występowania awarii sprzętu lub oprogramowania.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "479",
+      "Tpi Next",
+      "Ciągła (nie etapowa) struktura doskonalenia procesu testowego z biznesowego punktu widzenia, opisująca kluczowe elementy efektywnego i skutecznego procesu testowego.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "480",
+      "Typ Testów",
+      "Grupa czynności w testowaniu ukierunkowana na określone charakterystyki modułu lub systemu, oparta na specyficznych celach testowania.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "481",
+      "Ubezpieczenie Informacji",
+      "Środki, które osłaniają i bronią informacje i systemy informacyjne poprzez zapewnienie ich dostępności, integralności, uwierzytelniania, poufności i niezaprzeczalności. Te środki obejmują warunkowe odtwarzanie systemów informacyjnych poprzez włączenie możliwości ochrony, wykrywania i reakcji.",
+      "VI. Charakterystyki Jakości"
+    ],
+    [
+      "482",
+      "Uczestnik Testów Użyteczności",
+      "Reprezentatywny użytkownik rozwiązujący typowe zadania w testach użyteczności.",
+      "VI. Charakterystyki Jakości"
+    ],
+    [
+      "483",
+      "Ukończenie Testów",
+      "Czynność obejmująca udostępnianie testaliów dla późniejszego użycia, pozostawianie środowisk testowych w zadowalającym stanie i komunikowanie wyników testowania odpowiednim interesariuszom.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "484",
+      "Usprawnienie Procesu Testowego",
+      "Program aktywności zaprojektowany tak, by poprawić wydajność i dojrzałość procesu testowego w organizacji.",
+      "VI. Charakterystyki Jakości"
+    ],
+    [
+      "485",
+      "Usterka Uciekinier",
+      "Usterka nie wykryta przez czynność testową, która mogła tę usterkę znaleźć.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "486",
+      "Usztywnianie Systemu",
+      "Proces stopniowego (krok za krokiem) redukowania podatności na zagrożenia zabezpieczeń systemu poprzez stosowanie polityki zabezpieczeń i różnych poziomów ochrony.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "487",
+      "Utrzymywalność",
+      "Stopień, w jakim moduł lub system może być modyfikowany przez wyznaczony personel.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "488",
+      "Uwierzytelnianie",
+      "Procedura określająca, czy osoba lub proces jest naprawdę tym, lub czym deklaruje, że jest.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "489",
+      "Użyteczność",
+      "Stopień, w jakim dany moduł lub system może być używany przez określonych użytkowników dla osiągnięcia określonych celów w określonym kontekście użytkowania.",
+      "VI. Charakterystyki Jakości"
+    ],
+    [
+      "490",
+      "Walidacja",
+      "Potwierdzenie poprzez badanie, że produkt pracy odpowiada potrzebom interesariuszy.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "491",
+      "Warstwa Adaptacji Testów",
+      "Warstwa w architekturze testów automatycznych, która dostarcza niezbędnego kodu do adaptowania skryptów testowych na odpowiednim poziomie abstrakcji do różnych komponentów, konfiguracji lub interfejsów testowanego oprogramowania.",
+      "VII. Automatyzacja i Narzędzia"
+    ],
+    [
+      "492",
+      "Warstwa Definicji Testów",
+      "Warstwa w ogólnej architekturze testów automatycznych wspomagająca implementację testów poprzez dostarczanie definicji zestawów testowych i/lub przypadków testowych, np. proponując wzorce lub wskazówki.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "493",
+      "Warstwa Generacji Testów",
+      "Warstwa w ogólnej architekturze testów automatycznych wspomagająca projektowanie manualnych lub automatycznych zestawów testów i/lub przypadków testowych.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "494",
+      "Warstwa Wykonywania Testów",
+      "Warstwa w ogólnej architekturze testów automatycznych wspomagająca wykonanie zestawów testowych i/lub przypadków testowych.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "495",
+      "Wartość Brzegowa",
+      "Minimalna lub maksymalna wartość uporządkowanej klasy równoważności.",
+      "IV. Techniki Projektowania"
+    ],
+    [
+      "496",
+      "Warunek Atomowy",
+      "Warunek nie zawierający operatorów logicznych.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "497",
+      "Warunek Testowy",
+      "Testowalna własność modułu lub systemu zidentyfikowana jako podstawa do testowania.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "498",
+      "Warunek Wstępny",
+      "Wymagany stan elementu testowego i jego środowiska przed wykonaniem przypadku testowego.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "499",
+      "Warunek Wyjściowy",
+      "Oczekiwany stan elementu testowego i jego środowiska po zakończeniu wykonywania przypadku testowego.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "500",
+      "Wbudowana Jakość",
+      "Zestaw praktyk zapewniających, że każde rozwiązanie spełnia standardy jakości na każdym etapie rozwoju, koncentrujących się na konstruktywnym zapewnieniu jakości jako wspólnej odpowiedzialności.",
+      "VI. Charakterystyki Jakości"
+    ],
+    [
+      "501",
+      "Wdrożenie Funkcji Jakości",
+      "Uproszczona technika prowadzenia warsztatów, która pomaga określić krytyczne cechy rozwoju nowego produktu. (QFD od ang. Quality Function Deployment).",
+      "VI. Charakterystyki Jakości"
+    ],
+    [
+      "502",
+      "Wędrówka",
+      "Zbiór testów eksploracyjnych dotyczących określonego zagadnienia.",
+      "IV. Techniki Projektowania"
+    ],
+    [
+      "503",
+      "Wektor Ataku",
+      "Ścieżka lub środek, dzięki któremu atakujący może uzyskać dostęp do systemu w złośliwych celach.",
+      "IX. Bezpieczeństwo i Ataki"
+    ],
+    [
+      "504",
+      "Weryfikacja",
+      "Sprawdzenie poprawności i dostarczenie obiektywnego dowodu, że produkt procesu wytwarzania oprogramowania spełnia zdefiniowane wymagania.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "505",
+      "Wirtualizacja Usług",
+      "Technika umożliwiająca wirtualne dostarczanie usług, które są zdalnie wdrażane, dostępne i zarządzane.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "506",
+      "Wirtualne Środowisko Testowe",
+      "Środowisko testowe, w którym co najmniej jedna część jest symulowana cyfrowo.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "507",
+      "Wirtualny Użytkownik",
+      "Symulacja działań wykonywanych przez użytkownika określonego w profilu operacyjnym.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "508",
+      "Własne Narzędzie",
+      "Narzędzie softwarowe wytworzone specjalnie dla grupy użytkowników lub klientów.",
+      "VII. Automatyzacja i Narzędzia"
+    ],
+    [
+      "509",
+      "Wpływ Ryzyka",
+      "Szkoda, jaka powstanie, jeżeli ryzyko zmaterializuje się jako rzeczywisty skutek lub zdarzenie.",
+      "III. Zarządzanie Testami"
+    ],
+    [
+      "510",
+      "Wrażliwość Zabezpieczeń",
+      "Podatność na zagrożenie zabezpieczeń w systemie, która może umożliwić udany atak na zabezpieczenia.",
+      "IX. Bezpieczeństwo i Ataki"
+    ],
+    [
+      "511",
+      "Wskazówki Dla Dostępności Zawartości Strony Internetowej",
+      "Część serii wskazówek dotyczących dostępu do strony internetowej publikowana przez Web Accessibility Initiative (WAI) z World Wide Web Consortium (W3C), głównej światowej organizacji standaryzującej Internet. Składa się ze zbioru wskazówek, jak uczynić zawartość strony internetowej dostępną, głównie dla osób niepełnosprawnych. (WCAG od ang. Web Content Accesssibility Guidelines).",
+      "VI. Charakterystyki Jakości"
+    ],
+    [
+      "512",
+      "Wskazówki Do Interfejsu Użytkownika",
+      "Niskopoziomowa, szczegółowa reguła lub rekomendacja do projektowania interfejsu użytkownika, nie pozostawiająca miejsca na interpretację, więc projektant wdraża ją podobnie. Często używana do zapewnienia zgodności wyglądu i zachowania się interfejsu w systemach produkowanych w organizacji.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "513",
+      "Współbieżność",
+      "Jednoczesne wykonywanie wielu niezależnych wątków przez moduł lub system.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "514",
+      "Współczynnik Awarii",
+      "Stosunek liczby awarii w danej kategorii do określonej jednostki miary.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "515",
+      "Współdziałanie",
+      "Stopień, w jakim dwa lub więcej modułów lub systemów może wymieniać między sobą informacje i wykorzystywać informacje, które zostały wymienione.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "516",
+      "Współistnienie",
+      "Stopień, w jakim moduł lub system może wykonywać wymagane funkcje, dzieląc środowisko i zasoby z innymi modułami lub systemami bez negatywnego wpływu na żaden z nich.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "517",
+      "Wstrzykiwanie Błędów",
+      "Proces zamierzonego dodawania defektów do systemu w celu wykrycia, czy system może wykryć defekt i pracować mimo jego występowania.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "518",
+      "Wstrzyknięcie Kodu",
+      "Rodzaj ataku na zabezpieczenia polegający na wprowadzeniu do aplikacji poprzez jej interfejs złośliwego kodu, aby wykorzystać nieprawidłową obsługę niezaufanych danych.",
+      "IX. Bezpieczeństwo i Ataki"
+    ],
+    [
+      "519",
+      "Wyciek Pamięci",
+      "Błąd dostępu do pamięci w logice programu wykonującego dynamiczną alokację pamięci polegający na niezwalnianiu pamięci po zaprzestaniu jej używania.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "520",
+      "Wydajność",
+      "Stopień, w jakim moduł lub system wykorzystuje czas, zasoby i pojemność podczas wykonywania wyznaczonych funkcji.",
+      "VI. Charakterystyki Jakości"
+    ],
+    [
+      "521",
+      "Wykonywanie Skryptów Sterowane Przez Proces",
+      "Technika skryptowa, w której skrypty są ustrukturalizowane w scenariusze reprezentujące przypadki użycia testowanego oprogramowania. Skrypty mogą być parametryzowane danymi testowymi.",
+      "VII. Automatyzacja i Narzędzia"
+    ],
+    [
+      "522",
+      "Wykonywanie Skryptów Ustrukturalizowanych",
+      "Technika skryptowa, w której tworzy się i używa skrypty (lub ich część) z biblioteki skryptów wielokrotnego użycia.",
+      "VII. Automatyzacja i Narzędzia"
+    ],
+    [
+      "523",
+      "Wykonywanie Testu",
+      "Czynność polegająca na przeprowadzeniu testu modułu lub systemu, by otrzymać rzeczywiste wyniki.",
+      "II. Proces Testowy"
+    ],
+    [
+      "524",
+      "Wymaganie",
+      "Postanowienie zawierające kryteria, które należy spełnić.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "525",
+      "Wymaganie Użytecznościowe",
+      "Wymaganie dotyczące użyteczności modułu lub systemu.",
+      "VI. Charakterystyki Jakości"
+    ],
+    [
+      "526",
+      "Wynik Testu",
+      "Konsekwencja/wynik wykonania testu.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "527",
+      "Wyrocznia Testowa",
+      "Źródło określające oczekiwane wyniki w celu porównania z faktycznym wynikiem systemu podlegającemu testowaniu.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "528",
+      "Wytwarzanie Oparte Na Cechach",
+      "Iteracyjny i przyrostowy proces rozwoju oprogramowania sterowany z perspektywy funkcjonalności (cech) wartościowych dla klienta. Najczęściej podejście to wykorzystywane jest w zwinnym wytwarzaniu oprogramowania.",
+      "VIII. Metodyki Zwinne (Agile)"
+    ],
+    [
+      "529",
+      "Wytwarzanie Sterowane Testami",
+      "Technika tworzenia oprogramowania, w której przypadki testowe są opracowywane, a często także automatyzowane, po czym oprogramowanie jest rozwijane stopniowo tak, aby te przypadki testowe były zaliczone. (TDD od ang. Test Driven Development).",
+      "VIII. Metodyki Zwinne (Agile)"
+    ],
+    [
+      "530",
+      "Wytwarzanie Sterowane Testami Akceptacyjnymi",
+      "Wspólne podejście do wytwarzania oprogramowania, w którym zespół i klienci używają języka dziedzinowego klienta, aby zrozumieć jego wymagania, co tworzy podstawę do testowania modułu lub systemu. (ATDD – od ang. Acceptance Test-Driven Development).",
+      "VIII. Metodyki Zwinne (Agile)"
+    ],
+    [
+      "531",
+      "Wytwarzanie Sterowane Zachowaniem",
+      "Wspólne podejście do wytwarzania oprogramowania, w którym zespół skupia się na dostarczeniu klientowi oczekiwanego zachowania modułu lub systemu stanowiącego podstawę dla testowania. (BDD od ang. Behavior-Driven Development).",
+      "VIII. Metodyki Zwinne (Agile)"
+    ],
+    [
+      "532",
+      "Zabezpieczenia",
+      "Stopień, w jakim moduł lub system chroni swoje dane i zasoby przed nieautoryzowanym dostępem lub użyciem oraz zabezpiecza niezakłócony dostęp i użytkowanie dla uprawnionych użytkowników.",
+      "IX. Bezpieczeństwo i Ataki"
+    ],
+    [
+      "533",
+      "Zachowanie W Czasie",
+      "Stopień, w jakim moduł lub system może wykonać swoje funkcje w ramach określonych czasów odpowiedzi, czasów przetwarzania oraz przepustowości.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "534",
+      "Zaczep Testowy",
+      "Programowany, dostosowany do potrzeb interfejs umożliwiający automatyczne testowanie przedmiotu testów.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "535",
+      "Zadanie Testów Użyteczności",
+      "Czynność podczas wykonywania testów użyteczności zdefiniowana przez moderatora, która powinna być realizowana przez uczestnika testów użyteczności przez zadany okres czasu.",
+      "VI. Charakterystyki Jakości"
+    ],
+    [
+      "536",
+      "Zagrożenie Wewnętrzne",
+      "Zagrożenie zabezpieczeń, mające swe źródło w organizacji, często będące autoryzowanym użytkownikiem systemu.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "537",
+      "Zakres Testów",
+      "Opis przedmiotu testów i jego cech, które mają być testowane.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "538",
+      "Zaliczenie",
+      "Status wyniku testu, dla którego wynik rzeczywisty jest zgodny z wynikiem oczekiwanym.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "539",
+      "Zamaskowanie Danych",
+      "Przekształcenie danych w ten sposób, by utrudnić człowiekowi poznanie danych oryginalnych.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "540",
+      "Zamknięcie Testów",
+      "Faza testów, w której zbierane są dane z zakończonych aktywności w celu podsumowania doświadczeń, testaliów, faktów i liczb. Faza zamknięcia testów składa się z finalizowania i archiwizacji testaliów i oceny procesu testowego, włączając w to przygotowanie raportu oceny testu.",
+      "III. Zarządzanie Testami"
+    ],
+    [
+      "541",
+      "Zapewnienie Jakości",
+      "Działania skoncentrowane na zapewnieniu, że wymagania jakościowe będą spełnione.",
+      "VI. Charakterystyki Jakości"
+    ],
+    [
+      "542",
+      "Zarządzanie Defektami",
+      "Proces rozpoznawania, rejestrowania, klasyfikacji, badania, rozwiązywania i usuwania defektów.",
+      "III. Zarządzanie Testami"
+    ],
+    [
+      "543",
+      "Zarządzanie Jakością",
+      "Ogół skoordynowanych czynności mających na celu kierowanie organizacją i kontrolowanie jej pod kątem jakości obejmujących zdefiniowanie polityki jakości i celów jakościowych, planowanie jakości, kontrolowanie jakości, zapewnienie jakości i poprawę jakości.",
+      "VI. Charakterystyki Jakości"
+    ],
+    [
+      "544",
+      "Zarządzanie Konfiguracją",
+      "Dyscyplina używająca technicznych i administracyjnych metod kierowania i nadzoru w celu określenia i udokumentowania charakterystyk funkcjonalnych i fizycznych elementów konfiguracji, kontroli zmian tych charakterystyk, zapisywania i raportowania wykonywania zmian i statusu implementacji oraz weryfikacji zgodności z wyspecyfikowanymi wymaganiami.",
+      "III. Zarządzanie Testami"
+    ],
+    [
+      "545",
+      "Zarządzanie Obciążeniem",
+      "Nadzór nad generacją obciążenia wraz z kontrolą i raportowaniem wydajności modułu lub systemu.",
+      "VI. Charakterystyki Jakości"
+    ],
+    [
+      "546",
+      "Zarządzanie Ryzykiem",
+      "Proces radzenia sobie z ryzykiem.",
+      "III. Zarządzanie Testami"
+    ],
+    [
+      "547",
+      "Zarządzanie Testami",
+      "Planowanie, harmonogramowanie, szacowanie, monitorowanie, raportowanie, nadzór i zamykanie czynności testowych.",
+      "III. Zarządzanie Testami"
+    ],
+    [
+      "548",
+      "Zarządzanie Testowaniem W Sesjach",
+      "Metoda pomiaru i zarządzania testowaniem w sesjach. (SBTM od ang. session-based test management).",
+      "III. Zarządzanie Testami"
+    ],
+    [
+      "549",
+      "Zaślepka",
+      "Szkieletowa albo specjalna implementacja modułu używana podczas produkcji lub testów innego modułu, który tę zaślepkę wywołuje albo jest w inny sposób od niej zależny. Zaślepka zastępuje wywoływany moduł.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "550",
+      "Zastępowalność",
+      "Stopień, w jakim moduł lub system może zastąpić inny określony moduł lub system w tym samym celu w tym samym środowisku.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "551",
+      "Zbieranie Danych O Kontach",
+      "Proces otrzymywania informacji o kontach użytkowników w oparciu o wersje próbne i błędy w intencji użycia tych danych w ataku na zabezpieczenia.",
+      "IX. Bezpieczeństwo i Ataki"
+    ],
+    [
+      "552",
+      "Zdalne Laboratorium Testowe",
+      "Ośrodek, który zapewnia zdalny dostęp do środowiska testowego.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "553",
+      "Zdolność Adaptacyjna",
+      "Stopień, w jakim moduł lub system można dostosować do różnych lub zmieniających się środowisk sprzętowych, programowych lub innych środowisk operacyjnych lub użytkowych.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "554",
+      "Zdolność Do Osiągania Jakości",
+      "Umiejętności, których organizacja potrzebuje, aby skutecznie zrealizować własne cele jakościowe.",
+      "VI. Charakterystyki Jakości"
+    ],
+    [
+      "555",
+      "Zdolność Testowania",
+      "Umiejętności, których organizacja potrzebuje, aby skutecznie osiągnąć własne, pożądane wyniki testów.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "556",
+      "Zestaw Testowy",
+      "Zestaw skryptów lub procedur testowych wykonywanych w określonym przebiegu testów.",
+      "VII. Automatyzacja i Narzędzia"
+    ],
+    [
+      "557",
+      "Zgadywanie Błędów",
+      "Technika testowania, w której testy są wyprowadzane w oparciu o wiedzę testera na temat przeszłych awarii lub generalną wiedzę o trybach możliwych awarii. Uwaga tłumaczy: ten termin powinien się nazywać defect guessing - zgadywanie defektów; nie został zmieniony ze względu na rozpowszechnienie terminu error guessing.",
+      "IV. Techniki Projektowania"
+    ],
+    [
+      "558",
+      "Zgodność",
+      "Zgodność produktu pracy ze standardami, konwencjami lub przepisami prawnymi i innymi podobnymi przepisami.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "559",
+      "Zintegrowany Model Dojrzałości Organizacyjnej",
+      "Ramy procesu, które opisują kluczowe elementy efektywnego rozwoju produktu i procesu utrzymania. Zintegrowany model dojrzałości organizacyjnej składa się z najlepszych praktyk w planowaniu, inżynierii i zarządzaniu rozwojem i utrzymaniem produktu. (CMMI - od ang. Capability Maturity Model Integration).",
+      "III. Zarządzanie Testami"
+    ],
+    [
+      "560",
+      "Zintegrowany Model Dojrzałości Testów",
+      "Pięciostopniowa struktura umożliwiająca doskonalenie procesu testowego, zgodna ze Zintegrowanym Modelem Dojrzałości Organizacyjnej - Capability Maturity Model Integration (CMMI), która opisuje kluczowe elementy efektywnego procesu testowego. (TMMi - od ang. Test Maturity Model integration).",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "561",
+      "Złośliwe Oprogramowanie",
+      "Oprogramowanie przeznaczone do uszkodzenia systemu lub jego modułów.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "562",
+      "Złożoność",
+      "Stopień, w jakim projekt lub wewnętrzna struktura modułu lub systemu jest trudna do zrozumienia, utrzymania i zweryfikowania.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "563",
+      "Złożoność Cyklomatyczna",
+      "Maksymalna liczba liniowo niezależnych ścieżek w programie.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "564",
+      "Zmodyfikowane Pokrycie Warunkowo-Decyzjne",
+      "Pokrycie wszystkich pojedynczych wyników warunków, których zmiana wpływa niezależnie na wynik decyzji. (MC/DC od ang. Modified Condition/Decision Coverage).",
+      "IV. Techniki Projektowania"
+    ],
+    [
+      "565",
+      "Zmodyfikowane Testowanie Warunkowo-Decyzyjne",
+      "Białoskrzynkowa technika testowania, w której przypadki testowe są zaprojektowane tak, sprawdzić pojedyncze wyniki warunków, których zmiana niezależnie wpływa na wynik decyzji.",
+      "IV. Techniki Projektowania"
+    ],
+    [
+      "566",
+      "Źródłowy Przypadek Testowy",
+      "Zaliczony przypadek testowy, który jest używany jako podstawa kolejnych przypadków testowych w testach metamorficznych.",
+      "X. Specjalistyczne i Nowoczesne"
+    ],
+    [
+      "567",
+      "Zużycie Zasobów",
+      "Stopień, w jakim ilości i rodzaje zasobów używanych przez produkt lub system spełniają wymagania podczas wykonywania jego funkcji.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "568",
+      "Zwarcie",
+      "Technika obliczania przez kompilator lub interpreter wartości logicznych warunków złożonych, w której warunek po jednej stronie operatora logicznego może nie być wyliczany, jeżeli wartość logiczna warunku po drugiej stronie jest wystarczająca do określenia wartości logicznej całego warunku złożonego.",
+      "I. Fundamenty i Podstawy"
+    ],
+    [
+      "569",
+      "Zwinne Wytwarzanie Oprogramowania",
+      "Grupa metodyk wytwarzania oprogramowania oparta na iteracyjnym, przyrostowym modelu wytwarzania oprogramowania, w których wymagania i rozwiązania ewoluują poprzez współpracę w ramach samoorganizujących się, wielofunkcyjnych zespołów.",
+      "VIII. Metodyki Zwinne (Agile)"
+    ],
+    [
+      "570",
+      "Zwinny Lider Testów",
+      "Rola lidera, która służy zwinnym zespołom, promując testowanie i jakość na poziomie organizacyjnym.",
+      "VIII. Metodyki Zwinne (Agile)"
+    ],
+    [
+      "571",
+      "Zwinny Lider Zespołu Testowego",
+      "Rola, która jest odpowiedzialna za utrzymanie jakości rozwiązania w ramach zwinnego zespołu dostarczającego rozwiązanie.",
+      "VIII. Metodyki Zwinne (Agile)"
+    ]
+  ]
+}

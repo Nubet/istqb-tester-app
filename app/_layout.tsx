@@ -49,7 +49,11 @@ export default function RootLayout() {
                             options={{ presentation: 'card' }}
                         />
                         <Stack.Screen
-                            name="glossary"
+                            name="glossary/index"
+                            options={{ presentation: 'card' }}
+                        />
+                        <Stack.Screen
+                            name="glossary/list"
                             options={{ presentation: 'card' }}
                         />
                         <Stack.Screen
