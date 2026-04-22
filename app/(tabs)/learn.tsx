@@ -343,8 +343,13 @@ export default function LearnScreen() {
                                         disabled={isStartingSection}
                                         activeOpacity={0.8}
                                     >
-                                        <Text style={styles.sectionChapter}>{display.chapter}</Text>
-                                        <Text style={styles.sectionTitle}>{display.title}</Text>
+                                        <View style={styles.sectionButtonSurface}>
+                                            <View style={styles.sectionAccent} />
+                                            <View style={styles.sectionContent}>
+                                                <Text style={styles.sectionChapter}>{display.chapter}</Text>
+                                                <Text style={styles.sectionTitle}>{display.title}</Text>
+                                            </View>
+                                        </View>
                                     </TouchableOpacity>
                                 );
                             })}
@@ -724,16 +729,27 @@ const styles = StyleSheet.create({
         marginBottom: 16,
     },
     sectionButton: {
-        backgroundColor: COLORS.card,
-        borderRadius: 24,
-        padding: 20,
-        borderLeftWidth: 6,
-        borderLeftColor: COLORS.primary,
+        borderRadius: 16,
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 4 },
         shadowOpacity: 0.03,
         shadowRadius: 12,
         elevation: 2,
+    },
+    sectionButtonSurface: {
+        flexDirection: 'row',
+        alignItems: 'stretch',
+        borderRadius: 16,
+        overflow: 'hidden',
+        backgroundColor: COLORS.card,
+    },
+    sectionAccent: {
+        width: 8,
+        backgroundColor: COLORS.primary,
+    },
+    sectionContent: {
+        flex: 1,
+        padding: 20,
     },
     sectionTitle: {
         fontSize: 16,

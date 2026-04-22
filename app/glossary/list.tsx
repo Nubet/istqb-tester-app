@@ -71,8 +71,13 @@ export default function GlossaryListScreen() {
                                     }}
                                     activeOpacity={0.8}
                                 >
-                                    <Text style={styles.sectionChapter}>KATEGORIA</Text>
-                                    <Text style={styles.sectionTitle}>{category}</Text>
+                                    <View style={styles.sectionButtonSurface}>
+                                        <View style={styles.sectionAccent} />
+                                        <View style={styles.sectionContent}>
+                                            <Text style={styles.sectionChapter}>KATEGORIA</Text>
+                                            <Text style={styles.sectionTitle}>{category}</Text>
+                                        </View>
+                                    </View>
                                 </TouchableOpacity>
                             ))}
                             {categories.length === 0 && (
@@ -181,12 +186,23 @@ const styles = StyleSheet.create({
         paddingBottom: 24,
     },
     sectionButton: {
-        backgroundColor: COLORS.card,
-        borderRadius: 24,
-        padding: 20,
-        borderLeftWidth: 6,
-        borderLeftColor: COLORS.primary,
+        borderRadius: 16,
         ...SHADOWS.soft,
+    },
+    sectionButtonSurface: {
+        flexDirection: 'row',
+        alignItems: 'stretch',
+        borderRadius: 16,
+        overflow: 'hidden',
+        backgroundColor: COLORS.card,
+    },
+    sectionAccent: {
+        width: 8,
+        backgroundColor: COLORS.primary,
+    },
+    sectionContent: {
+        flex: 1,
+        padding: 20,
     },
     sectionTitle: {
         fontSize: 16,
