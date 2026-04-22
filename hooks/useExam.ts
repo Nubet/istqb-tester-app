@@ -3,6 +3,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'expo-router';
 import { examService } from '@/services';
 import { DEFAULT_EXAM_CONFIG, type AnswerId } from '@/types';
+import { USER_PROGRESS_SUMMARY_QUERY_KEY, USER_PROGRESS_QUERY_KEY } from '@/constants/queryKeys';
 
 export function useExam() {
     const router = useRouter();
@@ -76,7 +77,8 @@ export function useExam() {
             const result = await examService.completeExam(session.id);
             queryClient.setQueryData(['latestExamResult'], result);
             await queryClient.invalidateQueries({ queryKey: ['examSession'] });
-            await queryClient.invalidateQueries({ queryKey: ['userProgress'] });
+            await queryClient.invalidateQueries({ queryKey: USER_PROGRESS_SUMMARY_QUERY_KEY });
+            await queryClient.invalidateQueries({ queryKey: USER_PROGRESS_QUERY_KEY });
 
             router.replace('/results');
         } catch (error) {

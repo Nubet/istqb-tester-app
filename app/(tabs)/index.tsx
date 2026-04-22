@@ -11,7 +11,7 @@ export default function HomeScreen() {
     const { progress, completionPercentage, totalQuestions } = useUserProgress();
 
     const stats = {
-        answered: progress?.completedQuestionIds.length || 0,
+        answered: progress?.masteredQuestionIds.length || 0,
         bookmarked: progress?.bookmarkedQuestionIds.length || 0,
         total: totalQuestions || 0,
     };

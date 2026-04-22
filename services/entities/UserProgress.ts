@@ -8,8 +8,11 @@ export class UserProgress {
         public averageScore: number = 0,
         public bookmarkedQuestionIds: QuestionId[] = [],
         public completedQuestionIds: QuestionId[] = [],
+        public masteredQuestionIds: QuestionId[] = [],
         public categoryStats: Map<Category, CategoryProgress> = new Map(),
-        private bookmarks: Map<QuestionId, BookmarkedQuestion> = new Map()
+        public chapterMasteredQuestionIds: Map<Category, QuestionId[]> = new Map(),
+        private bookmarks: Map<QuestionId, BookmarkedQuestion> = new Map(),
+        private learningAnswerResults: Map<QuestionId, boolean> = new Map()
     ) {}
 
     recordAnswer(questionId: QuestionId, isCorrect: boolean): void {
@@ -67,6 +70,33 @@ export class UserProgress {
         return Array.from(this.bookmarks.values());
     }
 
+    recordLearningAnswer(questionId: QuestionId, isCorrect: boolean): void {
+        this.learningAnswerResults.set(questionId, isCorrect);
+    }
+
+    recordMasteredQuestion(questionId: QuestionId, category: Category): void {
+        if (!this.masteredQuestionIds.includes(questionId)) {
+            this.masteredQuestionIds.push(questionId);
+        }
+
+        const currentChapterMastered = this.chapterMasteredQuestionIds.get(category) ?? [];
+        if (!currentChapterMastered.includes(questionId)) {
+            this.chapterMasteredQuestionIds.set(category, [...currentChapterMastered, questionId]);
+        }
+    }
+
+    getLearningAnswerResult(questionId: QuestionId): boolean | undefined {
+        return this.learningAnswerResults.get(questionId);
+    }
+
+    getLearningAnswerResults(): Map<QuestionId, boolean> {
+        return new Map(this.learningAnswerResults);
+    }
+
+    getChapterMasteredQuestionIds(): Map<Category, QuestionId[]> {
+        return new Map(this.chapterMasteredQuestionIds);
+    }
+
     updateCategoryProgress(category: Category, isCorrect: boolean): void {
         const current = this.categoryStats.get(category) || {
             category,
@@ -85,6 +115,6 @@ export class UserProgress {
 
     getCompletionPercentage(totalQuestions: number): number {
         if (totalQuestions === 0) return 0;
-        return Math.round((this.completedQuestionIds.length / totalQuestions) * 100);
+        return Math.round((this.masteredQuestionIds.length / totalQuestions) * 100);
     }
 }

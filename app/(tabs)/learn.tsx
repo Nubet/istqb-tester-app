@@ -69,6 +69,7 @@ export default function LearnScreen() {
         isSectionSelection,
         questionIds,
         answersByQuestionId,
+        savedResultsByQuestionId,
         currentQuestion,
         currentIndex,
         totalQuestions,
@@ -93,15 +94,38 @@ export default function LearnScreen() {
     const [isFilterOpen, setIsFilterOpen] = useState(false);
     const [questionFilter, setQuestionFilter] = useState<QuestionFilter>('all');
 
+    const getQuestionResult = useCallback((questionId: string) => {
+        const currentAnswer = answersByQuestionId[questionId];
+        if (currentAnswer) {
+            return {
+                isAnswered: true,
+                isCorrect: currentAnswer.isCorrect,
+            };
+        }
+
+        const savedResult = savedResultsByQuestionId[questionId];
+        if (savedResult === undefined) {
+            return {
+                isAnswered: false,
+                isCorrect: false,
+            };
+        }
+
+        return {
+            isAnswered: true,
+            isCorrect: savedResult,
+        };
+    }, [answersByQuestionId, savedResultsByQuestionId]);
+
     const filteredQuestionIndexes = questionIds
         .map((questionId, index) => ({ questionId, index }))
         .filter(({ questionId }) => {
-            const answerState = answersByQuestionId[questionId];
+            const questionResult = getQuestionResult(questionId);
 
             if (questionFilter === 'all') return true;
-            if (questionFilter === 'unanswered') return !answerState;
-            if (questionFilter === 'wrong') return !!answerState && !answerState.isCorrect;
-            return !!answerState && answerState.isCorrect;
+            if (questionFilter === 'unanswered') return !questionResult.isAnswered;
+            if (questionFilter === 'wrong') return questionResult.isAnswered && !questionResult.isCorrect;
+            return questionResult.isAnswered && questionResult.isCorrect;
         })
         .map(({ index }) => index);
 
@@ -404,9 +428,9 @@ export default function LearnScreen() {
                         {filteredQuestionIndexes.map((index) => {
                             const isActive = index === currentIndex;
                             const questionId = questionIds[index];
-                            const answerState = answersByQuestionId[questionId];
-                            const isAnswered = !!answerState;
-                            const isCorrectAnswer = answerState?.isCorrect;
+                            const questionResult = getQuestionResult(questionId);
+                            const isAnswered = questionResult.isAnswered;
+                            const isCorrectAnswer = questionResult.isCorrect;
                             return (
                                 <TouchableOpacity
                                     key={`step-${index}`}

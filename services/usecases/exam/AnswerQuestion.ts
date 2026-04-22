@@ -40,6 +40,9 @@ export class AnswerQuestionUseCase {
 
         const progress = await this.userProgressRepository.get();
         progress.recordAnswer(questionId, isCorrect);
+        if (isCorrect) {
+            progress.recordMasteredQuestion(questionId, question.category);
+        }
         progress.updateCategoryProgress(question.category, isCorrect);
         await this.userProgressRepository.save(progress);
 

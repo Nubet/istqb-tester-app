@@ -11,4 +11,13 @@ export class ProgressService {
     async getProgress() {
         return userProgressRepository.get();
     }
+
+    async recordLearningAnswer(questionId: string, category: string, isCorrect: boolean): Promise<void> {
+        const progress = await userProgressRepository.get();
+        progress.recordLearningAnswer(questionId, isCorrect);
+        if (isCorrect) {
+            progress.recordMasteredQuestion(questionId, category);
+        }
+        await userProgressRepository.save(progress);
+    }
 }

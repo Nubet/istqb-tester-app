@@ -8,8 +8,11 @@ interface UserProgressRaw {
     averageScore: number;
     bookmarkedQuestionIds: string[];
     completedQuestionIds: string[];
+    masteredQuestionIds: string[];
     categoryStats: [string, CategoryProgress][];
+    chapterMasteredQuestionIds: [string, string[]][];
     bookmarks: [string, BookmarkedQuestion][];
+    learningAnswerResults: [string, boolean][];
 }
 
 export class UserProgressMapper {
@@ -23,8 +26,11 @@ export class UserProgressMapper {
             raw.averageScore || 0,
             raw.bookmarkedQuestionIds || [],
             raw.completedQuestionIds || [],
+            raw.masteredQuestionIds || [],
             new Map(raw.categoryStats || []),
-            bookmarkMap
+            new Map(raw.chapterMasteredQuestionIds || []),
+            bookmarkMap,
+            new Map(raw.learningAnswerResults || [])
         );
     }
 
@@ -36,8 +42,11 @@ export class UserProgressMapper {
             averageScore: progress.averageScore,
             bookmarkedQuestionIds: progress.bookmarkedQuestionIds,
             completedQuestionIds: progress.completedQuestionIds,
+            masteredQuestionIds: progress.masteredQuestionIds,
             categoryStats: Array.from(progress.categoryStats.entries()),
+            chapterMasteredQuestionIds: Array.from(progress.getChapterMasteredQuestionIds().entries()),
             bookmarks: progress.getAllBookmarks().map((b) => [b.questionId, b]),
+            learningAnswerResults: Array.from(progress.getLearningAnswerResults().entries()),
         };
     }
 }

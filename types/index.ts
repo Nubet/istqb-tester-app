@@ -40,7 +40,10 @@ export interface UserProgress {
     averageScore: number;
     bookmarkedQuestionIds: QuestionId[];
     completedQuestionIds: QuestionId[];
+    masteredQuestionIds: QuestionId[];
     categoryStats: Map<Category, CategoryProgress>;
+    chapterMasteredQuestionIds: Map<Category, QuestionId[]>;
+    learningAnswerResults: Map<QuestionId, boolean>;
 }
 
 export interface CategoryProgress {

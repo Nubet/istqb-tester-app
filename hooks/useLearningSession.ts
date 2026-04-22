@@ -1,7 +1,8 @@
 import { useState, useCallback } from 'react';
-import { useQuery, useMutation } from '@tanstack/react-query';
-import { learningService } from '@/services';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { learningService, progressService } from '@/services';
 import type { Question, AnswerId, LearningSession } from '@/types';
+import { USER_PROGRESS_QUERY_KEY, USER_PROGRESS_SUMMARY_QUERY_KEY } from '@/constants/queryKeys';
 
 type LearningAnswerState = {
     selectedAnswer: AnswerId;
@@ -9,6 +10,7 @@ type LearningAnswerState = {
 };
 
 export function useLearningSession() {
+    const queryClient = useQueryClient();
     const [selectedSection, setSelectedSection] = useState<string | null>(null);
     const [session, setSession] = useState<LearningSession | null>(null);
     const [selectedAnswer, setSelectedAnswer] = useState<AnswerId | null>(null);
@@ -16,6 +18,7 @@ export function useLearningSession() {
     const [isCorrect, setIsCorrect] = useState(false);
     const [answerFeedbackVersion, setAnswerFeedbackVersion] = useState(0);
     const [answersByQuestionId, setAnswersByQuestionId] = useState<Record<string, LearningAnswerState>>({});
+    const [savedResultsByQuestionId, setSavedResultsByQuestionId] = useState<Record<string, boolean>>({});
 
     const { data: sections = [], isPending: isSectionsPending } = useQuery({
         queryKey: ['learningSections'],
@@ -24,12 +27,28 @@ export function useLearningSession() {
 
     const startSession = useMutation({
         mutationFn: (category: string) => learningService.startSession(category),
-        onSuccess: (newSession) => {
+        onSuccess: async (newSession) => {
             setSession(newSession);
             setAnswersByQuestionId({});
+            setSavedResultsByQuestionId({});
             setSelectedAnswer(null);
             setHasAnswered(false);
             setIsCorrect(false);
+
+            const progress = await progressService.getProgress();
+            const savedResults = progress.getLearningAnswerResults();
+            const restoredByQuestionId: Record<string, boolean> = {};
+
+            newSession.questionIds.forEach((questionId) => {
+                const savedResult = savedResults.get(questionId);
+                if (savedResult === undefined) {
+                    return;
+                }
+
+                restoredByQuestionId[questionId] = savedResult;
+            });
+
+            setSavedResultsByQuestionId(restoredByQuestionId);
         },
     });
 
@@ -45,9 +64,11 @@ export function useLearningSession() {
     const startSection = useCallback((section: string) => {
         setSelectedSection(section);
         setAnswersByQuestionId({});
+        setSavedResultsByQuestionId({});
         setSelectedAnswer(null);
         setHasAnswered(false);
         setIsCorrect(false);
+
         startSession.mutate(section);
     }, [startSession]);
 
@@ -55,6 +76,7 @@ export function useLearningSession() {
         setSession(null);
         setSelectedSection(null);
         setAnswersByQuestionId({});
+        setSavedResultsByQuestionId({});
         setSelectedAnswer(null);
         setHasAnswered(false);
         setIsCorrect(false);
@@ -81,7 +103,16 @@ export function useLearningSession() {
         setHasAnswered(true);
         setIsCorrect(result);
         setAnswerFeedbackVersion((prev) => prev + 1);
-    }, [currentQuestion]);
+        setSavedResultsByQuestionId((prev) => ({
+            ...prev,
+            [questionId]: result,
+        }));
+
+        void progressService.recordLearningAnswer(questionId, currentQuestion.category, result).then(() => {
+            queryClient.invalidateQueries({ queryKey: USER_PROGRESS_QUERY_KEY });
+            queryClient.invalidateQueries({ queryKey: USER_PROGRESS_SUMMARY_QUERY_KEY });
+        });
+    }, [currentQuestion, queryClient]);
 
     const syncAnswerStateForIndex = useCallback((index: number, targetSession: LearningSession) => {
         const questionId = targetSession.questionIds[index];
@@ -141,6 +172,7 @@ export function useLearningSession() {
         isSectionSelection: !session,
         questionIds: session?.questionIds || [],
         answersByQuestionId,
+        savedResultsByQuestionId,
         currentQuestion,
         currentIndex: session?.currentIndex || 0,
         totalQuestions: session?.questionIds.length || 0,

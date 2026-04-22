@@ -1,7 +1,8 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { progressService, bookmarkService, learningService } from '@/services';
 import { UserProgress } from '@/services/entities';
-import type { BookmarkedQuestion, Question } from '@/types';
+import type { BookmarkedQuestion } from '@/types';
+import { USER_PROGRESS_QUERY_KEY, USER_PROGRESS_SUMMARY_QUERY_KEY } from '@/constants/queryKeys';
 
 function reconstructUserProgress(raw: unknown): UserProgress {
     if (raw instanceof UserProgress) {
@@ -34,16 +35,18 @@ function reconstructUserProgress(raw: unknown): UserProgress {
         (data.averageScore as number) || 0,
         bookmarkedQuestionIds,
         Array.isArray(data.completedQuestionIds) ? data.completedQuestionIds : [],
+        Array.isArray(data.masteredQuestionIds) ? data.masteredQuestionIds : [],
         new Map(Array.isArray(data.categoryStats) ? data.categoryStats : []),
+        new Map(Array.isArray(data.chapterMasteredQuestionIds) ? data.chapterMasteredQuestionIds : []),
         bookmarks
     );
 }
 
 export function useBookmarks() {
     const queryClient = useQueryClient();
-6
+
     const { data: rawProgress } = useQuery({
-        queryKey: ['userProgress'],
+        queryKey: USER_PROGRESS_QUERY_KEY,
         queryFn: () => progressService.getProgress(),
     });
 
@@ -61,7 +64,8 @@ export function useBookmarks() {
         mutationFn: ({ questionId, source }: { questionId: string; source: 'exam' | 'learning' }) =>
             bookmarkService.toggleBookmark(questionId, source),
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['userProgress'] });
+            queryClient.invalidateQueries({ queryKey: USER_PROGRESS_QUERY_KEY });
+            queryClient.invalidateQueries({ queryKey: USER_PROGRESS_SUMMARY_QUERY_KEY });
         },
     });
 
