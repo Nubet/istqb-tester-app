@@ -2,6 +2,7 @@ import { Tabs } from 'expo-router';
 import { StyleSheet } from 'react-native';
 import { Home, GraduationCap, Clock, Star, User } from 'lucide-react-native';
 import { COLORS } from '@/constants/colors';
+import { TAB_BAR_STYLE } from '@/constants/tabBarStyle';
 
 export default function TabLayout() {
     return (
@@ -54,18 +55,7 @@ export default function TabLayout() {
 
 const styles = StyleSheet.create({
     tabBar: {
-        backgroundColor: COLORS.card,
-        borderTopWidth: 0,
-        elevation: 0,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: -4 },
-        shadowOpacity: 0.05,
-        shadowRadius: 20,
-        paddingBottom: 24,
-        paddingTop: 12,
-        height: 90,
-        borderTopLeftRadius: 24,
-        borderTopRightRadius: 24,
+        ...TAB_BAR_STYLE,
     },
     tabLabel: {
         fontSize: 11,

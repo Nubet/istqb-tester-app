@@ -4,6 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { Star, Funnel, ChevronLeft, ChevronRight, Lightbulb, CheckSquare, XSquare, X } from 'lucide-react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { COLORS } from '@/constants/colors';
+import { HIDDEN_TAB_BAR_STYLE, TAB_BAR_STYLE } from '@/constants/tabBarStyle';
 import { scaleValue } from '@/constants/readingDensity';
 import { ScreenHeader } from '@/ui/ScreenHeader';
 import { useLearningSession } from '@/hooks/useLearningSession';
@@ -273,11 +274,11 @@ export default function LearnScreen() {
 
     useEffect(() => {
         navigation.setOptions({
-            tabBarStyle: isSectionSelection ? undefined : { display: 'none' },
+            tabBarStyle: isSectionSelection ? TAB_BAR_STYLE : HIDDEN_TAB_BAR_STYLE,
         });
 
         return () => {
-            navigation.setOptions({ tabBarStyle: undefined });
+            navigation.setOptions({ tabBarStyle: TAB_BAR_STYLE });
         };
     }, [isSectionSelection, navigation]);
 
