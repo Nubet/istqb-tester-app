@@ -248,27 +248,27 @@ export function FlashcardHeaderCounters({ known, learning }: FlashcardHeaderCoun
         outputRange: [0, -20],
     });
 
-    return (
-        <View style={styles.headerCounters}>
-            <View style={styles.counterGroup}>
-                <View style={[styles.counterPill, { borderColor: COLORS.danger }]}>
-                    <Text style={[styles.counterValue, { color: COLORS.danger }]}>{learning}</Text>
-                </View>
-                <Animated.Text style={[styles.plusOne, { color: COLORS.danger, opacity: learningAnim, transform: [{ translateY: learningTranslateY }] }]}>
-                    +1
-                </Animated.Text>
-            </View>
-
-            <View style={styles.counterGroup}>
-                <Animated.Text style={[styles.plusOne, { color: COLORS.success, opacity: knownAnim, transform: [{ translateY: knownTranslateY }] }]}>
-                    +1
-                </Animated.Text>
-                <View style={[styles.counterPill, { borderColor: COLORS.success }]}>
-                    <Text style={[styles.counterValue, { color: COLORS.success }]}>{known}</Text>
-                </View>
-            </View>
+return (
+    <View style={styles.headerCounters}>
+      <View style={[styles.counterGroup, styles.counterGroupLearning]}>
+        <View style={[styles.counterPill, { borderColor: COLORS.danger }]}>
+          <Text style={[styles.counterValue, { color: COLORS.danger }]}>{learning}</Text>
         </View>
-    );
+        <Animated.Text style={[styles.plusOne, styles.plusOneLearning, { color: COLORS.danger, opacity: learningAnim, transform: [{ translateY: learningTranslateY }] }]}>
+          +1
+        </Animated.Text>
+      </View>
+
+      <View style={styles.counterGroup}>
+        <Animated.Text style={[styles.plusOne, { color: COLORS.success, opacity: knownAnim, transform: [{ translateY: knownTranslateY }] }]}>
+          +1
+        </Animated.Text>
+        <View style={[styles.counterPill, { borderColor: COLORS.success }]}>
+          <Text style={[styles.counterValue, { color: COLORS.success }]}>{known}</Text>
+        </View>
+      </View>
+    </View>
+  );
 }
 
 export function FlashcardProgressBar({ current, total }: { current: number; total: number }) {
@@ -409,11 +409,19 @@ const styles = StyleSheet.create({
         height: 40,
         alignItems: 'center',
     },
-    counterGroup: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        gap: 8,
-    },
+counterGroup: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  counterGroupLearning: {
+    position: 'relative',
+  },
+  plusOneLearning: {
+    position: 'absolute',
+    left: '100%',
+    marginLeft: 8,
+  },
     counterPill: {
         minWidth: 42,
         height: 28,

@@ -32,22 +32,24 @@ export function useFlashcardsSession({ cards, orderMode }: UseFlashcardsSessionP
         [orderedCards]
     );
 
-    const [queue, setQueue] = useState<string[]>([]);
-    const [retryQueue, setRetryQueue] = useState<string[]>([]);
-    const [knownIds, setKnownIds] = useState<Set<string>>(new Set());
+const [queue, setQueue] = useState<string[]>([]);
+  const [retryQueue, setRetryQueue] = useState<string[]>([]);
+  const [knownIds, setKnownIds] = useState<Set<string>>(new Set());
+  const [learningIds, setLearningIds] = useState<Set<string>>(new Set());
     const [currentId, setCurrentId] = useState<string | null>(null);
     const [round, setRound] = useState(1);
     const [isFlipped, setIsFlipped] = useState(false);
 
-    const resetSession = useCallback(() => {
-        const ids = orderedCards.map((card) => card.id);
-        setQueue(ids);
-        setRetryQueue([]);
-        setKnownIds(new Set());
-        setCurrentId(ids[0] ?? null);
-        setRound(1);
-        setIsFlipped(false);
-    }, [orderedCards]);
+const resetSession = useCallback(() => {
+    const ids = orderedCards.map((card) => card.id);
+    setQueue(ids);
+    setRetryQueue([]);
+    setKnownIds(new Set());
+    setLearningIds(new Set());
+    setCurrentId(ids[0] ?? null);
+    setRound(1);
+    setIsFlipped(false);
+  }, [orderedCards]);
 
     useEffect(() => {
         resetSession();
@@ -90,20 +92,26 @@ export function useFlashcardsSession({ cards, orderMode }: UseFlashcardsSessionP
         advance(restQueue, nextRetryQueue);
     }, [advance, currentId, queue, retryQueue]);
 
-    const markLearning = useCallback(() => {
-        if (!currentId) return;
+const markLearning = useCallback(() => {
+    if (!currentId) return;
 
-        const [, ...restQueue] = queue;
-        const nextRetryQueue = [...retryQueue, currentId];
+    const [, ...restQueue] = queue;
+    const nextRetryQueue = [...retryQueue, currentId];
 
-        setIsFlipped(false);
-        advance(restQueue, nextRetryQueue);
-    }, [advance, currentId, queue, retryQueue]);
+    setLearningIds((previous) => {
+      const next = new Set(previous);
+      next.add(currentId);
+      return next;
+    });
 
-    const currentCard = currentId ? cardsById.get(currentId) ?? null : null;
-    const totalCards = orderedCards.length;
-    const knownCount = knownIds.size;
-    const learningCount = totalCards - knownCount;
+    setIsFlipped(false);
+    advance(restQueue, nextRetryQueue);
+  }, [advance, currentId, queue, retryQueue]);
+
+const currentCard = currentId ? cardsById.get(currentId) ?? null : null;
+  const totalCards = orderedCards.length;
+  const knownCount = knownIds.size;
+  const learningCount = learningIds.size;
     const isComplete = currentId === null && totalCards > 0;
     const currentCardPosition = currentId
         ? Math.max(1, orderedCards.findIndex((card) => card.id === currentId) + 1)
