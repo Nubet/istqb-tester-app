@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import { useRouter } from 'expo-router';
-import { ListTree, FolderTree, ChevronRight } from 'lucide-react-native';
+import { ListTree, FolderTree, ChevronRight, Layers3 } from 'lucide-react-native';
 import { ScreenHeader } from '@/ui/ScreenHeader';
 import { COLORS, SHADOWS } from '@/constants/colors';
 
@@ -45,6 +45,21 @@ export default function GlossaryModeScreen() {
                     <View style={styles.optionTextWrap}>
                         <Text style={styles.optionTitle}>Podział na kategorie</Text>
                         <Text style={styles.optionMeta}>Przeglądaj pojęcia blokami tematycznymi</Text>
+                    </View>
+                    <ChevronRight size={20} color={COLORS.textMuted} />
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                    style={styles.optionCard}
+                    activeOpacity={0.9}
+                    onPress={() => router.push('/glossary/flashcards')}
+                >
+                    <View style={styles.optionIconWrap}>
+                        <Layers3 size={22} color={COLORS.primary} />
+                    </View>
+                    <View style={styles.optionTextWrap}>
+                        <Text style={styles.optionTitle}>Fiszki</Text>
+                        <Text style={styles.optionMeta}>Ucz się pojęć w trybie fiszek</Text>
                     </View>
                     <ChevronRight size={20} color={COLORS.textMuted} />
                 </TouchableOpacity>

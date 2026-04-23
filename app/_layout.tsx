@@ -57,6 +57,14 @@ export default function RootLayout() {
                             options={{ presentation: 'card' }}
                         />
                         <Stack.Screen
+                            name="glossary/flashcards/index"
+                            options={{ presentation: 'card' }}
+                        />
+                        <Stack.Screen
+                            name="glossary/flashcards/session"
+                            options={{ presentation: 'card' }}
+                        />
+                        <Stack.Screen
                             name="review"
                             options={{ presentation: 'card' }}
                         />

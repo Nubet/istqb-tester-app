@@ -15,4 +15,13 @@ export class GlossaryService {
         const categories = await glossaryRepository.getCategories();
         return [...categories].sort(compareCategoryLabels);
     }
+
+    async getTermsByCategory(category: string): Promise<GlossaryTerm[]> {
+        return await glossaryRepository.getByCategory(category);
+    }
+
+    async getCategorySummaries(): Promise<{ category: string; count: number }[]> {
+        const summaries = await glossaryRepository.getCategorySummaries();
+        return [...summaries].sort((a, b) => compareCategoryLabels(a.category, b.category));
+    }
 }

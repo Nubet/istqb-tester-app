@@ -5,6 +5,8 @@ export interface IGlossaryRepository {
     getAll(): Promise<GlossaryTerm[]>;
     search(query: string): Promise<GlossaryTerm[]>;
     getCategories(): Promise<string[]>;
+    getByCategory(category: string): Promise<GlossaryTerm[]>;
+    getCategorySummaries(): Promise<{ category: string; count: number }[]>;
 }
 
 export class GlossaryRepository implements IGlossaryRepository {
@@ -50,5 +52,34 @@ export class GlossaryRepository implements IGlossaryRepository {
         return results
             .map((row) => row.category)
             .filter((category): category is string => !!category);
+    }
+
+    async getByCategory(category: string): Promise<GlossaryTerm[]> {
+        const db = await getDb();
+        const results = await db.getAllAsync<{ id: string, term: string, definition: string, category: string | null }>(
+            'SELECT * FROM glossary WHERE category = ? ORDER BY term ASC',
+            [category]
+        );
+
+        return results.map((row) => ({
+            id: row.id,
+            term: row.term,
+            definition: row.definition,
+            category: row.category ?? undefined,
+        }));
+    }
+
+    async getCategorySummaries(): Promise<{ category: string; count: number }[]> {
+        const db = await getDb();
+        const results = await db.getAllAsync<{ category: string | null; count: number }>(
+            "SELECT category, COUNT(*) as count FROM glossary WHERE category IS NOT NULL AND TRIM(category) != '' GROUP BY category"
+        );
+
+        return results
+            .filter((row): row is { category: string; count: number } => !!row.category)
+            .map((row) => ({
+                category: row.category,
+                count: row.count,
+            }));
     }
 }
