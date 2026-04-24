@@ -105,3 +105,14 @@ Notes:
 
 - The app is currently localized for Polish content/UI.
 
+
+## Screenshots
+
+| Screen | Preview | Caption                                                                                               |
+| --- | --- |-------------------------------------------------------------------------------------------------------|
+| Home | ![Home screen](docs/images/0-main-screen.PNG) | Your ISTQB preparation starts here, with progress, practice, glossary, and review tools in one place. |
+| Learning mode | ![Learning mode](docs/images/1-tryb-nauki.PNG) | Choose a chapter and practice exactly the topics you want to improve.                                 |
+| Question practice | ![Question practice](docs/images/2-tryb-nauki.PNG) | Answer exam questions and access detailed explanations to verify your knowledge                                                                                                      |
+| Flashcards list | ![Flashcards list](docs/images/3-fiszki.PNG) | Browse compact flashcard sets and revise key concepts quickly.                                        |
+| Flashcard front | ![Flashcard front](docs/images/4-fiszki.PNG) | Flip through essential terms in a clean, distraction-free format.                                     |
+| Flashcard explanation | ![Flashcard explanation](docs/images/5-fiszki.PNG) | Swipe with your finger                                                                                |
