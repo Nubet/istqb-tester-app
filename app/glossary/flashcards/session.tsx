@@ -21,6 +21,7 @@ import { useFlashcardsSession } from '@/hooks/useFlashcardsSession';
 import {
     FlashcardSwiper,
     FlashcardHeaderCounters,
+    FlashcardProgressBar,
     FlashcardComplete,
 } from '@/ui/flashcards';
 
@@ -112,7 +113,9 @@ export default function FlashcardsSessionScreen() {
                     </TouchableOpacity>
                 }
                 containerStyle={styles.header}
-            />
+            >
+                <FlashcardProgressBar current={currentCardPosition} total={totalCards} />
+            </ScreenHeader>
 
             <FlashcardHeaderCounters
                 known={knownCount}

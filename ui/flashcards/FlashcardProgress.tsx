@@ -2,11 +2,15 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { COLORS, RADIUS } from '@/constants/colors';
 
 export function FlashcardProgressBar({ current, total }: { current: number; total: number }) {
+    const safeTotal = Math.max(1, total);
+    const normalizedCurrent = Math.min(Math.max(current, 0), safeTotal);
+    const progressPercent = (normalizedCurrent / safeTotal) * 100;
+
     return (
-        <View style={styles.progressTextContainer}>
-            <Text style={styles.progressText}>
-                {current} / {total}
-            </Text>
+        <View style={styles.progressWrap}>
+            <View style={styles.progressTrack}>
+                <View style={[styles.progressFill, { width: `${progressPercent}%` }]} />
+            </View>
         </View>
     );
 }
@@ -30,14 +34,20 @@ export function FlashcardComplete({ total, onRestart, onExit }: { total: number;
 }
 
 const styles = StyleSheet.create({
-    progressTextContainer: {
-        alignItems: 'center',
-        justifyContent: 'center',
+    progressWrap: {
+        paddingHorizontal: 14,
+        paddingBottom: 4,
     },
-    progressText: {
-        fontSize: 16,
-        fontWeight: '800',
-        color: COLORS.textMain,
+    progressTrack: {
+        height: 8,
+        borderRadius: 999,
+        backgroundColor: COLORS.primarySoft,
+        overflow: 'hidden',
+    },
+    progressFill: {
+        height: '100%',
+        borderRadius: 999,
+        backgroundColor: COLORS.primary,
     },
     completeContainer: {
         flex: 1,
