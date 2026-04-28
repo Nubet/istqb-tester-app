@@ -42,20 +42,26 @@ export function useFlashcardsSession({ cards, orderMode }: UseFlashcardsSessionP
         [orderedCards]
     );
 
+    const [sessionCardIds, setSessionCardIds] = useState<string[]>([]);
     const [queue, setQueue] = useState<string[]>([]);
     const [retryQueue, setRetryQueue] = useState<string[]>([]);
     const [cardKnowledgeById, setCardKnowledgeById] = useState<Record<string, FlashcardKnowledgeState>>({});
     const [currentId, setCurrentId] = useState<string | null>(null);
     const [round, setRound] = useState(1);
 
-    const resetSession = useCallback(() => {
-        const ids = orderedCards.map((card) => card.id);
-        setQueue(ids);
+    const startSession = useCallback((cardIds: string[], nextRound = 1) => {
+        setSessionCardIds(cardIds);
+        setQueue(cardIds);
         setRetryQueue([]);
         setCardKnowledgeById({});
-        setCurrentId(ids[0] ?? null);
-        setRound(1);
-    }, [orderedCards]);
+        setCurrentId(cardIds[0] ?? null);
+        setRound(nextRound);
+    }, []);
+
+    const resetSession = useCallback(() => {
+        const ids = orderedCards.map((card) => card.id);
+        startSession(ids, 1);
+    }, [orderedCards, startSession]);
 
     useEffect(() => {
         resetSession();
@@ -66,14 +72,6 @@ export function useFlashcardsSession({ cards, orderMode }: UseFlashcardsSessionP
             setQueue(nextQueue);
             setRetryQueue(nextRetryQueue);
             setCurrentId(nextQueue[0]);
-            return;
-        }
-
-        if (nextRetryQueue.length > 0) {
-            setQueue(nextRetryQueue);
-            setRetryQueue([]);
-            setCurrentId(nextRetryQueue[0]);
-            setRound((currentRound) => currentRound + 1);
             return;
         }
 
@@ -110,8 +108,19 @@ export function useFlashcardsSession({ cards, orderMode }: UseFlashcardsSessionP
         advance(restQueue, nextRetryQueue);
     }, [advance, currentId, queue, retryQueue]);
 
+    const continueWithLearning = useCallback(() => {
+        const learningCardIds = sessionCardIds.filter((cardId) => cardKnowledgeById[cardId] === 'learning');
+
+        if (learningCardIds.length === 0) {
+            return false;
+        }
+
+        startSession(learningCardIds, round + 1);
+        return true;
+    }, [cardKnowledgeById, round, sessionCardIds, startSession]);
+
     const currentCard = currentId ? cardsById.get(currentId) ?? null : null;
-    const totalCards = orderedCards.length;
+    const totalCards = sessionCardIds.length;
     const knownCount = useMemo(
         () => Object.values(cardKnowledgeById).filter((state) => state === 'known').length,
         [cardKnowledgeById]
@@ -133,8 +142,8 @@ export function useFlashcardsSession({ cards, orderMode }: UseFlashcardsSessionP
     const isComplete = currentId === null && totalCards > 0;
 
     const indexByCardId = useMemo(() => {
-        return new Map(orderedCards.map((card, index) => [card.id, index + 1]));
-    }, [orderedCards]);
+        return new Map(sessionCardIds.map((cardId, index) => [cardId, index + 1]));
+    }, [sessionCardIds]);
 
     const currentCardPosition = currentId
         ? indexByCardId.get(currentId) ?? 1
@@ -151,6 +160,7 @@ export function useFlashcardsSession({ cards, orderMode }: UseFlashcardsSessionP
         isComplete,
         markKnown,
         markLearning,
+        continueWithLearning,
         resetSession,
     };
 }

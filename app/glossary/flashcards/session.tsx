@@ -23,6 +23,7 @@ import {
     FlashcardHeaderCounters,
     FlashcardProgressBar,
     FlashcardComplete,
+    FlashcardSessionSummary,
 } from '@/ui/flashcards';
 
 const ALL_DECK_ID = '__all__';
@@ -52,9 +53,11 @@ export default function FlashcardsSessionScreen() {
         currentCardPosition,
         knownCount,
         learningCount,
+        stats,
         isComplete,
         markKnown,
         markLearning,
+        continueWithLearning,
         resetSession,
     } = useFlashcardsSession({ cards, orderMode: preferences.orderMode });
 
@@ -117,18 +120,36 @@ export default function FlashcardsSessionScreen() {
                 <FlashcardProgressBar current={currentCardPosition} total={totalCards} />
             </ScreenHeader>
 
-            <FlashcardHeaderCounters
-                known={knownCount}
-                learning={learningCount}
-            />
+            {!isComplete && (
+                <FlashcardHeaderCounters
+                    known={knownCount}
+                    learning={learningCount}
+                />
+            )}
 
             <View style={styles.content}>
                 {isComplete ? (
-                    <FlashcardComplete
-                        total={totalCards}
-                        onRestart={resetSession}
-                        onExit={() => router.back()}
-                    />
+                    stats.learningCount > 0 ? (
+                        <FlashcardSessionSummary
+                            total={totalCards}
+                            known={stats.knownCount}
+                            learning={stats.learningCount}
+                            canContinueLearning={stats.learningCount > 0}
+                            onContinue={() => {
+                                const hasLearningPool = continueWithLearning();
+                                if (!hasLearningPool) {
+                                    router.back();
+                                }
+                            }}
+                            onResetDeck={resetSession}
+                        />
+                    ) : (
+                        <FlashcardComplete
+                            total={totalCards}
+                            onRestart={resetSession}
+                            onExit={() => router.back()}
+                        />
+                    )
                 ) : (
                     currentCard && (
                         <FlashcardSwiper
