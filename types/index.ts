@@ -61,6 +61,11 @@ export interface GlossaryTerm {
     relatedTerms?: string[];
 }
 
+export interface GlossaryCategorySummary {
+    category: string;
+    count: number;
+}
+
 export interface ExamConfig {
     totalQuestions: number;
     timeLimitMinutes: number;

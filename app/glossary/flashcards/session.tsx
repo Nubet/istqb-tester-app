@@ -13,6 +13,7 @@ import { useQuery } from '@tanstack/react-query';
 import { Settings, X } from 'lucide-react-native';
 import { ScreenHeader } from '@/ui/ScreenHeader';
 import { COLORS } from '@/constants/colors';
+import { flashcardDeckTermsQueryKey } from '@/constants/queryKeys';
 import { glossaryService } from '@/services';
 import { useFlashcardPreferences } from '@/hooks/useFlashcardPreferences';
 import { FLASHCARD_FRONT_OPTIONS, FLASHCARD_ORDER_OPTIONS } from '@/constants/flashcards';
@@ -20,9 +21,8 @@ import { useFlashcardsSession } from '@/hooks/useFlashcardsSession';
 import {
     FlashcardSwiper,
     FlashcardHeaderCounters,
-    FlashcardProgressBar,
     FlashcardComplete,
-} from '@/ui/FlashcardComponents';
+} from '@/ui/flashcards';
 
 const ALL_DECK_ID = '__all__';
 
@@ -41,7 +41,7 @@ export default function FlashcardsSessionScreen() {
         isLoading,
         isError,
     } = useQuery({
-        queryKey: ['flashcardDeckTerms', deck],
+        queryKey: flashcardDeckTermsQueryKey(deck),
         queryFn: () => (isAllDeck ? glossaryService.getAllTerms() : glossaryService.getTermsByCategory(deck)),
     });
 
@@ -94,7 +94,7 @@ export default function FlashcardsSessionScreen() {
     return (
         <View style={styles.container}>
             <ScreenHeader
-                title=""
+                title={`${currentCardPosition} / ${totalCards}`}
                 leftAction={
                     <TouchableOpacity
                         style={styles.headerBtn}
@@ -102,12 +102,6 @@ export default function FlashcardsSessionScreen() {
                     >
                         <X size={20} color={COLORS.textMain} />
                     </TouchableOpacity>
-                }
-                centerAction={
-                    <FlashcardProgressBar
-                        current={currentCardPosition}
-                        total={totalCards}
-                    />
                 }
                 rightActions={
                     <TouchableOpacity
@@ -117,7 +111,7 @@ export default function FlashcardsSessionScreen() {
                         <Settings size={20} color={COLORS.textMain} />
                     </TouchableOpacity>
                 }
-                style={styles.header}
+                containerStyle={styles.header}
             />
 
             <FlashcardHeaderCounters

@@ -4,6 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import { Layers3, ChevronRight } from 'lucide-react-native';
 import { ScreenHeader } from '@/ui/ScreenHeader';
 import { COLORS, SHADOWS } from '@/constants/colors';
+import { FLASHCARD_DECKS_QUERY_KEY } from '@/constants/queryKeys';
 import { glossaryService } from '@/services';
 
 const ALL_DECK_ID = '__all__';
@@ -11,7 +12,7 @@ const ALL_DECK_ID = '__all__';
 export default function FlashcardsDecksScreen() {
     const router = useRouter();
     const { data: deckSummaries = [], isLoading, isError } = useQuery({
-        queryKey: ['glossaryFlashcardDecks'],
+        queryKey: FLASHCARD_DECKS_QUERY_KEY,
         queryFn: () => glossaryService.getCategorySummaries(),
     });
 

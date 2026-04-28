@@ -1,12 +1,12 @@
 import { getDb } from '@/infra/db/sqlite';
-import { GlossaryTerm } from '@/types';
+import { GlossaryCategorySummary, GlossaryTerm } from '@/types';
 
 export interface IGlossaryRepository {
     getAll(): Promise<GlossaryTerm[]>;
     search(query: string): Promise<GlossaryTerm[]>;
     getCategories(): Promise<string[]>;
     getByCategory(category: string): Promise<GlossaryTerm[]>;
-    getCategorySummaries(): Promise<{ category: string; count: number }[]>;
+    getCategorySummaries(): Promise<GlossaryCategorySummary[]>;
 }
 
 export class GlossaryRepository implements IGlossaryRepository {
@@ -69,7 +69,7 @@ export class GlossaryRepository implements IGlossaryRepository {
         }));
     }
 
-    async getCategorySummaries(): Promise<{ category: string; count: number }[]> {
+    async getCategorySummaries(): Promise<GlossaryCategorySummary[]> {
         const db = await getDb();
         const results = await db.getAllAsync<{ category: string | null; count: number }>(
             "SELECT category, COUNT(*) as count FROM glossary WHERE category IS NOT NULL AND TRIM(category) != '' GROUP BY category"

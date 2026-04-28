@@ -1,5 +1,5 @@
 import { glossaryRepository } from '@/repositories';
-import { GlossaryTerm } from '@/types';
+import { GlossaryCategorySummary, GlossaryTerm } from '@/types';
 import { compareCategoryLabels } from '../utils/categorySort';
 
 export class GlossaryService {
@@ -20,7 +20,7 @@ export class GlossaryService {
         return await glossaryRepository.getByCategory(category);
     }
 
-    async getCategorySummaries(): Promise<{ category: string; count: number }[]> {
+    async getCategorySummaries(): Promise<GlossaryCategorySummary[]> {
         const summaries = await glossaryRepository.getCategorySummaries();
         return [...summaries].sort((a, b) => compareCategoryLabels(a.category, b.category));
     }

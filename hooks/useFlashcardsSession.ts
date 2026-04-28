@@ -7,6 +7,16 @@ type UseFlashcardsSessionParams = {
     orderMode: FlashcardOrderMode;
 };
 
+type FlashcardKnowledgeState = 'known' | 'learning' | 'unseen';
+
+type FlashcardSessionStats = {
+    totalCards: number;
+    knownCount: number;
+    learningCount: number;
+    unseenCount: number;
+    masteryRate: number;
+};
+
 function shuffleArray<T>(items: T[]): T[] {
     const shuffled = [...items];
 
@@ -32,24 +42,20 @@ export function useFlashcardsSession({ cards, orderMode }: UseFlashcardsSessionP
         [orderedCards]
     );
 
-const [queue, setQueue] = useState<string[]>([]);
-  const [retryQueue, setRetryQueue] = useState<string[]>([]);
-  const [knownIds, setKnownIds] = useState<Set<string>>(new Set());
-  const [learningIds, setLearningIds] = useState<Set<string>>(new Set());
+    const [queue, setQueue] = useState<string[]>([]);
+    const [retryQueue, setRetryQueue] = useState<string[]>([]);
+    const [cardKnowledgeById, setCardKnowledgeById] = useState<Record<string, FlashcardKnowledgeState>>({});
     const [currentId, setCurrentId] = useState<string | null>(null);
     const [round, setRound] = useState(1);
-    const [isFlipped, setIsFlipped] = useState(false);
 
-const resetSession = useCallback(() => {
-    const ids = orderedCards.map((card) => card.id);
-    setQueue(ids);
-    setRetryQueue([]);
-    setKnownIds(new Set());
-    setLearningIds(new Set());
-    setCurrentId(ids[0] ?? null);
-    setRound(1);
-    setIsFlipped(false);
-  }, [orderedCards]);
+    const resetSession = useCallback(() => {
+        const ids = orderedCards.map((card) => card.id);
+        setQueue(ids);
+        setRetryQueue([]);
+        setCardKnowledgeById({});
+        setCurrentId(ids[0] ?? null);
+        setRound(1);
+    }, [orderedCards]);
 
     useEffect(() => {
         resetSession();
@@ -82,57 +88,67 @@ const resetSession = useCallback(() => {
         const [, ...restQueue] = queue;
         const nextRetryQueue = [...retryQueue];
 
-        setKnownIds((previous) => {
-            const next = new Set(previous);
-            next.add(currentId);
-            return next;
-        });
+        setCardKnowledgeById((previous) => ({
+            ...previous,
+            [currentId]: 'known',
+        }));
 
-        setIsFlipped(false);
         advance(restQueue, nextRetryQueue);
     }, [advance, currentId, queue, retryQueue]);
 
-const markLearning = useCallback(() => {
-    if (!currentId) return;
+    const markLearning = useCallback(() => {
+        if (!currentId) return;
 
-    const [, ...restQueue] = queue;
-    const nextRetryQueue = [...retryQueue, currentId];
+        const [, ...restQueue] = queue;
+        const nextRetryQueue = [...retryQueue, currentId];
 
-    setLearningIds((previous) => {
-      const next = new Set(previous);
-      next.add(currentId);
-      return next;
-    });
+        setCardKnowledgeById((previous) => ({
+            ...previous,
+            [currentId]: 'learning',
+        }));
 
-    setIsFlipped(false);
-    advance(restQueue, nextRetryQueue);
-  }, [advance, currentId, queue, retryQueue]);
+        advance(restQueue, nextRetryQueue);
+    }, [advance, currentId, queue, retryQueue]);
 
-const currentCard = currentId ? cardsById.get(currentId) ?? null : null;
-  const totalCards = orderedCards.length;
-  const knownCount = knownIds.size;
-  const learningCount = learningIds.size;
-    const isComplete = currentId === null && totalCards > 0;
-    const currentCardPosition = currentId
-        ? Math.max(1, orderedCards.findIndex((card) => card.id === currentId) + 1)
-        : totalCards;
-
-    const toggleFlip = () => {
-        if (!currentCard) return;
-        setIsFlipped((value) => !value);
+    const currentCard = currentId ? cardsById.get(currentId) ?? null : null;
+    const totalCards = orderedCards.length;
+    const knownCount = useMemo(
+        () => Object.values(cardKnowledgeById).filter((state) => state === 'known').length,
+        [cardKnowledgeById]
+    );
+    const learningCount = useMemo(
+        () => Object.values(cardKnowledgeById).filter((state) => state === 'learning').length,
+        [cardKnowledgeById]
+    );
+    const unseenCount = Math.max(0, totalCards - knownCount - learningCount);
+    const masteryRate = totalCards > 0 ? Math.round((knownCount / totalCards) * 100) : 0;
+    const stats: FlashcardSessionStats = {
+        totalCards,
+        knownCount,
+        learningCount,
+        unseenCount,
+        masteryRate,
     };
+
+    const isComplete = currentId === null && totalCards > 0;
+
+    const indexByCardId = useMemo(() => {
+        return new Map(orderedCards.map((card, index) => [card.id, index + 1]));
+    }, [orderedCards]);
+
+    const currentCardPosition = currentId
+        ? indexByCardId.get(currentId) ?? 1
+        : totalCards;
 
     return {
         round,
         totalCards,
+        stats,
         currentCard,
         currentCardPosition,
         knownCount,
         learningCount,
         isComplete,
-        isFlipped,
-        setIsFlipped,
-        toggleFlip,
         markKnown,
         markLearning,
         resetSession,
