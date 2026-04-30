@@ -82,12 +82,19 @@ export class LearningService {
         const progress = await userProgressRepository.get();
         const allQuestions = await questionRepository.getAll();
 
+        const questionsByCategory = new Map<string, Question[]>();
+        allQuestions.forEach((question) => {
+            const list = questionsByCategory.get(question.category) ?? [];
+            list.push(question);
+            questionsByCategory.set(question.category, list);
+        });
+
         const mappedSections = categories.map((category) => {
             const definition = findSectionDefinition(category);
             const label = definition?.label ?? category;
             const order = definition?.order ?? Number.MAX_SAFE_INTEGER;
-            
-            const categoryQuestions = allQuestions.filter(q => q.category === category);
+
+            const categoryQuestions = questionsByCategory.get(category) ?? [];
             let mastered = 0;
             let wrong = 0;
 
@@ -103,10 +110,11 @@ export class LearningService {
             const { chapter, title } = splitSectionLabel(label);
 
             return {
-                id: category, // use internal category as id
+                id: label,
+                label,
+                categoryIds: [category],
                 chapter,
                 title,
-                label,
                 order,
                 totalQuestions: categoryQuestions.length,
                 masteredQuestions: mastered,
@@ -123,6 +131,7 @@ export class LearningService {
                 existing.totalQuestions += section.totalQuestions;
                 existing.masteredQuestions += section.masteredQuestions;
                 existing.wrongQuestions += section.wrongQuestions;
+                existing.categoryIds = [...existing.categoryIds, ...section.categoryIds];
                 existing.progressPercentage = existing.totalQuestions > 0 ? Math.round((existing.masteredQuestions / existing.totalQuestions) * 100) : 0;
             } else {
                 grouped.set(section.label, section);
@@ -141,22 +150,23 @@ export class LearningService {
 
     async startSession(category: string, mode: 'all' | 'wrong' = 'all'): Promise<LearningSession> {
         const availableCategories = await questionRepository.getCategories();
+        const definition = findSectionDefinition(category);
+
+        const matchedCategories = definition
+            ? availableCategories.filter((availableCategory) =>
+                definition.aliases.some((alias) => normalizeCategory(alias) === normalizeCategory(availableCategory))
+            )
+            : [];
+
+        if (matchedCategories.length > 0) {
+            return startLearningSessionUseCase.execute(matchedCategories, mode);
+        }
+
         const directMatch = availableCategories.find(
             (availableCategory) => normalizeCategory(availableCategory) === normalizeCategory(category)
         );
 
-        if (directMatch) {
-            return startLearningSessionUseCase.execute(directMatch, mode);
-        }
-
-        const definition = findSectionDefinition(category);
-        const fallbackMatch = definition
-            ? availableCategories.find((availableCategory) =>
-                definition.aliases.some((alias) => normalizeCategory(alias) === normalizeCategory(availableCategory))
-            )
-            : undefined;
-
-        return startLearningSessionUseCase.execute(fallbackMatch ?? category, mode);
+        return startLearningSessionUseCase.execute(directMatch ?? category, mode);
     }
 
     async getSessionQuestions(questionIds: string[]): Promise<Question[]> {

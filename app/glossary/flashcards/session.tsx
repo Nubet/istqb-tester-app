@@ -44,7 +44,7 @@ export default function FlashcardsSessionScreen() {
         isLoading,
         isError,
     } = useQuery({
-        queryKey: [flashcardDeckTermsQueryKey(deck), mode],
+        queryKey: [...flashcardDeckTermsQueryKey(deck), mode],
         queryFn: async () => {
             let fetchedTerms = isAllDeck ? await glossaryService.getAllTerms() : await glossaryService.getTermsByCategory(deck);
             if (mode === 'learning') {

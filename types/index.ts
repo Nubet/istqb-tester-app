@@ -28,6 +28,8 @@ export interface LearningSession {
 
 export interface LearningSectionSummary {
     id: string;
+    label: string;
+    categoryIds: string[];
     chapter: string;
     title: string;
     totalQuestions: number;

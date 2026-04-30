@@ -13,7 +13,7 @@ interface UserProgressRaw {
     chapterMasteredQuestionIds: [string, string[]][];
     bookmarks: [string, BookmarkedQuestion][];
     learningAnswerResults: [string, boolean][];
-    flashcardResults: [string, 'known' | 'learning'][];
+    flashcardResults?: [string, 'known' | 'learning'][];
 }
 
 export class UserProgressMapper {

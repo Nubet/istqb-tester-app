@@ -7,10 +7,14 @@ export class StartLearningSessionUseCase {
         private userProgressRepository: IUserProgressRepository
     ) {}
 
-    async execute(category?: string, mode: 'all' | 'wrong' = 'all'): Promise<LearningSession> {
-        let questions = category
-            ? await this.questionRepository.getByCategory(category)
-            : await this.questionRepository.getAll();
+    async execute(categories?: string | string[], mode: 'all' | 'wrong' = 'all'): Promise<LearningSession> {
+        let questions = await this.questionRepository.getAll();
+
+        if (categories) {
+            const selected = Array.isArray(categories) ? categories : [categories];
+            const selectedSet = new Set(selected);
+            questions = questions.filter((question) => selectedSet.has(question.category));
+        }
 
         if (mode === 'wrong') {
             const progress = await this.userProgressRepository.get();
