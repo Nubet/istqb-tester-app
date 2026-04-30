@@ -13,6 +13,7 @@ interface UserProgressRaw {
     chapterMasteredQuestionIds: [string, string[]][];
     bookmarks: [string, BookmarkedQuestion][];
     learningAnswerResults: [string, boolean][];
+    flashcardResults: [string, 'known' | 'learning'][];
 }
 
 export class UserProgressMapper {
@@ -30,7 +31,8 @@ export class UserProgressMapper {
             new Map(raw.categoryStats || []),
             new Map(raw.chapterMasteredQuestionIds || []),
             bookmarkMap,
-            new Map(raw.learningAnswerResults || [])
+            new Map(raw.learningAnswerResults || []),
+            new Map(raw.flashcardResults || [])
         );
     }
 
@@ -47,6 +49,7 @@ export class UserProgressMapper {
             chapterMasteredQuestionIds: Array.from(progress.getChapterMasteredQuestionIds().entries()),
             bookmarks: progress.getAllBookmarks().map((b) => [b.questionId, b]),
             learningAnswerResults: Array.from(progress.getLearningAnswerResults().entries()),
+            flashcardResults: Array.from(progress.getFlashcardResults().entries()),
         };
     }
 }

@@ -1,4 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useQueryClient } from '@tanstack/react-query';
+import { progressService } from '@/services';
+import { FLASHCARD_DECKS_QUERY_KEY } from '@/constants/queryKeys';
 import type { GlossaryTerm } from '@/types';
 import type { FlashcardOrderMode } from '@/constants/flashcards';
 
@@ -29,6 +32,8 @@ function shuffleArray<T>(items: T[]): T[] {
 }
 
 export function useFlashcardsSession({ cards, orderMode }: UseFlashcardsSessionParams) {
+    const queryClient = useQueryClient();
+
     const orderedCards = useMemo(() => {
         if (orderMode === 'shuffle') {
             return shuffleArray(cards);
@@ -90,9 +95,13 @@ export function useFlashcardsSession({ cards, orderMode }: UseFlashcardsSessionP
             ...previous,
             [currentId]: 'known',
         }));
+        
+        void progressService.recordFlashcardResult(currentId, 'known').then(() => {
+             queryClient.invalidateQueries({ queryKey: FLASHCARD_DECKS_QUERY_KEY });
+        });
 
         advance(restQueue, nextRetryQueue);
-    }, [advance, currentId, queue, retryQueue]);
+    }, [advance, currentId, queue, retryQueue, queryClient]);
 
     const markLearning = useCallback(() => {
         if (!currentId) return;
@@ -105,8 +114,12 @@ export function useFlashcardsSession({ cards, orderMode }: UseFlashcardsSessionP
             [currentId]: 'learning',
         }));
 
+        void progressService.recordFlashcardResult(currentId, 'learning').then(() => {
+             queryClient.invalidateQueries({ queryKey: FLASHCARD_DECKS_QUERY_KEY });
+        });
+
         advance(restQueue, nextRetryQueue);
-    }, [advance, currentId, queue, retryQueue]);
+    }, [advance, currentId, queue, retryQueue, queryClient]);
 
     const continueWithLearning = useCallback(() => {
         const learningCardIds = sessionCardIds.filter((cardId) => cardKnowledgeById[cardId] === 'learning');

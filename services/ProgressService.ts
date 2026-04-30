@@ -20,4 +20,10 @@ export class ProgressService {
         }
         await userProgressRepository.save(progress);
     }
+
+    async recordFlashcardResult(termId: string, state: 'known' | 'learning'): Promise<void> {
+        const progress = await userProgressRepository.get();
+        progress.recordFlashcardResult(termId, state);
+        await userProgressRepository.save(progress);
+    }
 }

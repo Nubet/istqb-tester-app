@@ -77,6 +77,15 @@ export interface GlossaryCategorySummary {
     count: number;
 }
 
+export interface FlashcardDeckSummary {
+    id: string;
+    title: string;
+    totalCards: number;
+    masteredCards: number;
+    learningCards: number;
+    progressPercentage: number;
+}
+
 export interface ExamConfig {
     totalQuestions: number;
     timeLimitMinutes: number;
