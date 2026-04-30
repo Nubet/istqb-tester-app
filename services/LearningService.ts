@@ -1,9 +1,9 @@
-import type { LearningSession, Question } from '@/types';
-import { questionRepository } from '@/repositories';
+import type { LearningSession, Question, LearningSectionSummary } from '@/types';
+import { questionRepository, userProgressRepository } from '@/repositories';
 import { StartLearningSessionUseCase } from './usecases/learning/StartLearningSession';
 import { compareCategoryLabels } from './utils/categorySort';
 
-const startLearningSessionUseCase = new StartLearningSessionUseCase(questionRepository);
+const startLearningSessionUseCase = new StartLearningSessionUseCase(questionRepository, userProgressRepository);
 
 type SectionDefinition = {
     order: number;
@@ -60,41 +60,93 @@ function findSectionDefinition(category: string): SectionDefinition | undefined 
     );
 }
 
+function splitSectionLabel(section: string): { chapter: string; title: string } {
+    const match = section.match(/^Rozdzia(?:ł|l)\s*(\d+)\s*:\s*(.+)$/i);
+
+    if (!match) {
+        return {
+            chapter: 'Rozdział',
+            title: section,
+        };
+    }
+
+    return {
+        chapter: `Rozdział ${match[1]}`,
+        title: match[2].trim(),
+    };
+}
+
 export class LearningService {
-    async getSections(): Promise<string[]> {
+    async getSections(): Promise<LearningSectionSummary[]> {
         const categories = await questionRepository.getCategories();
+        const progress = await userProgressRepository.get();
+        const allQuestions = await questionRepository.getAll();
+
         const mappedSections = categories.map((category) => {
             const definition = findSectionDefinition(category);
+            const label = definition?.label ?? category;
+            const order = definition?.order ?? Number.MAX_SAFE_INTEGER;
+            
+            const categoryQuestions = allQuestions.filter(q => q.category === category);
+            let mastered = 0;
+            let wrong = 0;
+
+            categoryQuestions.forEach(q => {
+                const answerResult = progress.getLearningAnswerResult(q.id);
+                if (answerResult === true) {
+                    mastered++;
+                } else if (answerResult === false) {
+                    wrong++;
+                }
+            });
+            
+            const { chapter, title } = splitSectionLabel(label);
+
             return {
-                label: definition?.label ?? category,
-                order: definition?.order ?? Number.MAX_SAFE_INTEGER,
+                id: category, // use internal category as id
+                chapter,
+                title,
+                label,
+                order,
+                totalQuestions: categoryQuestions.length,
+                masteredQuestions: mastered,
+                wrongQuestions: wrong,
+                progressPercentage: categoryQuestions.length > 0 ? Math.round((mastered / categoryQuestions.length) * 100) : 0,
             };
         });
 
-        const uniqueLabels = Array.from(new Set(mappedSections.map((section) => section.label)));
-
-        return uniqueLabels.sort((a, b) => {
-            const sectionA = mappedSections.find((section) => section.label === a);
-            const sectionB = mappedSections.find((section) => section.label === b);
-            const orderA = sectionA?.order ?? Number.MAX_SAFE_INTEGER;
-            const orderB = sectionB?.order ?? Number.MAX_SAFE_INTEGER;
-
-            if (orderA !== orderB) {
-                return orderA - orderB;
+        // Dedup by label and merge stats
+        const grouped = new Map<string, LearningSectionSummary>();
+        mappedSections.forEach(section => {
+            const existing = grouped.get(section.label);
+            if (existing) {
+                existing.totalQuestions += section.totalQuestions;
+                existing.masteredQuestions += section.masteredQuestions;
+                existing.wrongQuestions += section.wrongQuestions;
+                existing.progressPercentage = existing.totalQuestions > 0 ? Math.round((existing.masteredQuestions / existing.totalQuestions) * 100) : 0;
+            } else {
+                grouped.set(section.label, section);
             }
+        });
 
-            return compareCategoryLabels(a, b);
+        const uniqueSections = Array.from(grouped.values());
+
+        return uniqueSections.sort((a, b) => {
+            if (a.order !== b.order) {
+                return a.order - b.order;
+            }
+            return compareCategoryLabels(a.label, b.label);
         });
     }
 
-    async startSession(category: string): Promise<LearningSession> {
+    async startSession(category: string, mode: 'all' | 'wrong' = 'all'): Promise<LearningSession> {
         const availableCategories = await questionRepository.getCategories();
         const directMatch = availableCategories.find(
             (availableCategory) => normalizeCategory(availableCategory) === normalizeCategory(category)
         );
 
         if (directMatch) {
-            return startLearningSessionUseCase.execute(directMatch);
+            return startLearningSessionUseCase.execute(directMatch, mode);
         }
 
         const definition = findSectionDefinition(category);
@@ -104,7 +156,7 @@ export class LearningService {
             )
             : undefined;
 
-        return startLearningSessionUseCase.execute(fallbackMatch ?? category);
+        return startLearningSessionUseCase.execute(fallbackMatch ?? category, mode);
     }
 
     async getSessionQuestions(questionIds: string[]): Promise<Question[]> {

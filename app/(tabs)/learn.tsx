@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Animated } from 'react-native';
 import { useEffect, useState, useCallback, useMemo, useRef } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { Star, Funnel, ChevronLeft, ChevronRight, Lightbulb, CheckSquare, XSquare, X } from 'lucide-react-native';
+import { Star, Funnel, ChevronLeft, ChevronRight, Lightbulb, CheckSquare, XSquare, X, AlertTriangle, Puzzle } from 'lucide-react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { COLORS } from '@/constants/colors';
 import { HIDDEN_TAB_BAR_STYLE, TAB_BAR_STYLE } from '@/constants/tabBarStyle';
@@ -11,7 +11,7 @@ import { useLearningSession } from '@/hooks/useLearningSession';
 import { useReadingPreferences } from '@/hooks/useReadingPreferences';
 import { useHorizontalSwipe } from '@/hooks/useHorizontalSwipe';
 import { useBookmarks } from '@/hooks/useBookmarks';
-import type { AnswerId } from '@/types';
+import type { AnswerId, LearningSectionSummary } from '@/types';
 
 type QuestionFilter = 'all' | 'unanswered' | 'wrong' | 'correct';
 type QuestionContentProfile = 'normal' | 'long' | 'extreme';
@@ -42,22 +42,6 @@ const QUESTION_PROFILE_SCALES: Record<
         headerScale: 0.82,
     },
 };
-
-function splitSectionLabel(section: string): { chapter: string; title: string } {
-    const match = section.match(/^Rozdzia(?:ł|l)\s*(\d+)\s*:\s*(.+)$/i);
-
-    if (!match) {
-        return {
-            chapter: 'Rozdział',
-            title: section,
-        };
-    }
-
-    return {
-        chapter: `Rozdział ${match[1]}`,
-        title: match[2].trim(),
-    };
-}
 
 export default function LearnScreen() {
     const quickStepsScrollRef = useRef<ScrollView>(null);
@@ -331,29 +315,66 @@ export default function LearnScreen() {
                             <Text style={styles.loading}>Ładowanie sekcji...</Text>
                         </View>
                     ) : (
-                        <View style={styles.options}>
-                            {sections.map((section) => {
-                                const display = splitSectionLabel(section);
-
+                        <ScrollView style={{ flex: 1 }} contentContainerStyle={styles.options} showsVerticalScrollIndicator={false}>
+                            {sections.map((section: LearningSectionSummary) => {
+                                const hasWrong = section.wrongQuestions > 0;
+                                const isFinished = section.progressPercentage >= 100;
+                                
                                 return (
-                                    <TouchableOpacity
-                                        key={section}
-                                        style={styles.sectionButton}
-                                        onPress={() => startSection(section)}
-                                        disabled={isStartingSection}
-                                        activeOpacity={0.8}
-                                    >
-                                        <View style={styles.sectionButtonSurface}>
-                                            <View style={styles.sectionAccent} />
+                                    <View key={section.id} style={styles.sectionCard}>
+                                        <TouchableOpacity
+                                            style={styles.sectionCardMain}
+                                            onPress={() => startSection(section.id, 'all')}
+                                            disabled={isStartingSection}
+                                            activeOpacity={0.8}
+                                        >
+                                            <View style={[styles.sectionIcon, isFinished ? styles.sectionIconSuccess : undefined]}>
+                                                <Text style={[styles.sectionIconText, isFinished && { color: COLORS.card }]}>{section.chapter.replace(/\D/g, '') || '?'}</Text>
+                                            </View>
                                             <View style={styles.sectionContent}>
-                                                <Text style={styles.sectionChapter}>{display.chapter}</Text>
-                                                <Text style={styles.sectionTitle}>{display.title}</Text>
+                                                <Text style={styles.sectionTitle} numberOfLines={3}>{section.title}</Text>
+                                            </View>
+                                        </TouchableOpacity>
+                                        
+                                        <View style={styles.sectionFooter}>
+                                            <View style={styles.sectionMetrics}>
+                                                <View style={styles.sectionMetric}>
+                                                    <View style={styles.sectionMetricIcon}>
+                                                        <Puzzle size={14} color={COLORS.textMuted} />
+                                                    </View>
+                                                    <Text style={styles.sectionMetricText}>{section.totalQuestions} pytań</Text>
+                                                </View>
+                                            </View>
+                                            
+                                            <View style={styles.sectionProgressWrap}>
+                                                <View style={styles.sectionProgressHeader}>
+                                                    <Text style={styles.sectionProgressLabel}>Postęp nauki</Text>
+                                                    <Text style={styles.sectionProgressValue}>{section.progressPercentage}%</Text>
+                                                </View>
+                                                <View style={styles.sectionProgressBar}>
+                                                    <View style={[styles.sectionProgressFill, { width: `${section.progressPercentage}%` }]} />
+                                                </View>
                                             </View>
                                         </View>
-                                    </TouchableOpacity>
+
+                                        {hasWrong && (
+                                            <TouchableOpacity 
+                                                style={styles.sectionRepeatBtn}
+                                                onPress={() => startSection(section.id, 'wrong')}
+                                                disabled={isStartingSection}
+                                                activeOpacity={0.7}
+                                            >
+                                                <AlertTriangle size={16} color={COLORS.warning} />
+                                                <Text style={styles.sectionRepeatBtnText}>
+                                                    Powtórz {section.wrongQuestions} {section.wrongQuestions === 1 ? 'pytanie' : (section.wrongQuestions % 10 >= 2 && section.wrongQuestions % 10 <= 4 && (section.wrongQuestions % 100 < 10 || section.wrongQuestions % 100 >= 20)) ? 'pytania' : 'pytań'}
+                                                </Text>
+                                                <ChevronRight size={16} color={COLORS.warning} style={{ marginLeft: 'auto' }} />
+                                            </TouchableOpacity>
+                                        )}
+                                    </View>
                                 );
                             })}
-                        </View>
+                        </ScrollView>
                     )}
                 </View>
             </View>
@@ -728,49 +749,130 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         marginBottom: 16,
     },
-    sectionButton: {
-        borderRadius: 16,
+    options: {
+        gap: 16,
+        paddingBottom: 32,
+    },
+    sectionCard: {
+        backgroundColor: COLORS.card,
+        borderRadius: 20,
+        overflow: 'hidden',
+        borderWidth: 1,
+        borderColor: COLORS.border,
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 4 },
         shadowOpacity: 0.03,
         shadowRadius: 12,
         elevation: 2,
     },
-    sectionButtonSurface: {
+    sectionCardMain: {
         flexDirection: 'row',
-        alignItems: 'stretch',
-        borderRadius: 16,
-        overflow: 'hidden',
-        backgroundColor: COLORS.card,
+        padding: 16,
+        alignItems: 'center',
     },
-    sectionAccent: {
-        width: 8,
-        backgroundColor: COLORS.primary,
+    sectionIcon: {
+        width: 48,
+        height: 48,
+        borderRadius: 16,
+        backgroundColor: COLORS.primarySoft,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginRight: 16,
+    },
+    sectionIconSuccess: {
+        backgroundColor: COLORS.success,
+    },
+    sectionIconText: {
+        fontSize: 20,
+        fontWeight: '800',
+        color: COLORS.primaryDark,
     },
     sectionContent: {
         flex: 1,
-        padding: 20,
+        justifyContent: 'center',
     },
     sectionTitle: {
-        fontSize: 16,
+        fontSize: 17,
+        lineHeight: 24,
         fontWeight: '800',
         color: COLORS.textMain,
     },
-    sectionChapter: {
-        fontSize: 12,
-        fontWeight: '700',
-        color: COLORS.primary,
-        letterSpacing: 0.3,
-        marginBottom: 6,
-        textTransform: 'uppercase',
+    sectionFooter: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        paddingHorizontal: 16,
+        paddingBottom: 16,
+        gap: 16,
     },
-    sectionMeta: {
+    sectionMetrics: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 12,
+    },
+    sectionMetric: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 6,
+    },
+    sectionMetricIcon: {
+        width: 24,
+        height: 24,
+        borderRadius: 6,
+        backgroundColor: 'rgba(0,0,0,0.03)',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    sectionMetricText: {
         fontSize: 13,
         fontWeight: '600',
         color: COLORS.textMuted,
     },
-    options: {
-        gap: 12,
+    sectionProgressWrap: {
+        flex: 1,
+        maxWidth: 120,
+    },
+    sectionProgressHeader: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginBottom: 6,
+    },
+    sectionProgressLabel: {
+        fontSize: 11,
+        fontWeight: '600',
+        color: COLORS.textMuted,
+    },
+    sectionProgressValue: {
+        fontSize: 13,
+        fontWeight: '800',
+        color: COLORS.primaryDark,
+    },
+    sectionProgressBar: {
+        height: 8,
+        backgroundColor: COLORS.background,
+        borderRadius: 4,
+        overflow: 'hidden',
+    },
+    sectionProgressFill: {
+        height: '100%',
+        backgroundColor: COLORS.primary,
+        borderRadius: 4,
+    },
+    sectionRepeatBtn: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 8,
+        paddingVertical: 14,
+        paddingHorizontal: 16,
+        backgroundColor: COLORS.warningSoft,
+        borderTopWidth: 1,
+        borderTopColor: COLORS.border,
+    },
+    sectionRepeatBtnText: {
+        fontSize: 14,
+        fontWeight: '700',
+        color: COLORS.warning,
     },
     questionCard: {
         backgroundColor: COLORS.card,

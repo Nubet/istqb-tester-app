@@ -26,6 +26,17 @@ export interface LearningSession {
     answers: Map<QuestionId, UserAnswer>;
 }
 
+export interface LearningSectionSummary {
+    id: string;
+    chapter: string;
+    title: string;
+    totalQuestions: number;
+    masteredQuestions: number;
+    wrongQuestions: number;
+    progressPercentage: number;
+    order: number;
+}
+
 export interface BookmarkedQuestion {
     questionId: QuestionId;
     source: 'exam' | 'learning';
