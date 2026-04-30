@@ -111,6 +111,7 @@ export function useLearningSession() {
         void progressService.recordLearningAnswer(questionId, currentQuestion.category, result).then(() => {
             queryClient.invalidateQueries({ queryKey: USER_PROGRESS_QUERY_KEY });
             queryClient.invalidateQueries({ queryKey: USER_PROGRESS_SUMMARY_QUERY_KEY });
+            queryClient.invalidateQueries({ queryKey: ['learningSections'] });
         });
     }, [currentQuestion, queryClient]);
 
