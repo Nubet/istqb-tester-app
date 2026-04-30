@@ -26,7 +26,7 @@ export function useLearningSession() {
     });
 
     const startSession = useMutation({
-        mutationFn: (category: string) => learningService.startSession(category),
+        mutationFn: ({ category, mode }: { category: string; mode?: 'all' | 'wrong' }) => learningService.startSession(category, mode),
         onSuccess: async (newSession) => {
             setSession(newSession);
             setAnswersByQuestionId({});
@@ -61,7 +61,7 @@ export function useLearningSession() {
         enabled: !!session,
     });
 
-    const startSection = useCallback((section: string) => {
+    const startSection = useCallback((section: string, mode: 'all' | 'wrong' = 'all') => {
         setSelectedSection(section);
         setAnswersByQuestionId({});
         setSavedResultsByQuestionId({});
@@ -69,7 +69,7 @@ export function useLearningSession() {
         setHasAnswered(false);
         setIsCorrect(false);
 
-        startSession.mutate(section);
+        startSession.mutate({ category: section, mode });
     }, [startSession]);
 
     const backToSections = useCallback(() => {
@@ -111,6 +111,7 @@ export function useLearningSession() {
         void progressService.recordLearningAnswer(questionId, currentQuestion.category, result).then(() => {
             queryClient.invalidateQueries({ queryKey: USER_PROGRESS_QUERY_KEY });
             queryClient.invalidateQueries({ queryKey: USER_PROGRESS_SUMMARY_QUERY_KEY });
+            queryClient.invalidateQueries({ queryKey: ['learningSections'] });
         });
     }, [currentQuestion, queryClient]);
 

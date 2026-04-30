@@ -12,7 +12,8 @@ export class UserProgress {
         public categoryStats: Map<Category, CategoryProgress> = new Map(),
         public chapterMasteredQuestionIds: Map<Category, QuestionId[]> = new Map(),
         private bookmarks: Map<QuestionId, BookmarkedQuestion> = new Map(),
-        private learningAnswerResults: Map<QuestionId, boolean> = new Map()
+        private learningAnswerResults: Map<QuestionId, boolean> = new Map(),
+        private flashcardResults: Map<string, 'known' | 'learning'> = new Map()
     ) {}
 
     recordAnswer(questionId: QuestionId, isCorrect: boolean): void {
@@ -91,6 +92,18 @@ export class UserProgress {
 
     getLearningAnswerResults(): Map<QuestionId, boolean> {
         return new Map(this.learningAnswerResults);
+    }
+
+    recordFlashcardResult(termId: string, state: 'known' | 'learning'): void {
+        this.flashcardResults.set(termId, state);
+    }
+
+    getFlashcardResult(termId: string): 'known' | 'learning' | undefined {
+        return this.flashcardResults.get(termId);
+    }
+
+    getFlashcardResults(): Map<string, 'known' | 'learning'> {
+        return new Map(this.flashcardResults);
     }
 
     getChapterMasteredQuestionIds(): Map<Category, QuestionId[]> {

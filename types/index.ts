@@ -26,6 +26,19 @@ export interface LearningSession {
     answers: Map<QuestionId, UserAnswer>;
 }
 
+export interface LearningSectionSummary {
+    id: string;
+    label: string;
+    categoryIds: string[];
+    chapter: string;
+    title: string;
+    totalQuestions: number;
+    masteredQuestions: number;
+    wrongQuestions: number;
+    progressPercentage: number;
+    order: number;
+}
+
 export interface BookmarkedQuestion {
     questionId: QuestionId;
     source: 'exam' | 'learning';
@@ -64,6 +77,15 @@ export interface GlossaryTerm {
 export interface GlossaryCategorySummary {
     category: string;
     count: number;
+}
+
+export interface FlashcardDeckSummary {
+    id: string;
+    title: string;
+    totalCards: number;
+    masteredCards: number;
+    learningCards: number;
+    progressPercentage: number;
 }
 
 export interface ExamConfig {

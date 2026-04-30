@@ -14,7 +14,7 @@ import { Settings, X } from 'lucide-react-native';
 import { ScreenHeader } from '@/ui/ScreenHeader';
 import { COLORS } from '@/constants/colors';
 import { flashcardDeckTermsQueryKey } from '@/constants/queryKeys';
-import { glossaryService } from '@/services';
+import { glossaryService, progressService } from '@/services';
 import { useFlashcardPreferences } from '@/hooks/useFlashcardPreferences';
 import { FLASHCARD_FRONT_OPTIONS, FLASHCARD_ORDER_OPTIONS } from '@/constants/flashcards';
 import { useFlashcardsSession } from '@/hooks/useFlashcardsSession';
@@ -30,10 +30,11 @@ const ALL_DECK_ID = '__all__';
 
 export default function FlashcardsSessionScreen() {
     const router = useRouter();
-    const params = useLocalSearchParams<{ deck?: string }>();
+    const params = useLocalSearchParams<{ deck?: string, mode?: 'all' | 'learning' }>();
     const [showSettings, setShowSettings] = useState(false);
 
     const deck = typeof params.deck === 'string' ? params.deck : ALL_DECK_ID;
+    const mode = typeof params.mode === 'string' ? params.mode : 'all';
     const isAllDeck = deck === ALL_DECK_ID;
 
     const { preferences, setOrderMode, setFrontMode } = useFlashcardPreferences();
@@ -43,8 +44,15 @@ export default function FlashcardsSessionScreen() {
         isLoading,
         isError,
     } = useQuery({
-        queryKey: flashcardDeckTermsQueryKey(deck),
-        queryFn: () => (isAllDeck ? glossaryService.getAllTerms() : glossaryService.getTermsByCategory(deck)),
+        queryKey: [...flashcardDeckTermsQueryKey(deck), mode],
+        queryFn: async () => {
+            let fetchedTerms = isAllDeck ? await glossaryService.getAllTerms() : await glossaryService.getTermsByCategory(deck);
+            if (mode === 'learning') {
+                const progress = await progressService.getProgress();
+                fetchedTerms = fetchedTerms.filter(term => progress.getFlashcardResult(term.id) === 'learning');
+            }
+            return fetchedTerms;
+        },
     });
 
     const {
