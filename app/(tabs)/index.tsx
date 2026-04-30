@@ -31,7 +31,7 @@ export default function HomeScreen() {
                         <View style={styles.progressText}>
                             <Text style={styles.cardTitle}>Postęp przygotowań</Text>
                             <Text style={styles.meta}>
-                                {stats.answered}/{stats.total} pytań przerobionych, {stats.bookmarked} oznaczonych do powtórki.
+                                {stats.answered}/{stats.total} pytań opanowanych, {stats.bookmarked} zapisanych na później.
                             </Text>
                         </View>
                         <ProgressRing percentage={completionPercentage} />
