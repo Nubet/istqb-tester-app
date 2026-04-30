@@ -73,16 +73,30 @@ Then:
 
 ## Tunnel Mode (`--tunnel`)
 
-Use tunnel mode when phone and computer are on different networks, office Wi-Fi blocks local LAN discovery, or QR connection fails.
+Use **Tunnel Mode** when your phone and computer are on different networks, office Wi-Fi blocks local LAN discovery, or the QR connection fails.
+
+### Prerequisites
+
+Before using tunnel mode, ensure **ngrok** is installed and configured with your authtoken:
+
+```bash
+ngrok config add-authtoken <YOUR_TOKEN>
+```
+*Official documentation: [ngrok.com/docs](https://ngrok.com/docs/getting-started/)*
+
+### Usage
+
+Run the following command in your terminal:
 
 ```bash
 bun expo start --tunnel
 ```
 
-Notes:
-- first start can take longer
-- if tunnel fails, restart and try again.
+---
 
+### Notes
+*   **Initial Setup:** The first launch may take longer than usual.
+*   **Troubleshooting:** If the tunnel connection fails, restart the process and try again.
 
 ## Troubleshooting
 
