@@ -1,12 +1,9 @@
 import { useMemo, useRef, useState } from 'react';
-import { Animated, Dimensions, PanResponder, StyleSheet, Text, View } from 'react-native';
+import { Animated, PanResponder, StyleSheet, Text, View, useWindowDimensions } from 'react-native';
 import { COLORS, RADIUS, SHADOWS } from '@/constants/colors';
 import type { FlashcardFrontMode } from '@/constants/flashcards';
 import type { GlossaryTerm } from '@/types';
 import { FlashcardCard } from './FlashcardCard';
-
-const { width: SCREEN_WIDTH } = Dimensions.get('window');
-const SWIPE_THRESHOLD = SCREEN_WIDTH * 0.25;
 
 type FlashcardSwiperProps = {
     card: GlossaryTerm;
@@ -16,6 +13,8 @@ type FlashcardSwiperProps = {
 };
 
 export function FlashcardSwiper({ card, frontMode, onSwipeLeft, onSwipeRight }: FlashcardSwiperProps) {
+    const { width: screenWidth } = useWindowDimensions();
+    const swipeThreshold = screenWidth * 0.25;
     const [isFlipped, setIsFlipped] = useState(false);
     const pan = useRef(new Animated.ValueXY()).current;
 
@@ -25,9 +24,9 @@ export function FlashcardSwiper({ card, frontMode, onSwipeLeft, onSwipeRight }: 
                 onStartShouldSetPanResponder: () => true,
                 onPanResponderMove: Animated.event([null, { dx: pan.x, dy: pan.y }], { useNativeDriver: false }),
                 onPanResponderRelease: (_, gesture) => {
-                    if (gesture.dx > SWIPE_THRESHOLD) {
+                    if (gesture.dx > swipeThreshold) {
                         Animated.timing(pan, {
-                            toValue: { x: SCREEN_WIDTH * 1.5, y: gesture.dy },
+                            toValue: { x: screenWidth * 1.5, y: gesture.dy },
                             duration: 200,
                             useNativeDriver: false,
                         }).start(() => {
@@ -38,9 +37,9 @@ export function FlashcardSwiper({ card, frontMode, onSwipeLeft, onSwipeRight }: 
                         return;
                     }
 
-                    if (gesture.dx < -SWIPE_THRESHOLD) {
+                    if (gesture.dx < -swipeThreshold) {
                         Animated.timing(pan, {
-                            toValue: { x: -SCREEN_WIDTH * 1.5, y: gesture.dy },
+                            toValue: { x: -screenWidth * 1.5, y: gesture.dy },
                             duration: 200,
                             useNativeDriver: false,
                         }).start(() => {
@@ -61,28 +60,28 @@ export function FlashcardSwiper({ card, frontMode, onSwipeLeft, onSwipeRight }: 
                     }).start();
                 },
             }),
-        [onSwipeLeft, onSwipeRight, pan]
+        [onSwipeLeft, onSwipeRight, pan, screenWidth, swipeThreshold]
     );
 
     const rotate = pan.x.interpolate({
-        inputRange: [-SCREEN_WIDTH / 2, 0, SCREEN_WIDTH / 2],
+        inputRange: [-screenWidth / 2, 0, screenWidth / 2],
         outputRange: ['-10deg', '0deg', '10deg'],
     });
 
     const likeOpacity = pan.x.interpolate({
-        inputRange: [0, SWIPE_THRESHOLD / 2],
+        inputRange: [0, swipeThreshold / 2],
         outputRange: [0, 1],
         extrapolate: 'clamp',
     });
 
     const dislikeOpacity = pan.x.interpolate({
-        inputRange: [-SWIPE_THRESHOLD / 2, 0],
+        inputRange: [-swipeThreshold / 2, 0],
         outputRange: [1, 0],
         extrapolate: 'clamp',
     });
 
     const borderColor = pan.x.interpolate({
-        inputRange: [-SWIPE_THRESHOLD, 0, SWIPE_THRESHOLD],
+        inputRange: [-swipeThreshold, 0, swipeThreshold],
         outputRange: [COLORS.danger, 'transparent', COLORS.success],
         extrapolate: 'clamp',
     });
@@ -93,7 +92,14 @@ export function FlashcardSwiper({ card, frontMode, onSwipeLeft, onSwipeRight }: 
 
     return (
         <View style={styles.swiperContainer}>
-            <Animated.View style={[styles.animatedCard, animatedStyle]} {...panResponder.panHandlers}>
+            <Animated.View
+                style={[
+                    styles.animatedCard,
+                    { width: screenWidth * 0.85, height: screenWidth * 1.2 },
+                    animatedStyle,
+                ]}
+                {...panResponder.panHandlers}
+            >
                 <Animated.View style={[styles.cardBorderOverlay, { borderColor, borderWidth: 3 }]} pointerEvents="none" />
 
                 <Animated.View style={[styles.swipeLabel, styles.swipeLabelRight, { opacity: likeOpacity }]}>
@@ -117,8 +123,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     animatedCard: {
-        width: SCREEN_WIDTH * 0.85,
-        height: SCREEN_WIDTH * 1.2,
         borderRadius: RADIUS.lg,
         ...SHADOWS.soft,
     },

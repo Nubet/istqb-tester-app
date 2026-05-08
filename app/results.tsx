@@ -1,19 +1,19 @@
 import React, { useMemo } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, useWindowDimensions } from 'react-native';
 import { useRouter } from 'expo-router';
 import { COLORS } from '@/constants/colors';
 import { useExamResult } from '@/hooks/useExamResult';
 import { ScreenHeader } from '@/ui/ScreenHeader';
 
-const { width } = Dimensions.get('window');
 const GRID_PADDING = 16;
 const GRID_GAP = 12;
-const ITEM_WIDTH = (width - (GRID_PADDING * 2) - (GRID_GAP * 3)) / 4;
 
 export default function ResultsScreen() {
     const router = useRouter();
+    const { width } = useWindowDimensions();
     const { result } = useExamResult();
     const reviews = useMemo(() => result?.questionReviews ?? [], [result]);
+    const itemWidth = useMemo(() => (width - (GRID_PADDING * 2) - (GRID_GAP * 3)) / 4, [width]);
 
     if (!result) {
         return (
@@ -63,6 +63,7 @@ export default function ResultsScreen() {
                                 key={review.questionId}
                                 style={[
                                     styles.gridItem,
+                                    { width: itemWidth, height: itemWidth },
                                     isCorrect ? styles.gridItemCorrect : styles.gridItemWrong,
                                 ]}
                                 onPress={() => router.push(`/review?questionId=${review.questionId}&questionNumber=${review.questionNumber}`)}
@@ -167,8 +168,6 @@ const styles = StyleSheet.create({
         paddingBottom: 24,
     },
     gridItem: {
-        width: ITEM_WIDTH,
-        height: ITEM_WIDTH,
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: COLORS.card,
