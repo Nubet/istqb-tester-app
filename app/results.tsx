@@ -1,5 +1,5 @@
-import React, { useMemo } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, useWindowDimensions } from 'react-native';
+import React from 'react';
+import { View, Text, StyleSheet, Pressable, ScrollView, useWindowDimensions } from 'react-native';
 import { useRouter } from 'expo-router';
 import { COLORS } from '@/constants/colors';
 import { useExamResult } from '@/hooks/useExamResult';
@@ -9,11 +9,11 @@ const GRID_PADDING = 16;
 const GRID_GAP = 12;
 
 export default function ResultsScreen() {
-    const router = useRouter();
+    const { replace, push } = useRouter();
     const { width } = useWindowDimensions();
     const { result } = useExamResult();
-    const reviews = useMemo(() => result?.questionReviews ?? [], [result]);
-    const itemWidth = useMemo(() => (width - (GRID_PADDING * 2) - (GRID_GAP * 3)) / 4, [width]);
+    const reviews = result?.questionReviews ?? [];
+    const itemWidth = (width - (GRID_PADDING * 2) - (GRID_GAP * 3)) / 4;
 
     if (!result) {
         return (
@@ -32,7 +32,7 @@ export default function ResultsScreen() {
 
     return (
         <View style={styles.container}>
-            <ScreenHeader title="Wynik egzaminu" showBack onBack={() => router.replace('/')} />
+            <ScreenHeader title="Wynik egzaminu" showBack onBack={() => replace('/')} />
 
             <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
                 <View style={styles.progressSection}>
@@ -55,18 +55,18 @@ export default function ResultsScreen() {
                 </View>
 
                 <View style={styles.gridContainer}>
-                    {reviews.map((review, index) => {
+                    {reviews.map((review) => {
                         const isCorrect = review.isCorrect;
 
                         return (
-                            <TouchableOpacity
+                            <Pressable
                                 key={review.questionId}
                                 style={[
                                     styles.gridItem,
                                     { width: itemWidth, height: itemWidth },
                                     isCorrect ? styles.gridItemCorrect : styles.gridItemWrong,
                                 ]}
-                                onPress={() => router.push(`/review?questionId=${review.questionId}&questionNumber=${review.questionNumber}`)}
+                                onPress={() => push(`/review?questionId=${review.questionId}&questionNumber=${review.questionNumber}`)}
                             >
                                 <Text
                                     style={[
@@ -76,7 +76,7 @@ export default function ResultsScreen() {
                                 >
                                     {review.questionNumber}
                                 </Text>
-                            </TouchableOpacity>
+                            </Pressable>
                         );
                     })}
                 </View>
