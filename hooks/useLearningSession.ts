@@ -49,6 +49,11 @@ export function useLearningSession() {
             });
 
             setSavedResultsByQuestionId(restoredByQuestionId);
+
+            await Promise.all([
+                queryClient.invalidateQueries({ queryKey: ['learningQuestions'] }),
+                queryClient.invalidateQueries({ queryKey: ['learningSections'] }),
+            ]);
         },
     });
 
