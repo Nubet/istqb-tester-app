@@ -78,9 +78,11 @@ function splitSectionLabel(section: string): { chapter: string; title: string } 
 
 export class LearningService {
     async getSections(): Promise<LearningSectionSummary[]> {
-        const categories = await questionRepository.getCategories();
-        const progress = await userProgressRepository.get();
-        const allQuestions = await questionRepository.getAll();
+        const [categories, progress, allQuestions] = await Promise.all([
+            questionRepository.getCategories(),
+            userProgressRepository.get(),
+            questionRepository.getAll(),
+        ]);
 
         const questionsByCategory = new Map<string, Question[]>();
         allQuestions.forEach((question) => {

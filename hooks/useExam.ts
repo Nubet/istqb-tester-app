@@ -76,9 +76,11 @@ export function useExam() {
         try {
             const result = await examService.completeExam(session.id);
             queryClient.setQueryData(['latestExamResult'], result);
-            await queryClient.invalidateQueries({ queryKey: ['examSession'] });
-            await queryClient.invalidateQueries({ queryKey: USER_PROGRESS_SUMMARY_QUERY_KEY });
-            await queryClient.invalidateQueries({ queryKey: USER_PROGRESS_QUERY_KEY });
+            await Promise.all([
+                queryClient.invalidateQueries({ queryKey: ['examSession'] }),
+                queryClient.invalidateQueries({ queryKey: USER_PROGRESS_SUMMARY_QUERY_KEY }),
+                queryClient.invalidateQueries({ queryKey: USER_PROGRESS_QUERY_KEY }),
+            ]);
 
             router.replace('/results');
         } catch (error) {

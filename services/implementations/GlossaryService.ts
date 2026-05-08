@@ -26,8 +26,10 @@ export class GlossaryService {
     }
 
     async getDeckSummaries(): Promise<FlashcardDeckSummary[]> {
-        const terms = await glossaryRepository.getAll();
-        const progress = await userProgressRepository.get();
+        const [terms, progress] = await Promise.all([
+            glossaryRepository.getAll(),
+            userProgressRepository.get(),
+        ]);
 
         const allDeck: FlashcardDeckSummary = {
             id: '__all__',
