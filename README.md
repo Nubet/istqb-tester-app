@@ -1,6 +1,8 @@
-# ISTQB Tester App
 
-Mobile app for preparing to the ISTQB CTFL exam.
+![ISTQB Tester banner](docs/images/ISTQB-tester-banner-pl.png)
+
+
+# Mobile app for preparing to the ISTQB CTFL exam.
 
 App combines a chapter-based learning flow, exam simulation, a searchable glossary, and progress tracking that updates as you practice.
 
