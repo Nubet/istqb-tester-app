@@ -6,7 +6,8 @@
     "start": "expo start",
     "start-web": "expo start --webl",
     "start-web-dev": "DEBUG=expo* expo start --web",
-    "lint": "expo lint app hooks services repositories infra ui data constants types"
+    "lint": "expo lint app hooks services repositories infra ui data constants types",
+    "generate:icons": "node scripts/generate-icons.mjs"
   },
   "dependencies": {
     "@expo-google-fonts/nunito": "^0.4.2",
